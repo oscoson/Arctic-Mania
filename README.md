@@ -1,1 +1,1 @@
-# WannibeGameJam
+# Wannibe Game Jam Submission
