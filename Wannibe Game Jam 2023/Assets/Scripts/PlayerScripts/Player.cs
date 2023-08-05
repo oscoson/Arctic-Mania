@@ -56,7 +56,6 @@ public class Player : MonoBehaviour
     
     void OnFire(InputValue value)
     {
-        Debug.Log("Fire");
         Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
     }
 
