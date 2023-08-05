@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [Header("Base Stats")]
     [SerializeField] PlayerSO stats;
     [SerializeField] float health;
     [SerializeField] float speed;
@@ -12,6 +13,13 @@ public class Player : MonoBehaviour
     [SerializeField] float freezeMax;
     [SerializeField] float freezeRate;
     [SerializeField] float freezeLength;
+
+    [Header("Projectiles")]
+    [SerializeField] GameObject[] projectiles = new GameObject[5];
+    public int currentProjectileIndex = 0;
+
+    [Header("Transform Spawns/Checks")]
+    public Transform snowballSpawn;
     //Misc 
     private InputSystem input = null;
     private Vector2 moveVector = Vector2.zero;
@@ -45,6 +53,12 @@ public class Player : MonoBehaviour
         playerRB.velocity = moveVector * speed;
     }
 
+    
+    void OnFire(InputValue value)
+    {
+        Debug.Log("Fire");
+        Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+    }
 
     // Movement
     private void OnEnable()
