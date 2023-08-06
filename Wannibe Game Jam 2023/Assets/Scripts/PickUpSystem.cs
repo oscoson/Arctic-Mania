@@ -7,7 +7,6 @@ public class PickUpSystem : MonoBehaviour
     [SerializeField]
     public Player player;
 
-    public int xpValue = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +18,6 @@ public class PickUpSystem : MonoBehaviour
         
         if(PickUpItem != null)
         {
-            player.AddXP(xpValue);
             PickUpItem.DestroyItem();
         }
     }

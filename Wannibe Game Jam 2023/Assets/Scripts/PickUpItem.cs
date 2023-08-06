@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PickUpItem : MonoBehaviour
 {
-    [SerializeField]
-    public int xpValue = 10;
     
     [SerializeField]
     private AudioSource audioSource;

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Penguin
   m_EditorClassIdentifier: 
   level: 1
+  exp: 0
+  maxEXP: 100
   health: 100
   maxHealth: 100
   speed: 10

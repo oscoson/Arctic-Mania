@@ -7,6 +7,7 @@ public class PlayerSO : ScriptableObject
 {
     public int level;
     public float exp;
+    public float maxEXP;
     public float health;
     public float maxHealth;
     public float speed;

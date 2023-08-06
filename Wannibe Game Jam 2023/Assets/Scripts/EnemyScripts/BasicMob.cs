@@ -15,6 +15,7 @@ public class BasicMob : Mob
 
     [Header("Death Items")]
     [SerializeField] GameObject dropItem;
+    [SerializeField] GameObject DropEXP;
     
 
     // Start is called before the first frame update
@@ -131,6 +132,7 @@ public class BasicMob : Mob
             else if(combatManager.isFreezeTime && isFrozen)
             {
                 Destroy(gameObject);
+                Instantiate(DropEXP, transform.position, Quaternion.identity);
 
                 // This is for spawning the death items
                 bool willSpawnitem = GenerateRandomBool();
@@ -169,7 +171,6 @@ public class BasicMob : Mob
     private IEnumerator Thaw(float waitTime)
     {
         yield return new WaitForSecondsRealtime(thawTime);
-        Debug.Log("Rest Frost");
         UnFreeze();
     }
 }

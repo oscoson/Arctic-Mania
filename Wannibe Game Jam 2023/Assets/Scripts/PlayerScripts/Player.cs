@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] PlayerSO stats;
     public float level;
     public float exp;
+    public float maxEXP;
     public float health;
     public float maxHealth;
     public float speed;
@@ -20,7 +21,6 @@ public class Player : MonoBehaviour
     public float freezeRate; // Rate at which freeze time decreases freeze amount
     public float frostStrength; // how strong the snowball frost is
 
-    public int totalXP; // Player XP
 
     [Header("Projectiles")]
     [SerializeField] GameObject[] projectiles = new GameObject[5];
@@ -42,7 +42,10 @@ public class Player : MonoBehaviour
         input = new InputSystem();
         playerRB = GetComponent<Rigidbody2D>();
         level = stats.level;
+        exp = stats.exp;
+        maxEXP = stats.maxEXP;
         health = stats.health;
+        maxHealth = stats.maxHealth;
         speed = stats.speed;
         damage = stats.damage;
         freezeAmount = stats.freezeAmount;
@@ -60,16 +63,6 @@ public class Player : MonoBehaviour
 
     }
 
-    public void AddXP(int xpAmount)
-    {
-        totalXP += xpAmount;
-        Debug.Log("Collected " + xpAmount + " XP. Total XP: " + totalXP);
-        // Add logic here for leveling up >>>>>>>>> @Oscar
-    }
-    public int GetTotalXP()
-    {
-        return totalXP;
-    }
 
 
     private void FixedUpdate()
@@ -92,6 +85,27 @@ public class Player : MonoBehaviour
 
         }
 
+    }
+
+    public void AddEXP(int expAmount)
+    {
+        // If max less than equal to exp and added exp. Level up and add remaining exp to next level
+        if(exp + expAmount >= maxEXP)
+        {
+            maxEXP *= 2;
+            exp = 1;
+            level++;
+        }
+        else
+        {
+            exp += expAmount;
+        }
+        Debug.Log("Level" + level + ". Total XP: " + exp);
+    }
+
+    public float Getexp()
+    {
+        return exp;
     }
 
     void OnFire(InputValue value)
@@ -121,7 +135,12 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // GameObject collisionObject = other.gameObject;
 
+        // if(collisionObject.tag == "EXPDrop") // can have EXPDropBig in the future etc etc
+        // {
+        //     AddEXP(10);
+        // }
     }
 
     // Movement
