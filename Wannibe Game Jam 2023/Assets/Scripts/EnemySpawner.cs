@@ -10,10 +10,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int spawnInterval;
     private CombatManager mobCount;
 
+    private EnemySpawnManager spawnManager;
+
     // Start is called before the first frame update
     void Start()
     {
         mobCount = FindObjectOfType<CombatManager>();
+        spawnManager = FindObjectOfType<EnemySpawnManager>();
         SpawnEnemy();
     }
 
@@ -41,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
         return false;
     }
 
-    private IEnumerator SpawnRate(int waitTime)
+    private IEnumerator SpawnRate(float waitTime)
     {
         willSpawn = GenerateRandomBool();
         yield return new WaitForSecondsRealtime(waitTime);
@@ -51,6 +54,6 @@ public class EnemySpawner : MonoBehaviour
             mobCount.mobCount += 1;
             willSpawn = false;
         }
-        StartCoroutine(SpawnRate(spawnInterval));
+        StartCoroutine(SpawnRate(spawnInterval * spawnManager.intervalModifier));
     }
 }

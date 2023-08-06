@@ -14,6 +14,8 @@ public class Timer : MonoBehaviour
     public UnityEvent OnTimerEnd;
     public UnityEvent OnTimerStart;
     public UnityEvent OnTimerPause;
+
+    public int maxTime = 600;
     
     void Awake()
     {
@@ -23,17 +25,21 @@ public class Timer : MonoBehaviour
     void Update()
     {
         // Ten minutes
-        if (time < 600)
+        if (time < maxTime)
         {
             time += Time.deltaTime;
         }
         else
         {
-            time = 600;
-            OnTimerEnd.Invoke();
+            TimerEnd();
         }
 
         DisplayTime(time);
+    }
+
+    public float GetTime()
+    {
+        return time;
     }
 
     public void DisplayTime(float timeToDisplay)
@@ -47,6 +53,14 @@ public class Timer : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void TimerEnd()
+    {
+        time = maxTime;
+        StopAllCoroutines();
+        Time.timeScale = 0;
+        OnTimerEnd.Invoke();
     }
 
     public void Pause()
