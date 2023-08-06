@@ -13,6 +13,10 @@ public class BasicMob : Mob
     private float damageCooldown = 0f;
     private CombatManager combatManager;
 
+    [Header("Death Items")]
+    [SerializeField] GameObject dropItem;
+    
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -97,6 +101,15 @@ public class BasicMob : Mob
 
     }
 
+    bool GenerateRandomBool()
+    {
+        if (Random.value >= 0.8)
+        {
+            return true;
+        }
+        return false;
+    }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         GameObject collisionObject = other.gameObject;
@@ -118,8 +131,14 @@ public class BasicMob : Mob
             else if(combatManager.isFreezeTime && isFrozen)
             {
                 Destroy(gameObject);
-            }
 
+                // This is for spawning the death items
+                bool willSpawnitem = GenerateRandomBool();
+                if (willSpawnitem)
+                {
+                    Instantiate(dropItem, transform.position, Quaternion.identity);
+                }
+            }
         }
     }
     

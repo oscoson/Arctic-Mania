@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     public float freezeRate; // Rate at which freeze time decreases freeze amount
     public float frostStrength; // how strong the snowball frost is
 
+    public int totalXP; // Player XP
+
     [Header("Projectiles")]
     [SerializeField] GameObject[] projectiles = new GameObject[5];
     public int currentProjectileIndex = 0;
@@ -54,6 +56,18 @@ public class Player : MonoBehaviour
     {
 
     }
+
+    public void AddXP(int xpAmount)
+    {
+        totalXP += xpAmount;
+        Debug.Log("Collected " + xpAmount + " XP. Total XP: " + totalXP);
+        // Add logic here for leveling up >>>>>>>>> @Oscar
+    }
+    public int GetTotalXP()
+    {
+        return totalXP;
+    }
+
 
     private void FixedUpdate()
     {

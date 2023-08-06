@@ -11,3 +11,4 @@ public abstract class Mob : MonoBehaviour
     public float damage;
     public float thawTime;
 }
+
