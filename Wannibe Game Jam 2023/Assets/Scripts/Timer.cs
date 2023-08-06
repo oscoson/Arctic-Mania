@@ -3,24 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
+[RequireComponent(typeof(TextMeshProUGUI))]
 public class Timer : MonoBehaviour
 {
-    public float initialTime = 90;
-    public TextMeshProUGUI timerText;
-     
+    private float time = 0;
+    private TextMeshProUGUI timerText;
+
+    public UnityEvent OnTimerEnd;
+    public UnityEvent OnTimerStart;
+    public UnityEvent OnTimerPause;
+    
+    void Awake()
+    {
+        timerText = GetComponent<TextMeshProUGUI>();
+    }
+
     void Update()
     {
-        if (initialTime > 0)
+        // Ten minutes
+        if (time < 600)
         {
-            initialTime -= Time.deltaTime;
+            time += Time.deltaTime;
         }
         else
         {
-            initialTime = 0;
+            time = 600;
+            OnTimerEnd.Invoke();
         }
 
-        DisplayTime(initialTime);
+        DisplayTime(time);
     }
 
     public void DisplayTime(float timeToDisplay)
@@ -39,10 +52,12 @@ public class Timer : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0;
+        OnTimerPause.Invoke();
     }
 
     public void Resume()
     {
         Time.timeScale = 1;
+        OnTimerStart.Invoke();
     }
 }
