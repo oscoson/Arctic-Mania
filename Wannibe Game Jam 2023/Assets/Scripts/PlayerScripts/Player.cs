@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [Header("Base Stats")]
     [SerializeField] PlayerSO stats;
     public float health;
+    public float maxHealth;
     public float speed;
     public float damage;
     public float freezeAmount; // freeze bar amount
@@ -31,11 +32,7 @@ public class Player : MonoBehaviour
     {
         input = new InputSystem();
         playerRB = GetComponent<Rigidbody2D>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
+        
         health = stats.health;
         speed = stats.speed;
         damage = stats.damage;
@@ -105,4 +102,13 @@ public class Player : MonoBehaviour
     {
         moveVector = Vector2.zero;
     }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }   
 }

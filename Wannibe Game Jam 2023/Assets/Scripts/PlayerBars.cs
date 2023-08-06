@@ -19,6 +19,7 @@ public class PlayerBars : MonoBehaviour
     private void Start()
     {
         maxHealth = player.health;
+        Debug.Log(player.health);
     }
 
     private void Update()

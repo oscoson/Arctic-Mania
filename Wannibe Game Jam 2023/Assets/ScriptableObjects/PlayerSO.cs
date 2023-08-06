@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerSO : ScriptableObject
 {
     public float health;
+    public float maxHealth;
     public float speed;
     public float damage;
     public float freezeAmount;

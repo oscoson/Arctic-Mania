@@ -8,9 +8,10 @@ public class BasicMob : Mob
     private Player player;
     private Rigidbody2D mobRB;
     private SpriteRenderer sprite;
+    private float damageCooldown = 0f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         health = mob.health;
         speed = mob.speed;
@@ -71,11 +72,36 @@ public class BasicMob : Mob
 
         }
     }
+    
+    void OnTriggerStay2D(Collider2D other)
+    {
+        Debug.Log("Triggered");
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player is in range");
+            if (damageCooldown <= 0)
+            {
+                player.TakeDamage(damage);
+                damageCooldown = 1f;
+            }
+            else
+            {
+                damageCooldown -= Time.deltaTime;
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            damageCooldown = 0f;
+        }
+    }
 
     private IEnumerator Thaw(float waitTime)
     {
         yield return new WaitForSecondsRealtime(thawTime);
-        Debug.Log("Rest Frost");
         sprite.color = new Color(255, 0, 0, 255);
         frost = 1;
         isFrozen = false;
