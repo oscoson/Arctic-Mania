@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 {
     [Header("Base Stats")]
     [SerializeField] PlayerSO stats;
+    public float level;
+    public float exp;
     public float health;
     public float maxHealth;
     public float speed;
@@ -24,7 +26,8 @@ public class Player : MonoBehaviour
 
     [Header("Transform Spawns/Checks")]
     public Transform snowballSpawn;
-    //Misc 
+
+    // Private
     private InputSystem input = null;
     private Rigidbody2D playerRB = null;
     private Vector2 moveVector = Vector2.zero;
@@ -36,7 +39,7 @@ public class Player : MonoBehaviour
     {
         input = new InputSystem();
         playerRB = GetComponent<Rigidbody2D>();
-
+        level = stats.level;
         health = stats.health;
         speed = stats.speed;
         damage = stats.damage;
@@ -64,7 +67,7 @@ public class Player : MonoBehaviour
     {
         if (freezeAmount < 100)
         {
-            if(freezeAmount + freezePoints > 100)
+            if (freezeAmount + freezePoints > 100)
             {
                 freezeAmount = freezeMax;
             }
@@ -81,15 +84,30 @@ public class Player : MonoBehaviour
     {
         Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
     }
-    
+
     void OnFreeze(InputValue value)
     {
-        if(!combatManager.isFreezeTime && freezeAmount > 0)
+        if (!combatManager.isFreezeTime && freezeAmount > 0)
             combatManager.FreezeTime();
-        else if(combatManager.isFreezeTime && freezeAmount > 0)
+        else if (combatManager.isFreezeTime && freezeAmount > 0)
         {
             combatManager.isFreezeTime = false;
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            onDeath.Invoke();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+
     }
 
     // Movement
@@ -116,14 +134,4 @@ public class Player : MonoBehaviour
     {
         moveVector = Vector2.zero;
     }
-
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-        if(health <= 0)
-        {
-            Destroy(gameObject);
-            onDeath.Invoke();
-        }
-    }   
 }

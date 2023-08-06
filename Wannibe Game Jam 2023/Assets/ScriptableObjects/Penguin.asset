@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2679751b98d941498cbc6e57a7543cc, type: 3}
   m_Name: Penguin
   m_EditorClassIdentifier: 
+  level: 1
   health: 100
   maxHealth: 100
   speed: 10
