@@ -104,6 +104,8 @@ MonoBehaviour:
   speed: 0
   frost: 0
   damage: 0
+  thawTime: 0
+  isFrozen: 0
 --- !u!50 &2939340206537808667
 Rigidbody2D:
   serializedVersion: 4

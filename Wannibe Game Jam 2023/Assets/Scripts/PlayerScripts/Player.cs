@@ -7,12 +7,14 @@ public class Player : MonoBehaviour
 {
     [Header("Base Stats")]
     [SerializeField] PlayerSO stats;
-    [SerializeField] float health;
-    [SerializeField] float speed;
-    [SerializeField] float damage;
-    [SerializeField] float freezeMax;
-    [SerializeField] float freezeRate;
-    [SerializeField] float freezeLength;
+    public float health;
+    public float speed;
+    public float damage;
+    public float freezeAmount; // freeze bar amount
+    public float freezeMax; // max freeze bar points
+    public float freezeRate; // rate at which freeze points come in i.e freeze one enemy = 10 etc etc
+    public float freezeLength; // how long freeze time lasts which will link with freeze amount
+    public float frostStrength; // how strong the snowball frost is
 
     [Header("Projectiles")]
     [SerializeField] GameObject[] projectiles = new GameObject[5];
@@ -37,9 +39,11 @@ public class Player : MonoBehaviour
         health = stats.health;
         speed = stats.speed;
         damage = stats.damage;
+        freezeAmount = stats.freezeAmount;
         freezeMax = stats.freezeMax;
         freezeRate = stats.freezeRate;
         freezeLength = stats.freezeLength;
+        frostStrength = stats.frostStrength; // frost strength ranges from 0.1-1
     }
 
     // Update is called once per frame
@@ -53,11 +57,29 @@ public class Player : MonoBehaviour
         playerRB.velocity = moveVector * speed;
     }
 
+    public void gainFreeze()
+    {
+        if (freezeAmount < 100)
+        {
+            if(freezeAmount + freezeRate > 100)
+            {
+                freezeAmount = freezeMax;
+            }
+            else
+            {
+                freezeAmount += freezeRate;
+            }
+
+        }
+
+    }
+
     
     void OnFire(InputValue value)
     {
         Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
     }
+    
 
     // Movement
     private void OnEnable()
