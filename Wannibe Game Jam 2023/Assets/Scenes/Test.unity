@@ -1711,6 +1711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: c0a7f25442028be4cb31f86a5e976a64, type: 2}
   health: 0
+  maxHealth: 0
   speed: 0
   damage: 0
   freezeAmount: 0
@@ -1805,7 +1806,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
