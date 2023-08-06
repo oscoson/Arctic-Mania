@@ -8,12 +8,12 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemy;
     [SerializeField] bool willSpawn;
     [SerializeField] int spawnInterval;
-    private CombatManager mobCount;
+    private CombatManager combatManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        mobCount = FindObjectOfType<CombatManager>();
+        combatManager = FindObjectOfType<CombatManager>();
         SpawnEnemy();
     }
 
@@ -45,10 +45,10 @@ public class EnemySpawner : MonoBehaviour
     {
         willSpawn = GenerateRandomBool();
         yield return new WaitForSecondsRealtime(waitTime);
-        if(mobCount.mobCount < mobCount.maxMobCount && willSpawn)
+        if(combatManager.mobCount < combatManager.maxMobCount && willSpawn)
         {
             Instantiate(enemy, transform.position, Quaternion.identity);
-            mobCount.mobCount += 1;
+            combatManager.mobCount += 1;
             willSpawn = false;
         }
         StartCoroutine(SpawnRate(spawnInterval));

@@ -11,7 +11,7 @@ public class PlayerSO : ScriptableObject
     public float damage;
     public float freezeAmount;
     public float freezeMax;
+    public float freezePoints;
     public float freezeRate;
-    public float freezeLength;
     public float frostStrength;
 }

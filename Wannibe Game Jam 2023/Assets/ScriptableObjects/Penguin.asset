@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Penguin
   m_EditorClassIdentifier: 
   health: 100
+  maxHealth: 0
   speed: 10
   damage: 1
   freezeAmount: 0
   freezeMax: 100
-  freezeRate: 10
-  freezeLength: 10
+  freezePoints: 10
+  freezeRate: 0.1
   frostStrength: 0.5

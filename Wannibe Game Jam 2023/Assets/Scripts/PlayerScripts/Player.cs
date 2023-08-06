@@ -13,8 +13,8 @@ public class Player : MonoBehaviour
     public float damage;
     public float freezeAmount; // freeze bar amount
     public float freezeMax; // max freeze bar points
-    public float freezeRate; // rate at which freeze points come in i.e freeze one enemy = 10 etc etc
-    public float freezeLength; // how long freeze time lasts which will link with freeze amount
+    public float freezePoints; // freeze points come in i.e freeze one enemy = 10 etc etc
+    public float freezeRate; // Rate at which freeze time decreases freeze amount
     public float frostStrength; // how strong the snowball frost is
 
     [Header("Projectiles")]
@@ -25,9 +25,9 @@ public class Player : MonoBehaviour
     public Transform snowballSpawn;
     //Misc 
     private InputSystem input = null;
-    private Vector2 moveVector = Vector2.zero;
     private Rigidbody2D playerRB = null;
-
+    private Vector2 moveVector = Vector2.zero;
+    private CombatManager combatManager;
     private void Awake()
     {
         input = new InputSystem();
@@ -38,9 +38,11 @@ public class Player : MonoBehaviour
         damage = stats.damage;
         freezeAmount = stats.freezeAmount;
         freezeMax = stats.freezeMax;
+        freezePoints = stats.freezePoints;
         freezeRate = stats.freezeRate;
-        freezeLength = stats.freezeLength;
         frostStrength = stats.frostStrength; // frost strength ranges from 0.1-1
+
+        combatManager = FindObjectOfType<CombatManager>();
     }
 
     // Update is called once per frame
@@ -58,25 +60,33 @@ public class Player : MonoBehaviour
     {
         if (freezeAmount < 100)
         {
-            if(freezeAmount + freezeRate > 100)
+            if(freezeAmount + freezePoints > 100)
             {
                 freezeAmount = freezeMax;
             }
             else
             {
-                freezeAmount += freezeRate;
+                freezeAmount += freezePoints;
             }
 
         }
 
     }
 
-    
     void OnFire(InputValue value)
     {
         Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
     }
     
+    void OnFreeze(InputValue value)
+    {
+        if(!combatManager.isFreezeTime && freezeAmount > 0)
+            combatManager.FreezeTime();
+        else if(combatManager.isFreezeTime && freezeAmount > 0)
+        {
+            combatManager.isFreezeTime = false;
+        }
+    }
 
     // Movement
     private void OnEnable()

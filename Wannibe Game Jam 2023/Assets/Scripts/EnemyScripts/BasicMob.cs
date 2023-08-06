@@ -5,10 +5,13 @@ using UnityEngine;
 public class BasicMob : Mob
 {
     [SerializeField] bool isFrozen;
+    [SerializeField] bool thaw;
+    [SerializeField] bool frozenBeforeFreezeTime;
     private Player player;
     private Rigidbody2D mobRB;
     private SpriteRenderer sprite;
     private float damageCooldown = 0f;
+    private CombatManager combatManager;
 
     // Start is called before the first frame update
     void Awake()
@@ -19,8 +22,9 @@ public class BasicMob : Mob
         damage = mob.damage;
         thawTime = mob.thawTime;
         player = FindObjectOfType<Player>();
-        mobRB = this.GetComponent<Rigidbody2D>();
-        sprite = this.GetComponent<SpriteRenderer>();
+        mobRB = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        combatManager = FindObjectOfType<CombatManager>();
         isFrozen = false;
     }
 
@@ -33,7 +37,10 @@ public class BasicMob : Mob
     private void FixedUpdate()
     {
         Move();
-
+        if(combatManager.isFreezeTime)
+        {
+            CheckFreezeInFreezeTime();
+        }
     }
 
     private void Move()
@@ -53,21 +60,64 @@ public class BasicMob : Mob
         mobRB.MovePosition((Vector2)transform.position + (direction * (speed * (frost)) * Time.deltaTime));
     }
 
+    void UnFreeze()
+    {
+        thaw = false;
+        frozenBeforeFreezeTime = false;
+        sprite.color = new Color(255, 0, 0, 255);
+        frost = 1;
+        isFrozen = false;
+    }
+
+    void Freeze()
+    {
+        frost = 0;
+        sprite.color = new Color(0, 149, 255, 255);
+        isFrozen = true;
+        if(thaw)
+        {
+            StartCoroutine(Thaw(thawTime));
+        }
+    }
+
+    void CheckFreezeInFreezeTime()
+    {
+        // Freeze mob if freeze time and freeze amount still running
+        if(player.freezeAmount > 0)
+        {
+            if (!frozenBeforeFreezeTime)
+            {
+                Freeze();
+            }
+            else
+            {
+                UnFreeze();
+            }
+        }
+
+    }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         GameObject collisionObject = other.gameObject;
         if(collisionObject.tag == "Snowball")
         {
-            if(frost > 0 && !isFrozen)
+            // Make function for projectile freeze check?
+            if(frost > 0 && !isFrozen && !combatManager.isFreezeTime)
             {
                 frost -= player.frostStrength;
                 if(frost <= 0)
                 {
-                    sprite.color = new Color(0, 149, 255, 255);
-                    isFrozen = true;
+                    Freeze();
                     player.gainFreeze();
+                    frozenBeforeFreezeTime = true;
+                    thaw = true;
                     StartCoroutine(Thaw(thawTime));
                 }
+            }
+            else if(combatManager.isFreezeTime && isFrozen)
+            {
+                Destroy(gameObject);
             }
 
         }
@@ -102,8 +152,7 @@ public class BasicMob : Mob
     private IEnumerator Thaw(float waitTime)
     {
         yield return new WaitForSecondsRealtime(thawTime);
-        sprite.color = new Color(255, 0, 0, 255);
-        frost = 1;
-        isFrozen = false;
+        Debug.Log("Rest Frost");
+        UnFreeze();
     }
 }
