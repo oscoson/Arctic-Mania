@@ -36,6 +36,10 @@ public class CombatManager : MonoBehaviour
         {
             StartCoroutine(FreezeTiming(freezeRate));
         }
+        else
+        {
+            isFreezeTime = false;
+        }
     }
 
 }
