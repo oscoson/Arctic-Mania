@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
@@ -28,11 +29,14 @@ public class Player : MonoBehaviour
     private Rigidbody2D playerRB = null;
     private Vector2 moveVector = Vector2.zero;
     private CombatManager combatManager;
+
+    public UnityEvent onDeath;
+
     private void Awake()
     {
         input = new InputSystem();
         playerRB = GetComponent<Rigidbody2D>();
-        
+
         health = stats.health;
         speed = stats.speed;
         damage = stats.damage;
@@ -119,6 +123,7 @@ public class Player : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
+            onDeath.Invoke();
         }
     }   
 }

@@ -125,10 +125,8 @@ public class BasicMob : Mob
     
     void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("Triggered");
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player is in range");
             if (damageCooldown <= 0)
             {
                 player.TakeDamage(damage);
