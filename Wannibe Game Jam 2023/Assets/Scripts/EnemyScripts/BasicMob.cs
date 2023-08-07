@@ -74,7 +74,7 @@ public class BasicMob : Mob
         isFrozen = false;
     }
 
-    void Freeze()
+    public override void Freeze()
     {
         frost = 0;
         sprite.color = new Color(0, 149, 255, 255);
@@ -83,6 +83,11 @@ public class BasicMob : Mob
         {
             StartCoroutine(Thaw(thawTime));
         }
+    }
+
+    public override bool IsFrozen()
+    {
+        return isFrozen;
     }
 
     void CheckFreezeInFreezeTime()
