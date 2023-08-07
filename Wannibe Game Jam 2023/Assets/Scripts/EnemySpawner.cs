@@ -6,7 +6,6 @@ public class EnemySpawner : MonoBehaviour
 {
 
     public GameObject enemy;
-    [SerializeField] bool willSpawn;
     [SerializeField] int spawnInterval;
     private CombatManager combatManager;
 
@@ -43,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnRate(int waitTime)
     {
-        willSpawn = GenerateRandomBool();
+        bool willSpawn = GenerateRandomBool();
         yield return new WaitForSecondsRealtime(waitTime);
         if(combatManager.mobCount < combatManager.maxMobCount && willSpawn)
         {
