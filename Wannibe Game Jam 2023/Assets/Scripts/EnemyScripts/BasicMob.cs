@@ -5,8 +5,6 @@ using UnityEngine;
 public class BasicMob : Mob
 {
     [SerializeField] bool isFrozen;
-    [SerializeField] bool thaw;
-    [SerializeField] bool frozenBeforeFreezeTime;
     private Player player;
     private Rigidbody2D mobRB;
     private SpriteRenderer sprite;
@@ -42,10 +40,6 @@ public class BasicMob : Mob
     private void FixedUpdate()
     {
         Move();
-        if(combatManager.isFreezeTime)
-        {
-            CheckFreezeInFreezeTime();
-        }
     }
 
     private void Move()
@@ -65,42 +59,15 @@ public class BasicMob : Mob
         mobRB.MovePosition((Vector2)transform.position + (direction * (speed * (frost)) * Time.deltaTime));
     }
 
-    void UnFreeze()
-    {
-        thaw = false;
-        frozenBeforeFreezeTime = false;
-        sprite.color = new Color(255, 0, 0, 255);
-        frost = 1;
-        isFrozen = false;
-    }
 
     void Freeze()
     {
         frost = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
-        if(thaw)
-        {
-            StartCoroutine(Thaw(thawTime));
-        }
     }
 
-    void CheckFreezeInFreezeTime()
-    {
-        // Freeze mob if freeze time and freeze amount still running
-        if(player.freezeAmount > 0)
-        {
-            if (!frozenBeforeFreezeTime)
-            {
-                Freeze();
-            }
-            else
-            {
-                UnFreeze();
-            }
-        }
 
-    }
 
     bool GenerateRandomBool()
     {
@@ -117,30 +84,25 @@ public class BasicMob : Mob
         if(collisionObject.tag == "Snowball")
         {
             // Make function for projectile freeze check?
-            if(frost > 0 && !isFrozen && !combatManager.isFreezeTime)
+            if(frost > 0 && !isFrozen)
             {
                 frost -= player.frostStrength;
                 if(frost <= 0)
                 {
                     Freeze();
-                    player.gainFreeze();
-                    frozenBeforeFreezeTime = true;
-                    thaw = true;
-                    StartCoroutine(Thaw(thawTime));
                 }
             }
-            else if(combatManager.isFreezeTime && isFrozen)
-            {
-                Destroy(gameObject);
-                Instantiate(DropEXP, transform.position, Quaternion.identity);
+            // else if(isFrozen)
+            // {
+            //     Destroy(gameObject);
 
-                // This is for spawning the death items
-                bool willSpawnitem = GenerateRandomBool();
-                if (willSpawnitem)
-                {
-                    Instantiate(dropItem, transform.position, Quaternion.identity);
-                }
-            }
+            //     // This is for spawning the death items
+            //     bool willSpawnitem = GenerateRandomBool();
+            //     if (willSpawnitem)
+            //     {
+            //         Instantiate(dropItem, transform.position, Quaternion.identity);
+            //     }
+            // }
         }
     }
     
@@ -166,11 +128,5 @@ public class BasicMob : Mob
         {
             damageCooldown = 0f;
         }
-    }
-
-    private IEnumerator Thaw(float waitTime)
-    {
-        yield return new WaitForSecondsRealtime(thawTime);
-        UnFreeze();
     }
 }

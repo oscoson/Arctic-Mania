@@ -70,57 +70,11 @@ public class Player : MonoBehaviour
         playerRB.velocity = moveVector * speed;
     }
 
-    public void gainFreeze()
-    {
-        if (freezeAmount < 100)
-        {
-            if (freezeAmount + freezePoints > 100)
-            {
-                freezeAmount = freezeMax;
-            }
-            else
-            {
-                freezeAmount += freezePoints;
-            }
 
-        }
-
-    }
-
-    public void AddEXP(int expAmount)
-    {
-        // If max less than equal to exp and added exp. Level up and add remaining exp to next level
-        if(exp + expAmount >= maxEXP)
-        {
-            maxEXP *= 2;
-            exp = 1;
-            level++;
-        }
-        else
-        {
-            exp += expAmount;
-        }
-        Debug.Log("Level" + level + ". Total XP: " + exp);
-    }
-
-    public float Getexp()
-    {
-        return exp;
-    }
 
     void OnFire(InputValue value)
     {
         Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
-    }
-
-    void OnFreeze(InputValue value)
-    {
-        if (!combatManager.isFreezeTime && freezeAmount > 0)
-            combatManager.FreezeTime();
-        else if (combatManager.isFreezeTime && freezeAmount > 0)
-        {
-            combatManager.isFreezeTime = false;
-        }
     }
 
     public void TakeDamage(float damage)
@@ -135,12 +89,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // GameObject collisionObject = other.gameObject;
 
-        // if(collisionObject.tag == "EXPDrop") // can have EXPDropBig in the future etc etc
-        // {
-        //     AddEXP(10);
-        // }
     }
 
     // Movement
