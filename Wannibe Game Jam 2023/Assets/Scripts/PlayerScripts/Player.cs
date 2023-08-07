@@ -23,8 +23,7 @@ public class Player : MonoBehaviour
 
 
     [Header("Projectiles")]
-    [SerializeField] GameObject[] projectiles = new GameObject[5];
-    public int currentProjectileIndex = 0;
+    [SerializeField] GameObject projectiles;
 
     [Header("Transform Spawns/Checks")]
     public Transform snowballSpawn;
@@ -74,7 +73,7 @@ public class Player : MonoBehaviour
 
     void OnFire(InputValue value)
     {
-        Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+        Instantiate(projectiles, snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
     }
 
     public void TakeDamage(float damage)
