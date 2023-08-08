@@ -79,6 +79,10 @@ public class Player : MonoBehaviour
             Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
         }
 
+        GameObject SpawnIcicle = GameObject.Find("SpawnIcicle");
+        AimReticle AimReticleScript = SpawnIcicle.GetComponent<AimReticle>(); // Gets access to the script
+        float rotz = AimReticleScript.currentRotationZ; // Gets the rotation of the reticle
+        Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 0f, rotz));
     }
 
     void OnFireHoldPerformed(InputAction.CallbackContext context)

@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a82bf4fc84050d743b45f84d625b6c2d, type: 3}
-  m_Name: Mob
+  m_Name: FireElementalMob
   m_EditorClassIdentifier: 
   health: 50
-  speed: 1
+  speed: 2
   frost: 1
-  damage: 5
-  thawTime: 3
+  damage: 10

@@ -7,7 +7,7 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] List<EnemySpawnInfo> enemySpawnInfos;
     int currentEnemySpawnIndex = 0;  // the index for enemySpawnInfos
 
-    [SerializeField] List<EnemySpawner> enemySpawners;
+    List<EnemySpawner> enemySpawners;
 
     float delayTimer = 0.0f;
 
@@ -53,4 +53,5 @@ public struct EnemySpawnInfo
 {
     [SerializeField, Range(0.0f, 10.0f)] public float delayFromLast;  // how long (in seconds) to wait before the enemy spawns (since last spawn)
     [SerializeField, Range(0, 100)] public int basicMobCount;    // how many basic mobs to spawn
+    [SerializeField, Range(0, 100)] public int fireElementalMobCount;    // how many basic mobs to spawn
 }

@@ -9,5 +9,4 @@ public class EnemySO : ScriptableObject
     public float speed;
     public float frost;
     public float damage;
-    public float thawTime;
 }
