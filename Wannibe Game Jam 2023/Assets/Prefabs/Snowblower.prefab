@@ -4823,7 +4823,7 @@ GameObject:
   - component: {fileID: 983272559269783461}
   - component: {fileID: 983272559269783460}
   - component: {fileID: 983272559269783462}
-  - component: {fileID: 983272559269783464}
+  - component: {fileID: 8318514184949711169}
   m_Layer: 7
   m_Name: Snowblower
   m_TagString: Untagged
@@ -4929,7 +4929,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &983272559269783464
+--- !u!114 &8318514184949711169
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4938,6 +4938,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 983272559269783459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e15bbcb8d4d9ede4696d2f0bdc25a4f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b9e6806def5b0747aa74bb6987fde4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
