@@ -69,8 +69,6 @@ public class FireElementalMob : Mob
                     Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, fireRadius);
                     foreach (Collider2D collider in colliders)
                     {
-                        Debug.Log("collider detected");
-
                         IFreezable freezableEntity = collider.gameObject.GetComponent<IFreezable>();
                         freezableEntity?.UnFreeze();
                     }
