@@ -74,7 +74,9 @@ public class Player : MonoBehaviour
 
     void OnFire(InputValue value)
     {
+        
         Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+
     }
 
     public void TakeDamage(float damage)
