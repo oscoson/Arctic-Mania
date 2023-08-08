@@ -7,7 +7,7 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] List<EnemySpawnInfo> enemySpawnInfos;
     int currentEnemySpawnIndex = 0;  // the index for enemySpawnInfos
 
-    [SerializeField] List<EnemySpawner> enemySpawners;
+    List<EnemySpawner> enemySpawners;
 
     float delayTimer = 0.0f;
 
