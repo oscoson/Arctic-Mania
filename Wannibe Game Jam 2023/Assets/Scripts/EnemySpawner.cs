@@ -30,11 +30,11 @@ public class EnemySpawner : MonoBehaviour
             if (mob is BasicMob)
             {
                 enemyPrefabs.Add(EnemyID.BasicMob, enemies[i]);
-            } 
-            //else if (mob is AnotherMob)
-            //{
-            //    enemyPrefabs.Add(EnemyID.AnotherMob, enemies[i]);
-            //}
+            }
+            else if (mob is FireElementalMob)
+            {
+                enemyPrefabs.Add(EnemyID.FireElementalMob, enemies[i]);
+            }
         }
     }
 
@@ -62,12 +62,13 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefabs[EnemyID.BasicMob].gameObject, randomPosition, Quaternion.identity);
             combatManager.mobCount++;
         }
-        //for (int i = 0; i < enemySpawnInfo.NewMob; i++)
-        //{
-        //    Vector2 randomPosition = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
-        //    Instantiate(enemyPrefabs[EnemyID.NewMob].gameObject, randomPosition, Quaternion.identity);
-        //    combatManager.mobCount++;
-        //}
+
+        for (int i = 0; i < enemySpawnInfo.fireElementalMobCount; i++)
+        {
+            Vector2 randomPosition = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
+            Instantiate(enemyPrefabs[EnemyID.FireElementalMob].gameObject, randomPosition, Quaternion.identity);
+            combatManager.mobCount++;
+        }
         cooldownTimer = 0.0f;
     }
 }

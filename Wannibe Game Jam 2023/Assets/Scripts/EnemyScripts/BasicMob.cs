@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BasicMob : Mob
 {
-    [SerializeField] bool isFrozen;
+    private bool isFrozen;
     private Player player;
     private Rigidbody2D mobRB;
     private SpriteRenderer sprite;
@@ -13,8 +13,6 @@ public class BasicMob : Mob
 
     [Header("Death Items")]
     [SerializeField] GameObject dropItem;
-    [SerializeField] GameObject DropEXP;
-    
 
     // Start is called before the first frame update
     void Awake()
@@ -23,7 +21,6 @@ public class BasicMob : Mob
         speed = mob.speed;
         frost = mob.frost;
         damage = mob.damage;
-        thawTime = mob.thawTime;
         player = FindObjectOfType<Player>();
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -59,7 +56,6 @@ public class BasicMob : Mob
         mobRB.MovePosition((Vector2)transform.position + (direction * (speed * (frost)) * Time.deltaTime));
     }
 
-
     public override void Freeze()
     {
         frost = 0;
@@ -67,11 +63,17 @@ public class BasicMob : Mob
         isFrozen = true;
     }
 
+    public override void UnFreeze()
+    {
+        sprite.color = new Color(255, 0, 0, 255);
+        frost = 1;
+        isFrozen = false;
+    }
+
     public override bool IsFrozen()
     {
         return isFrozen;
     }
-
 
     bool GenerateRandomBool()
     {

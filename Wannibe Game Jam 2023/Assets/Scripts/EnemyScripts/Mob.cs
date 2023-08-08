@@ -5,20 +5,19 @@ using UnityEngine;
 public abstract class Mob : MonoBehaviour, IFreezable
 {
     public EnemySO mob;
-    public float health;
-    public float speed;
-    public float frost;
-    public float damage;
-    public float thawTime;
+    protected float health;
+    protected float speed;
+    protected float frost;
+    protected float damage;
 
     public abstract bool IsFrozen();
-
+    public abstract void UnFreeze();
     public abstract void Freeze();
 }
 
 public enum EnemyID
 {
     BasicMob = 0,
-    // OtherMobs, // edit this
+    FireElementalMob,
 };
 
