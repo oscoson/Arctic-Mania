@@ -53,7 +53,7 @@ public class FireElementalMob : Mob
         switch (mobState)
         {
             case FireElementalMobState.Moving:
-                if (target is not null &&
+                if (target != null &&
                     (Vector3.Distance(target.transform.position, transform.position) < fireRadius * 0.5f))
                 {
                     mobState = FireElementalMobState.Unfreezing;
