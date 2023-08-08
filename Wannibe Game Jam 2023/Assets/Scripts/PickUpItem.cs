@@ -11,10 +11,48 @@ public class PickUpItem : MonoBehaviour
     [SerializeField]
     private float duration = 0.3f;
 
+    [SerializeField]
+    private GameObject[] pickupItems = new GameObject[4];
+
+    private Player player;
+
+    private GameObject item;
+    private Sprite sprite;
+
+
+    private void Start()
+    {
+        item = pickupItems[GenerateRandomNum()];
+        player = FindObjectOfType<Player>();
+        sprite = item.GetComponent<SpriteRenderer>().sprite;
+
+    }
+
     public void DestroyItem()
     {
         GetComponent<Collider2D>().enabled = false; // Disable collider so that it doesn't get picked up again 
         StartCoroutine(AnimateItemPickup());
+    }
+
+
+    int GenerateRandomNum()
+    {
+        return Random.Range(0, pickupItems.Length);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject collisionObject = collision.gameObject;
+        
+        if(collisionObject.tag == "Player")
+        {   
+            if(item.tag == "Projectile")
+            {
+                player.projectiles[player.currentProjectileIndex] = item;
+            }
+            // else if pickup is something else do this
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator AnimateItemPickup()
