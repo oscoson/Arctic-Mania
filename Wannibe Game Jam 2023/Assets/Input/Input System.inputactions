@@ -26,10 +26,10 @@
                 {
                     "name": "FireHold",
                     "type": "Button",
-                    "id": "975eff47-f969-44fe-8e57-6c19121d5b99",
+                    "id": "86a91b4b-52e2-46c1-b717-f33cbc6b63e0",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold(duration=0.4)",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -157,9 +157,9 @@
                 },
                 {
                     "name": "",
-                    "id": "3f1862c2-c0c9-4679-80ce-7e3ed8c189f6",
+                    "id": "6c1d6b00-59cf-43bc-85c9-10e2a39cb5f7",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
                     "action": "FireHold",

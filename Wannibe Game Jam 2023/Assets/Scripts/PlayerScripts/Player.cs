@@ -81,12 +81,20 @@ public class Player : MonoBehaviour
 
     }
 
-    void OnFireHold(InputValue value)
+    void OnFireHoldPerformed(InputAction.CallbackContext context)
     {
+        Debug.Log("Entered");
         if(projectiles[currentProjectileIndex].name == "Snowblower")
         {
             Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 0f, -90f), snowballSpawn.transform);
         }
+    }
+
+    void OnFireHoldCancelled(InputAction.CallbackContext context)
+    {
+        Debug.Log("Exited");
+        Destroy(FindObjectOfType<Snowblower>().gameObject);
+
     }
     
 
@@ -111,6 +119,8 @@ public class Player : MonoBehaviour
         input.Enable();
         input.Player.Movement.performed += OnMovementPerformed;
         input.Player.Movement.canceled += OnMovementCancelled;
+        input.Player.FireHold.performed += OnFireHoldPerformed;
+        input.Player.FireHold.canceled += OnFireHoldCancelled;
     }
 
     private void OnDisable()
