@@ -9,7 +9,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     [SerializeField] List<EnemySpawner> enemySpawners;
 
-    float delayTimer = 0;
+    float delayTimer = 0.0f;
 
     void Start()
     {
@@ -20,13 +20,27 @@ public class EnemySpawnManager : MonoBehaviour
     void Update()
     {
         delayTimer += Time.deltaTime;
+        CheckPossibleSpawn();
+    }
+
+    private void CheckPossibleSpawn()
+    {
         if (currentEnemySpawnIndex < enemySpawnInfos.Count)
         {
             EnemySpawnInfo enemySpawnInfo = enemySpawnInfos[currentEnemySpawnIndex];
 
             if (delayTimer >= enemySpawnInfo.delayFromLast)
             {
-                Debug.Log("spawned!");
+                int randomSpawnerIndex = Random.Range(0, enemySpawners.Count);
+
+                /* try to find available spawner */
+                for (int tryCount = 0; tryCount < enemySpawners.Count; tryCount++)
+                {
+                    if (!enemySpawners[randomSpawnerIndex].Busy) break;
+                    randomSpawnerIndex = Random.Range(0, enemySpawners.Count);
+                }
+
+                enemySpawners[randomSpawnerIndex].AddToSpawnQueue(enemySpawnInfo);
                 currentEnemySpawnIndex++;
                 delayTimer = 0.0f;
             }
@@ -35,8 +49,8 @@ public class EnemySpawnManager : MonoBehaviour
 }
 
 [System.Serializable]
-struct EnemySpawnInfo
+public struct EnemySpawnInfo
 {
-    [SerializeField] public float delayFromLast;  // how long (in seconds) to wait before the enemy spawns (since last spawn)
-    [SerializeField] public int basicMobCount;    // how many basic mobs to spawn
+    [SerializeField, Range(0.0f, 10.0f)] public float delayFromLast;  // how long (in seconds) to wait before the enemy spawns (since last spawn)
+    [SerializeField, Range(0, 100)] public int basicMobCount;    // how many basic mobs to spawn
 }

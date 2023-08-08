@@ -16,3 +16,9 @@ public abstract class Mob : MonoBehaviour, IFreezable
     public abstract void Freeze();
 }
 
+public enum EnemyID
+{
+    BasicMob = 0,
+    // OtherMobs, // edit this
+};
+
