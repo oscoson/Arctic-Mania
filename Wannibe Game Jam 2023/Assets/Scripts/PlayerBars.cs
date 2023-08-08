@@ -7,13 +7,12 @@ public class PlayerBars : MonoBehaviour
 {
     public Image healthBar;
     public Image secondaryHealthBar;
-    public Image FreezeBar;
-    public Image secondaryFreezeBar;
+
     public Player player;
-    [SerializeField] private float currentFreeze;
-    [SerializeField] private float maxFreeze;
+
     [SerializeField] private float currentHealth;
     [SerializeField] private float maxHealth;
+
 
 
     private void Start()
@@ -24,10 +23,9 @@ public class PlayerBars : MonoBehaviour
     private void Update()
     {
         currentHealth = player.health; // current health starts and updates with the player's health
-        currentFreeze = player.freezeAmount;
-        maxFreeze = player.freezeMax;
+
         healthBar.fillAmount = currentHealth / maxHealth;
-        FreezeBar.fillAmount = currentFreeze / maxFreeze;
+
         
 
     }
@@ -44,13 +42,5 @@ public class PlayerBars : MonoBehaviour
             secondaryHealthBar.fillAmount = healthBar.fillAmount;
         }
 
-        if(secondaryFreezeBar.fillAmount > FreezeBar.fillAmount)
-        {
-            secondaryFreezeBar.fillAmount -= 0.01f;
-        }
-        else
-        {
-            secondaryFreezeBar.fillAmount = FreezeBar.fillAmount;
-        }
     }
 }

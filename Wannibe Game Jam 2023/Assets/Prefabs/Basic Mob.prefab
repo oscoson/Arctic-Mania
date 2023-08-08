@@ -106,6 +106,10 @@ MonoBehaviour:
   damage: 0
   thawTime: 0
   isFrozen: 0
+  thaw: 0
+  frozenBeforeFreezeTime: 0
+  dropItem: {fileID: 6515853896863668864, guid: d46e5529a6092464b8b9369565a6defc, type: 3}
+  DropEXP: {fileID: 746976266330715470, guid: 6371c35bfaed2094da14c1871a344c2f, type: 3}
 --- !u!50 &2939340206537808667
 Rigidbody2D:
   serializedVersion: 4

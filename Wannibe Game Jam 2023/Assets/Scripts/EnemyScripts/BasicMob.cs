@@ -9,6 +9,12 @@ public class BasicMob : Mob
     private Rigidbody2D mobRB;
     private SpriteRenderer sprite;
     private float damageCooldown = 0f;
+    private CombatManager combatManager;
+
+    [Header("Death Items")]
+    [SerializeField] GameObject dropItem;
+    [SerializeField] GameObject DropEXP;
+    
 
     // Start is called before the first frame update
     void Awake()
@@ -19,8 +25,9 @@ public class BasicMob : Mob
         damage = mob.damage;
         thawTime = mob.thawTime;
         player = FindObjectOfType<Player>();
-        mobRB = this.GetComponent<Rigidbody2D>();
-        sprite = this.GetComponent<SpriteRenderer>();
+        mobRB = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        combatManager = FindObjectOfType<CombatManager>();
         isFrozen = false;
     }
 
@@ -33,7 +40,6 @@ public class BasicMob : Mob
     private void FixedUpdate()
     {
         Move();
-
     }
 
     private void Move()
@@ -53,23 +59,54 @@ public class BasicMob : Mob
         mobRB.MovePosition((Vector2)transform.position + (direction * (speed * (frost)) * Time.deltaTime));
     }
 
+
+    public override void Freeze()
+    {
+        frost = 0;
+        sprite.color = new Color(0, 149, 255, 255);
+        isFrozen = true;
+    }
+
+    public override bool IsFrozen()
+    {
+        return isFrozen;
+    }
+
+
+    bool GenerateRandomBool()
+    {
+        if (Random.value >= 0.8)
+        {
+            return true;
+        }
+        return false;
+    }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         GameObject collisionObject = other.gameObject;
         if(collisionObject.tag == "Snowball")
         {
+            // Make function for projectile freeze check?
             if(frost > 0 && !isFrozen)
             {
                 frost -= player.frostStrength;
                 if(frost <= 0)
                 {
-                    sprite.color = new Color(0, 149, 255, 255);
-                    isFrozen = true;
-                    player.gainFreeze();
-                    StartCoroutine(Thaw(thawTime));
+                    Freeze();
                 }
             }
+            // else if(isFrozen)
+            // {
+            //     Destroy(gameObject);
 
+            //     // This is for spawning the death items
+            //     bool willSpawnitem = GenerateRandomBool();
+            //     if (willSpawnitem)
+            //     {
+            //         Instantiate(dropItem, transform.position, Quaternion.identity);
+            //     }
+            // }
         }
     }
     
@@ -95,13 +132,5 @@ public class BasicMob : Mob
         {
             damageCooldown = 0f;
         }
-    }
-
-    private IEnumerator Thaw(float waitTime)
-    {
-        yield return new WaitForSecondsRealtime(thawTime);
-        sprite.color = new Color(255, 0, 0, 255);
-        frost = 1;
-        isFrozen = false;
     }
 }

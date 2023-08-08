@@ -4,56 +4,70 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public List<Mob> enemies;                   // only used to retrieve enemyPrefabs
+    public Queue<EnemySpawnInfo> spawnQueue;
 
-    public GameObject enemy;
-    [SerializeField] bool willSpawn;
-    [SerializeField] int spawnInterval;
-    private CombatManager mobCount;
+    Dictionary<EnemyID, Mob> enemyPrefabs;      // maps enemyId to enemyPrefabs
 
-    private EnemySpawnManager spawnManager;
+    public float cooldown = 3.0f;                   // cooldown makes it so the spawner doesn't spawn too many at once
+    private float cooldownTimer = float.MaxValue;   // gets reset to 0 when timer is reset
 
-    // Start is called before the first frame update
+    public bool Busy { get; private set; }
+
+    private CombatManager combatManager;
+
     void Start()
     {
-        mobCount = FindObjectOfType<CombatManager>();
-        spawnManager = FindObjectOfType<EnemySpawnManager>();
-        SpawnEnemy();
+        /* init */
+        combatManager = FindObjectOfType<CombatManager>();
+        spawnQueue = new();
+        enemyPrefabs = new();
+        
+        // load mobs to dict
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            Mob mob = enemies[i];
+            if (mob is BasicMob)
+            {
+                enemyPrefabs.Add(EnemyID.BasicMob, enemies[i]);
+            } 
+            //else if (mob is AnotherMob)
+            //{
+            //    enemyPrefabs.Add(EnemyID.AnotherMob, enemies[i]);
+            //}
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        /* cooldown logic */
+        cooldownTimer += Time.deltaTime;
+        Busy = cooldownTimer < cooldown;
+        cooldownTimer = Mathf.Min(cooldownTimer, cooldown);
+
+        if (!Busy && spawnQueue.Count > 0) SpawnEnemy(spawnQueue.Dequeue());  // spawn if not busy
     }
 
-    void FixedUpdate()
+    public void AddToSpawnQueue(EnemySpawnInfo enemySpawnInfo)
     {
+        spawnQueue.Enqueue(enemySpawnInfo);
     }
 
-    void SpawnEnemy()
+    private void SpawnEnemy(EnemySpawnInfo enemySpawnInfo)
     {
-        StartCoroutine(SpawnRate(spawnInterval));
-    }
-
-    bool GenerateRandomBool()
-    {
-        if (Random.value >= 0.8)
+        float spawnRadius = 2.0f;
+        for (int i = 0; i < enemySpawnInfo.basicMobCount; i++)
         {
-            return true;
+            Vector2 randomPosition = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
+            Instantiate(enemyPrefabs[EnemyID.BasicMob].gameObject, randomPosition, Quaternion.identity);
+            combatManager.mobCount++;
         }
-        return false;
-    }
-
-    private IEnumerator SpawnRate(float waitTime)
-    {
-        willSpawn = GenerateRandomBool();
-        yield return new WaitForSecondsRealtime(waitTime);
-        if(mobCount.mobCount < mobCount.maxMobCount && willSpawn)
-        {
-            Instantiate(enemy, transform.position, Quaternion.identity);
-            mobCount.mobCount += 1;
-            willSpawn = false;
-        }
-        StartCoroutine(SpawnRate(spawnInterval * spawnManager.intervalModifier));
+        //for (int i = 0; i < enemySpawnInfo.NewMob; i++)
+        //{
+        //    Vector2 randomPosition = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
+        //    Instantiate(enemyPrefabs[EnemyID.NewMob].gameObject, randomPosition, Quaternion.identity);
+        //    combatManager.mobCount++;
+        //}
+        cooldownTimer = 0.0f;
     }
 }
