@@ -84,6 +84,36 @@ public class BasicMob : Mob
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        // GameObject collisionObject = other.gameObject;
+        // if(collisionObject.tag == "Snowball")
+        // {
+        //     // Make function for projectile freeze check?
+        //     if(frost > 0 && !isFrozen)
+        //     {
+        //         frost -= player.frostStrength;
+        //         if(frost <= 0)
+        //         {
+        //             Freeze();
+        //         }
+        //     }
+
+            // This is seperate from this^^ if uknow what i mean :P
+            // else if(isFrozen)
+            // {
+            //     Destroy(gameObject);
+
+            //     // This is for spawning the death items
+            //     bool willSpawnitem = GenerateRandomBool();
+            //     if (willSpawnitem)
+            //     {
+            //         Instantiate(dropItem, transform.position, Quaternion.identity);
+            //     }
+            // }
+        // }
+    }
+    
+    void OnTriggerEnter2D(Collider2D other)
+    {
         GameObject collisionObject = other.gameObject;
         if(collisionObject.tag == "Snowball")
         {
@@ -96,20 +126,9 @@ public class BasicMob : Mob
                     Freeze();
                 }
             }
-            // else if(isFrozen)
-            // {
-            //     Destroy(gameObject);
-
-            //     // This is for spawning the death items
-            //     bool willSpawnitem = GenerateRandomBool();
-            //     if (willSpawnitem)
-            //     {
-            //         Instantiate(dropItem, transform.position, Quaternion.identity);
-            //     }
-            // }
         }
     }
-    
+
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

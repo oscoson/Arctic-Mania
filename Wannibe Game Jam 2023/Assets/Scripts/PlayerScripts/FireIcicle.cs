@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireSnowBall : MonoBehaviour
+public class FireIcicle : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField] private int destroyTime = 5;
@@ -19,10 +19,8 @@ public class FireSnowBall : MonoBehaviour
         player = FindObjectOfType<Player>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-
         Vector3 direction = mousePos - player.transform.position;
         Vector3 rotation = transform.position - mousePos;
-        
         magicRB.velocity = new Vector2(direction.x, direction.y).normalized * xSpeed; //normalized so that ball stays at a constant speed no matter how far mouse is from player
         float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg; //make a degree float
         transform.rotation = Quaternion.Euler(0, 0, rot - 180);
@@ -35,7 +33,7 @@ public class FireSnowBall : MonoBehaviour
 
     void Update()
     {
-        //magicRB.velocity = new Vector2(xSpeed, 0f);
+        // magicRB.velocity = new Vector2(xSpeed, 0f);
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -43,7 +41,7 @@ public class FireSnowBall : MonoBehaviour
         GameObject collisionObject = other.gameObject;
         if(collisionObject.tag != "Player")
         {
-            Destroy(gameObject);
+            // Destroy(gameObject);
         }
     }
 
