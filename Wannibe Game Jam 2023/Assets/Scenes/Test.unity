@@ -1284,8 +1284,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d396964ea60f8419a9e7b2c746b5de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialTime: 90
-  timerText: {fileID: 1017855858}
+  OnTimerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTimerStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTimerPause:
+    m_PersistentCalls:
+      m_Calls: []
+  maxTime: 600
 --- !u!1 &1048515499
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,7 +1527,6 @@ MonoBehaviour:
   enemySpawnInfos:
   - delayFromLast: 40
     basicMobCount: 96
-  enemySpawners: []
 --- !u!4 &1368382975
 Transform:
   m_ObjectHideFlags: 0
@@ -1878,8 +1885,8 @@ MonoBehaviour:
   freezeRate: 0
   frostStrength: 0
   projectiles:
-  - {fileID: 6114412157985315517, guid: 2f8c1bfc21b4e5349975cac567db8981, type: 3}
-  - {fileID: 6114412157985315517, guid: 2f8c1bfc21b4e5349975cac567db8981, type: 3}
+  - {fileID: 6493559933195593501, guid: 78fd264a4b7445d47bda2084a093c0a5, type: 3}
+  - {fileID: 6493559933195593501, guid: 78fd264a4b7445d47bda2084a093c0a5, type: 3}
   currentProjectileIndex: 0
   snowballSpawn: {fileID: 1048515500}
   onDeath:
@@ -2708,7 +2715,6 @@ MonoBehaviour:
     basicMobCount: 4
   - delayFromLast: 0.29
     basicMobCount: 5
-  enemySpawners: []
 --- !u!1 &2110868421
 GameObject:
   m_ObjectHideFlags: 0
