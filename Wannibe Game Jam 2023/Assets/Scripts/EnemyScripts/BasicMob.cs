@@ -112,6 +112,7 @@ public class BasicMob : Mob
     
     void OnTriggerStay2D(Collider2D other)
     {
+        GameObject triggerObject = other.gameObject;
         if (other.CompareTag("Player"))
         {
             if (damageCooldown <= 0)
@@ -124,6 +125,17 @@ public class BasicMob : Mob
                 damageCooldown -= Time.deltaTime;
             }
         }
+        if(triggerObject.name == "Snowblower(Clone)")
+        {
+            
+            frost -= player.frostStrength * 0.01f;
+            frost = Mathf.Max(0, frost);
+            if(frost == 0)
+            {
+                Freeze();
+            }
+        }
+        
     }
 
     void OnTriggerExit2D(Collider2D other)

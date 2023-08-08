@@ -6,8 +6,7 @@ TagManager:
   tags:
   - Snowball
   - Enemy
-  - EXPDrop
-  - Collector
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -16,8 +15,8 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
-  - 
+  - Projectile
+  - Ignore
   - 
   - 
   - 

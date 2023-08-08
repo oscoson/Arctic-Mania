@@ -74,8 +74,21 @@ public class Player : MonoBehaviour
 
     void OnFire(InputValue value)
     {
-        Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+        if(projectiles[currentProjectileIndex].name != "Snowblower")
+        {
+            Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+        }
+
     }
+
+    void OnFireHold(InputValue value)
+    {
+        if(projectiles[currentProjectileIndex].name == "Snowblower")
+        {
+            Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 0f, -90f), snowballSpawn.transform);
+        }
+    }
+    
 
     public void TakeDamage(float damage)
     {
