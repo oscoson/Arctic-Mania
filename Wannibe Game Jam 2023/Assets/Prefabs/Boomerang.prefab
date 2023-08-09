@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6493559933195593498}
   - component: {fileID: 6493559933195593497}
-  - component: {fileID: 6493559933195593496}
   - component: {fileID: 6493559933195593503}
   - component: {fileID: 6493559933195593502}
+  - component: {fileID: 1196147276125011875}
   m_Layer: 0
   m_Name: Boomerang
   m_TagString: Boomerang
@@ -87,23 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6493559933195593496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6493559933195593501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2edd1c62050c474cb9f1fecdf4d17de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
-  invulnerabilityTime: 0.25
-  closeModifier: 15
-  closeDistance: 5
-  returnSpeedModifer: 3
 --- !u!50 &6493559933195593503
 Rigidbody2D:
   serializedVersion: 4
@@ -151,3 +134,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1196147276125011875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493559933195593501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0f3088a88caa2345857afdbb7b54906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  invulnerabilityTime: 0.25
+  closeModifier: 15
+  closeDistance: 5
+  returnSpeedModifer: 3

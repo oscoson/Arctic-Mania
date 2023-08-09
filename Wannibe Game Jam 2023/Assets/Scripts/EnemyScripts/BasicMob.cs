@@ -156,18 +156,6 @@ public class BasicMob : Mob
         
     }
 
-    private void ProcessFreeze()
-    {
-        if(frost > 0 && !isFrozen)
-        {
-            frost -= player.frostStrength;
-            if(frost <= 0)
-            {
-                Freeze();
-            }
-        }
-    }
-
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
