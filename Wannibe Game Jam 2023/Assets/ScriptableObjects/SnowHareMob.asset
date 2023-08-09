@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SnowHareMob
   m_EditorClassIdentifier: 
   health: 50
-  speed: 6
+  speed: 8
   frost: 1
   damage: 5
