@@ -218,6 +218,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 990042859}
     m_Modifications:
+    - target: {fileID: 1424718074680432721, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
+      propertyPath: enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: -3053996237359103887, guid: 47f31aaf7ce366c4ea020313a43f760c, type: 3}
     - target: {fileID: 1424718074680432722, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -365,6 +369,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 990042859}
     m_Modifications:
+    - target: {fileID: 1424718074680432721, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
+      propertyPath: enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: -3053996237359103887, guid: 47f31aaf7ce366c4ea020313a43f760c, type: 3}
     - target: {fileID: 1424718074680432722, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -427,6 +435,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 990042859}
     m_Modifications:
+    - target: {fileID: 1424718074680432721, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
+      propertyPath: enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: -3053996237359103887, guid: 47f31aaf7ce366c4ea020313a43f760c, type: 3}
     - target: {fileID: 1424718074680432722, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2062,8 +2074,8 @@ MonoBehaviour:
   freezeRate: 0
   frostStrength: 0
   projectiles:
-  - {fileID: 6114412157985315517, guid: e9994b706639d974bb33475b498a4337, type: 3}
-  - {fileID: 6114412157985315517, guid: e9994b706639d974bb33475b498a4337, type: 3}
+  - {fileID: 6493559933195593501, guid: 78fd264a4b7445d47bda2084a093c0a5, type: 3}
+  - {fileID: 6493559933195593501, guid: 78fd264a4b7445d47bda2084a093c0a5, type: 3}
   currentProjectileIndex: 0
   snowballSpawn: {fileID: 242554056}
   onDeath:

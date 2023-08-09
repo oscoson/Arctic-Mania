@@ -44,15 +44,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Release"",
-                    ""type"": ""Button"",
-                    ""id"": ""0a4e022e-648f-4bf8-ba2d-f0bbcdf948ed"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -176,17 +167,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""070b6fae-9018-461d-be9c-c8c3f5feefbf"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": ""Invert"",
-                    ""groups"": """",
-                    ""action"": ""Release"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -197,7 +177,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-        m_Player_Release = m_Player.FindAction("Release", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -261,14 +240,12 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Fire;
-    private readonly InputAction m_Player_Release;
     public struct PlayerActions
     {
         private @InputSystem m_Wrapper;
         public PlayerActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
-        public InputAction @Release => m_Wrapper.m_Player_Release;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -284,9 +261,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
-            @Release.started += instance.OnRelease;
-            @Release.performed += instance.OnRelease;
-            @Release.canceled += instance.OnRelease;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -297,9 +271,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
-            @Release.started -= instance.OnRelease;
-            @Release.performed -= instance.OnRelease;
-            @Release.canceled -= instance.OnRelease;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -321,6 +292,5 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
-        void OnRelease(InputAction.CallbackContext context);
     }
 }
