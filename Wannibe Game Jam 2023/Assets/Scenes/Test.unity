@@ -1924,8 +1924,8 @@ MonoBehaviour:
   freezeRate: 0
   frostStrength: 0
   projectiles:
-  - {fileID: 6114412157985315517, guid: e9994b706639d974bb33475b498a4337, type: 3}
   - {fileID: 983272559269783459, guid: 83970dcfb2e8ccf4f9df77404d0772d4, type: 3}
+  - {fileID: 6114412157985315517, guid: e9994b706639d974bb33475b498a4337, type: 3}
   currentProjectileIndex: 0
   snowballSpawn: {fileID: 1048515500}
   onDeath:
