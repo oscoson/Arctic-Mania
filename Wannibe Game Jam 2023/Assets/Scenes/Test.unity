@@ -1883,6 +1883,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: c0a7f25442028be4cb31f86a5e976a64, type: 2}
+  cooldown:
+    coolDownTimeIcy: 10
+    coolDownTimeSnowBall: 0.02
   level: 0
   exp: 0
   maxEXP: 0
