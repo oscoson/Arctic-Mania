@@ -74,6 +74,7 @@ public class Player : MonoBehaviour
 
     void OnFire(InputValue value)
     {
+
         if(projectiles[currentProjectileIndex].name != "Snowblower")
         {
             Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
@@ -94,8 +95,6 @@ public class Player : MonoBehaviour
         {
             Destroy(FindObjectOfType<Snowblower>().gameObject);
         }
-
-
     }
     
 
@@ -109,9 +108,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-
+        // Catch the boomerang if it's not invulnerable (if its not been just thrown)
+        if (other.gameObject.CompareTag("Boomerang") && other.gameObject.GetComponent<Boomerang>().GetInvulnerability() <= 0)
+        {
+            Destroy(other.gameObject);
+        }
     }
 
     // Movement
