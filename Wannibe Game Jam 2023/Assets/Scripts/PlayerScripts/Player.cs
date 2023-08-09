@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     [Header("Base Stats")]
     [SerializeField] PlayerSO stats;
+    [SerializeField] private CoolDownTimer cooldown;
     public float level;
     public float exp;
     public float maxEXP;
@@ -63,8 +64,6 @@ public class Player : MonoBehaviour
 
     }
 
-
-
     private void FixedUpdate()
     {
         playerRB.velocity = moveVector * speed;
@@ -74,10 +73,19 @@ public class Player : MonoBehaviour
 
     void OnFire(InputValue value)
     {
-        if(projectiles[currentProjectileIndex].name != "Snowblower")
+        if(cooldown.isCoolingDown) return;
+
+        if(projectiles[currentProjectileIndex].name == "Icicle")
         {
             Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+            cooldown.StartCoolDownIcy();
         }
+        if(projectiles[currentProjectileIndex].name == "Snowball")
+        {
+             Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+            cooldown.StartCoolDownSnowBall();
+        }
+        
     }
 
     void OnFireHoldPerformed(InputAction.CallbackContext context)
