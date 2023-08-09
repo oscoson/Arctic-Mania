@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Snowball
   - Enemy
+  - EXPDrop
+  - Collector
+  - Boomerang
   - Projectile
   layers:
   - Default

@@ -117,17 +117,17 @@ public class BasicMob : Mob
     void OnTriggerEnter2D(Collider2D other)
     {
         GameObject collisionObject = other.gameObject;
-        if(collisionObject.tag == "Snowball")
+        switch (collisionObject.tag)
         {
-            // Make function for projectile freeze check?
-            if(frost > 0 && !isFrozen)
-            {
-                frost -= player.frostStrength;
-                if(frost <= 0)
-                {
-                    Freeze();
+            case "Snowball":
+                ProcessFreeze();
+                break;
+            case "Boomerang":
+            if (!this.IsFrozen()){
+                    collisionObject.GetComponent<Boomerang>().ReduceLife();
                 }
-            }
+                ProcessFreeze();
+                break;
         }
     }
 
@@ -157,6 +157,18 @@ public class BasicMob : Mob
             }
         }
         
+    }
+
+    private void ProcessFreeze()
+    {
+        if(frost > 0 && !isFrozen)
+        {
+            frost -= player.frostStrength;
+            if(frost <= 0)
+            {
+                Freeze();
+            }
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)

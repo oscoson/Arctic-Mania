@@ -218,6 +218,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 990042859}
     m_Modifications:
+    - target: {fileID: 1424718074680432721, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
+      propertyPath: enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: -3053996237359103887, guid: 47f31aaf7ce366c4ea020313a43f760c, type: 3}
     - target: {fileID: 1424718074680432722, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -319,6 +323,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 990042859}
     m_Modifications:
+    - target: {fileID: 1424718074680432721, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
+      propertyPath: enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: -3053996237359103887, guid: 47f31aaf7ce366c4ea020313a43f760c, type: 3}
     - target: {fileID: 1424718074680432722, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -381,6 +389,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 990042859}
     m_Modifications:
+    - target: {fileID: 1424718074680432721, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
+      propertyPath: enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: -3053996237359103887, guid: 47f31aaf7ce366c4ea020313a43f760c, type: 3}
     - target: {fileID: 1424718074680432722, guid: 2d5cb9592e748f44db9e02ae8e7e2c85, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1413,8 +1425,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d396964ea60f8419a9e7b2c746b5de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialTime: 90
-  timerText: {fileID: 1017855858}
+  OnTimerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTimerStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTimerPause:
+    m_PersistentCalls:
+      m_Calls: []
+  maxTime: 600
 --- !u!1 &1048515499
 GameObject:
   m_ObjectHideFlags: 0
