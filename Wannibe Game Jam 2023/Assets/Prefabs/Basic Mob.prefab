@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2939340206537808676}
   - component: {fileID: 2939340206537808667}
   - component: {fileID: 2939340206537808664}
+  - component: {fileID: 8536784993664585037}
   m_Layer: 0
   m_Name: Basic Mob
   m_TagString: Enemy
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1808438459
-  m_SortingLayer: -4
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -106,8 +107,6 @@ MonoBehaviour:
   damage: 0
   thawTime: 0
   isFrozen: 0
-  thaw: 0
-  frozenBeforeFreezeTime: 0
   dropItem: {fileID: 6515853896863668864, guid: d46e5529a6092464b8b9369565a6defc, type: 3}
   DropEXP: {fileID: 746976266330715470, guid: 6371c35bfaed2094da14c1871a344c2f, type: 3}
 --- !u!50 &2939340206537808667
@@ -157,3 +156,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!58 &8536784993664585037
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2939340206537808679}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

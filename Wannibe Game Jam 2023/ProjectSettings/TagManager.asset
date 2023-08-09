@@ -9,6 +9,7 @@ TagManager:
   - EXPDrop
   - Collector
   - Boomerang
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
-  - 
+  - Projectile
+  - Ignore
   - 
   - 
   - 

@@ -74,14 +74,36 @@ public class Player : MonoBehaviour
 
     void OnFire(InputValue value)
     {
-        
-        Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+    
+    Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
 
         // GameObject SpawnIcicle = GameObject.Find("SpawnIcicle");
         // AimReticle AimReticleScript = SpawnIcicle.GetComponent<AimReticle>(); // Gets access to the script
         // float rotz = AimReticleScript.currentRotationZ; // Gets the rotation of the reticle
         // Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 0f, rotz));
+        
+    if(projectiles[currentProjectileIndex].name != "Snowblower")
+        {
+            Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+        }
     }
+
+    void OnFireHoldPerformed(InputAction.CallbackContext context)
+    {
+        if(projectiles[currentProjectileIndex].name == "Snowblower")
+        {
+            Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 0f, -90f), snowballSpawn.transform);
+        }
+    }
+
+    void OnFireHoldCancelled(InputAction.CallbackContext context)
+    {
+        if(projectiles[currentProjectileIndex].name == "Snowblower")
+        {
+            Destroy(FindObjectOfType<Snowblower>().gameObject);
+        }
+    }
+    
 
     public void TakeDamage(float damage)
     {
@@ -108,6 +130,8 @@ public class Player : MonoBehaviour
         input.Enable();
         input.Player.Movement.performed += OnMovementPerformed;
         input.Player.Movement.canceled += OnMovementCancelled;
+        input.Player.FireHold.performed += OnFireHoldPerformed;
+        input.Player.FireHold.canceled += OnFireHoldCancelled;
     }
 
     private void OnDisable()
