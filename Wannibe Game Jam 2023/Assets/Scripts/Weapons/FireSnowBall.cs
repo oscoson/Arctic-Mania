@@ -45,6 +45,18 @@ public class FireSnowBall : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if(collisionObject.tag == "Enemy")
+        {
+            switch(collisionObject.name)
+            {
+                case "Basic Mob(Clone)":
+                    BasicMob mob = collisionObject.GetComponent<BasicMob>();
+                    mob.CheckFreeze();
+                    break;
+            }
+
+        }
+        
     }
 
     private IEnumerator DestructionTime(int waitTime)

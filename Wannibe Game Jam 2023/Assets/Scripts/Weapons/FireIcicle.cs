@@ -36,12 +36,23 @@ public class FireIcicle : MonoBehaviour
         // magicRB.velocity = new Vector2(xSpeed, 0f);
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         GameObject collisionObject = other.gameObject;
-        if(collisionObject.tag != "Player")
+        if(collisionObject.tag == "Enemy")
         {
-            // Destroy(gameObject);
+            switch(collisionObject.name)
+            {
+                case "Basic Mob(Clone)":
+                    BasicMob mob = collisionObject.GetComponent<BasicMob>();
+                    mob.CheckFreeze();
+                    break;
+            }
+
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 

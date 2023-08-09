@@ -75,6 +75,30 @@ public class BasicMob : Mob
         return isFrozen;
     }
 
+    public void CheckFreeze()
+    {
+        // Make function for projectile freeze check?
+        if(frost > 0 && !isFrozen)
+        {
+            frost -= player.frostStrength;
+            if(frost <= 0)
+            {
+                Freeze();
+            }
+        }
+    }
+
+    public void CheckFreezeSnowBlower()
+    {
+        // Brian this is bad but I had no other choice
+        frost -= player.frostStrength * 0.1f;
+        frost = Mathf.Max(0, frost);
+        if(frost == 0)
+        {
+            Freeze();
+        }
+    }
+
     bool GenerateRandomBool()
     {
         if (Random.value >= 0.8)
@@ -113,23 +137,6 @@ public class BasicMob : Mob
             // }
         // }
     }
-    
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        GameObject collisionObject = other.gameObject;
-        if(collisionObject.tag == "Snowball")
-        {
-            // Make function for projectile freeze check?
-            if(frost > 0 && !isFrozen)
-            {
-                frost -= player.frostStrength;
-                if(frost <= 0)
-                {
-                    Freeze();
-                }
-            }
-        }
-    }
 
     void OnTriggerStay2D(Collider2D other)
     {
@@ -144,16 +151,6 @@ public class BasicMob : Mob
             else
             {
                 damageCooldown -= Time.deltaTime;
-            }
-        }
-        if(triggerObject.name == "Snowblower(Clone)")
-        {
-            
-            frost -= player.frostStrength * 0.01f;
-            frost = Mathf.Max(0, frost);
-            if(frost == 0)
-            {
-                Freeze();
             }
         }
         

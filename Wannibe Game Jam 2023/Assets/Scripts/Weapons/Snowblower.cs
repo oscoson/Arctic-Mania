@@ -18,4 +18,20 @@ public class Snowblower : MonoBehaviour
                 player.snowballSpawn.GetChild(0).transform.eulerAngles.y, player.snowballSpawn.GetChild(0).transform.eulerAngles.z);
         gameObject.transform.eulerAngles = newRotation;
     }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+       GameObject collisionObject = other.gameObject;
+        if(collisionObject.tag == "Enemy")
+        {
+            switch(collisionObject.name)
+            {
+                case "Basic Mob(Clone)":
+                    BasicMob mob = collisionObject.GetComponent<BasicMob>();
+                    mob.CheckFreezeSnowBlower();
+                    break;
+            }
+
+        }
+    }
 }
