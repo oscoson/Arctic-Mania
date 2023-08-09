@@ -3034,8 +3034,19 @@ MonoBehaviour:
   - delayFromLast: 0.72
     basicMobCount: 0
     fireElementalMobCount: 0
+    snowHareMobCount: 0
+    arcticSealMobCount: 1
+  - delayFromLast: 1.1
+    basicMobCount: 6
+    fireElementalMobCount: 0
+    snowHareMobCount: 0
+    arcticSealMobCount: 0
+  - delayFromLast: 1
+    basicMobCount: 0
+    fireElementalMobCount: 0
     snowHareMobCount: 5
-  - delayFromLast: 2.35
+    arcticSealMobCount: 0
+  - delayFromLast: 1
     basicMobCount: 0
     fireElementalMobCount: 1
     snowHareMobCount: 0
