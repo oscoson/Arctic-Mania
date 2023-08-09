@@ -1608,6 +1608,7 @@ MonoBehaviour:
   - delayFromLast: 40
     basicMobCount: 96
     fireElementalMobCount: 0
+    snowHareMobCount: 0
 --- !u!4 &1368382975
 Transform:
   m_ObjectHideFlags: 0
@@ -2659,17 +2660,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawnInfos:
   - delayFromLast: 0.72
-    basicMobCount: 5
+    basicMobCount: 0
     fireElementalMobCount: 0
+    snowHareMobCount: 5
   - delayFromLast: 2.35
     basicMobCount: 0
     fireElementalMobCount: 1
+    snowHareMobCount: 0
   - delayFromLast: 2.15
     basicMobCount: 3
     fireElementalMobCount: 0
+    snowHareMobCount: 0
   - delayFromLast: 2.15
     basicMobCount: 4
     fireElementalMobCount: 0
+    snowHareMobCount: 0
 --- !u!1 &2110868421
 GameObject:
   m_ObjectHideFlags: 0

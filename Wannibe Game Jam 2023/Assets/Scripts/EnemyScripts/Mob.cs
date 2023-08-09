@@ -19,5 +19,6 @@ public enum EnemyID
 {
     BasicMob = 0,
     FireElementalMob,
+    SnowHareMob,
 };
 
