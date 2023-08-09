@@ -48,31 +48,38 @@ public class Boomerang : MonoBehaviour
         {
             isReturning = true;
         }
+    }
 
-        if (isReturning)
+    void FixedUpdate()
+    {
+
+        if (!isReturning)
         {
-            //Accelerate towards player, accelerate faster the closer the boomerang is to the player
-            direction = (player.transform.position - transform.position).normalized;
-
-            distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-            if (distanceFromPlayer < closeDistance)
-            {
-                velocity += direction * speed * Time.deltaTime * closeModifier * returnSpeedModifer;
-            } else {
-
-                velocity += direction * speed * Time.deltaTime * returnSpeedModifer;
-            }
-
-
-            //cap the velocity
-            if (velocity.magnitude > speed)
-            {
-                velocity = velocity.normalized * speed;
-            }
-
-            rb.velocity = new Vector2(velocity.x, velocity.y);
+            return;
         }
+
+        //Accelerate towards player, accelerate faster the closer the boomerang is to the player
+        direction = (player.transform.position - transform.position).normalized;
+
+        distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distanceFromPlayer < closeDistance)
+        {
+            velocity += direction * speed * Time.deltaTime * closeModifier * returnSpeedModifer;
+        } else {
+
+            velocity += direction * speed * Time.deltaTime * returnSpeedModifer;
+        }
+
+
+        //cap the velocity
+        if (velocity.magnitude > speed)
+        {
+            velocity = velocity.normalized * speed;
+        }
+
+        rb.velocity = new Vector2(velocity.x, velocity.y);
+
     }
 
     public float GetInvulnerability()

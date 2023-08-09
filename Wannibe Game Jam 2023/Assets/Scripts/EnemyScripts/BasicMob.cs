@@ -61,6 +61,8 @@ public class BasicMob : Mob
         frost = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
+
+        gameObject.layer = LayerMask.NameToLayer("Frozen");
     }
 
     public override void UnFreeze()
@@ -68,6 +70,8 @@ public class BasicMob : Mob
         sprite.color = new Color(255, 0, 0, 255);
         frost = 1;
         isFrozen = false;
+
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
     }
 
     public override bool IsFrozen()
