@@ -77,6 +77,10 @@ public class Player : MonoBehaviour
         
         Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
 
+        // GameObject SpawnIcicle = GameObject.Find("SpawnIcicle");
+        // AimReticle AimReticleScript = SpawnIcicle.GetComponent<AimReticle>(); // Gets access to the script
+        // float rotz = AimReticleScript.currentRotationZ; // Gets the rotation of the reticle
+        // Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 0f, rotz));
     }
 
     public void TakeDamage(float damage)
@@ -89,9 +93,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-
+        // Catch the boomerang if it's not invulnerable (if its not been just thrown)
+        if (other.gameObject.CompareTag("Boomerang") && other.gameObject.GetComponent<Boomerang>().GetInvulnerability() <= 0)
+        {
+            Destroy(other.gameObject);
+        }
     }
 
     // Movement

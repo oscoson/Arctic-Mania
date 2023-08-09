@@ -16,6 +16,7 @@ public class Boomerang : MonoBehaviour
     private Vector3 direction;
     private Vector3 velocity;
     private float distanceFromPlayer;
+    private int life = 3;
     
     public float speed;
     public float invulnerabilityTime;
@@ -74,21 +75,18 @@ public class Boomerang : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    public float GetInvulnerability()
     {
+        return invulnerabilityTime;
+    }
 
-        if (invulnerabilityTime > 0)
-        {
-            return;
-        }
-
-        GameObject collisionObject = other.gameObject;
-        if (collisionObject.tag == "Player")
+    public void ReduceLife()
+    {
+        life--;
+        if (life <= 0)
         {
             Destroy(gameObject);
         }
     }
-
-
 
 }
