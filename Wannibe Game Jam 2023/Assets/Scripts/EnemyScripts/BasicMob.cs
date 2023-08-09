@@ -61,9 +61,6 @@ public class BasicMob : Mob
         GameObject collisionObject = other.gameObject;
         switch (collisionObject.tag)
         {
-            case "Snowball":
-                CheckFreeze();
-                break;
             case "Boomerang":
                 if (!this.IsFrozen()){
                     collisionObject.GetComponent<Boomerang>().ReduceLife();
@@ -112,7 +109,7 @@ public class BasicMob : Mob
     public void CheckFreezeSnowBlower()
     {
         // Brian this is bad but I had no other choice
-        frost -= player.frostStrength * 0.1f;
+        frost -= player.frostStrength * 0.05f;
         frost = Mathf.Max(0, frost);
         if(frost == 0)
         {
