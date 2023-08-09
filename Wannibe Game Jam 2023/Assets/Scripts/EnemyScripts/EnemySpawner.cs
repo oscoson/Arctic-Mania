@@ -39,6 +39,10 @@ public class EnemySpawner : MonoBehaviour
             {
                 enemyPrefabs.Add(EnemyID.SnowHareMob, enemies[i]);
             }
+            else if (mob is ArcticSealMob)
+            {
+                enemyPrefabs.Add(EnemyID.ArcticSealMob, enemies[i]);
+            }
         }
     }
 
@@ -78,6 +82,13 @@ public class EnemySpawner : MonoBehaviour
         {
             Vector2 randomPosition = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
             Instantiate(enemyPrefabs[EnemyID.SnowHareMob].gameObject, randomPosition, Quaternion.identity);
+            combatManager.mobCount++;
+        }
+
+        for (int i = 0; i < enemySpawnInfo.arcticSealMobCount; i++)
+        {
+            Vector2 randomPosition = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
+            Instantiate(enemyPrefabs[EnemyID.ArcticSealMob].gameObject, randomPosition, Quaternion.identity);
             combatManager.mobCount++;
         }
         cooldownTimer = 0.0f;
