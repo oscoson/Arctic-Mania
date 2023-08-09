@@ -181,7 +181,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""6c1d6b00-59cf-43bc-85c9-10e2a39cb5f7"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Hold(duration=1.401298E-45)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""FireHold"",
