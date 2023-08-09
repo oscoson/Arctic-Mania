@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6493559933195593497}
   - component: {fileID: 6493559933195593503}
   - component: {fileID: 6493559933195593502}
-  - component: {fileID: 1196147276125011875}
+  - component: {fileID: 5646294082491636097}
   m_Layer: 0
   m_Name: Boomerang
   m_TagString: Boomerang
@@ -134,7 +134,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1196147276125011875
+--- !u!114 &5646294082491636097
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

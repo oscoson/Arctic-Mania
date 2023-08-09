@@ -56,11 +56,30 @@ public class BasicMob : Mob
         mobRB.MovePosition((Vector2)transform.position + (direction * (speed * (frost)) * Time.deltaTime));
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        GameObject collisionObject = other.gameObject;
+        switch (collisionObject.tag)
+        {
+            case "Snowball":
+                CheckFreeze();
+                break;
+            case "Boomerang":
+                if (!this.IsFrozen()){
+                    collisionObject.GetComponent<Boomerang>().ReduceLife();
+                }
+                CheckFreeze();
+            break;
+        }
+    }
+
     public override void Freeze()
     {
         frost = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
+
+        gameObject.layer = LayerMask.NameToLayer("Frozen");
     }
 
     public override void UnFreeze()
@@ -68,6 +87,8 @@ public class BasicMob : Mob
         sprite.color = new Color(255, 0, 0, 255);
         frost = 1;
         isFrozen = false;
+
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
     }
 
     public override bool IsFrozen()

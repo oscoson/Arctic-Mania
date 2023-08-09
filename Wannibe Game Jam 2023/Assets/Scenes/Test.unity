@@ -453,7 +453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 390083497}
   - component: {fileID: 390083498}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BulleTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -792,7 +792,7 @@ GameObject:
   - component: {fileID: 559159225}
   - component: {fileID: 559159227}
   - component: {fileID: 559159226}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Secondary Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,7 +870,7 @@ GameObject:
   - component: {fileID: 608712177}
   - component: {fileID: 608712176}
   - component: {fileID: 608712180}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Player Bars Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1445,7 +1445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1048515500}
   - component: {fileID: 1048515501}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpawnSnowball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1497,7 +1497,7 @@ GameObject:
   - component: {fileID: 1154918705}
   - component: {fileID: 1154918707}
   - component: {fileID: 1154918706}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Health Bar Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1606,7 +1606,7 @@ GameObject:
   - component: {fileID: 1370826353}
   - component: {fileID: 1370826355}
   - component: {fileID: 1370826354}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1863,7 +1863,7 @@ GameObject:
   - component: {fileID: 1805218211}
   - component: {fileID: 1805218212}
   - component: {fileID: 1805218213}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1896,8 +1896,8 @@ MonoBehaviour:
   freezeRate: 0
   frostStrength: 0
   projectiles:
-  - {fileID: 6114412157985315517, guid: 2f8c1bfc21b4e5349975cac567db8981, type: 3}
-  - {fileID: 983272559269783459, guid: 83970dcfb2e8ccf4f9df77404d0772d4, type: 3}
+  - {fileID: 6493559933195593501, guid: 78fd264a4b7445d47bda2084a093c0a5, type: 3}
+  - {fileID: 6114412157985315517, guid: e9994b706639d974bb33475b498a4337, type: 3}
   currentProjectileIndex: 0
   snowballSpawn: {fileID: 1048515500}
   onDeath:
@@ -2655,7 +2655,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2110868422}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Player Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
