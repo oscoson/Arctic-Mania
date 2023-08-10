@@ -14,6 +14,7 @@ public abstract class Mob : MonoBehaviour, IFreezable
     public abstract bool IsFrozen();
     public abstract void UnFreeze();
     public abstract void Freeze();
+    public abstract void CheckFreeze();
 }
 
 public enum EnemyID

@@ -31,7 +31,7 @@ public class BasicMob : Mob
     // Update is called once per frame
     void Update()
     {
-        frost = health/maxHealth;
+        frost = health / maxHealth;
     }
 
     private void FixedUpdate()
@@ -53,7 +53,7 @@ public class BasicMob : Mob
     private void MovePosition(Vector2 direction)
     {
         // As frost value goes down, speed decreases
-        mobRB.MovePosition((Vector2)transform.position + (direction * (speed * (frost)) * Time.deltaTime));
+        mobRB.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -93,13 +93,13 @@ public class BasicMob : Mob
         return isFrozen;
     }
 
-    public void CheckFreeze()
+    public override void CheckFreeze()
     {
         // Make function for projectile freeze check?
         if(frost > 0 && !isFrozen)
         {
-            frost -= player.frostStrength;
-            if(frost <= 0)
+            health -= player.frostStrength;
+            if(health <= 0)
             {
                 Freeze();
             }
@@ -109,8 +109,8 @@ public class BasicMob : Mob
     public void CheckFreezeSnowBlower()
     {
         // Brian this is bad but I had no other choice
-        frost -= player.frostStrength * 0.05f;
-        frost = Mathf.Max(0, frost);
+        health -= player.frostStrength * 0.05f;
+        health = Mathf.Max(0, health);
         if(frost == 0)
         {
             Freeze();

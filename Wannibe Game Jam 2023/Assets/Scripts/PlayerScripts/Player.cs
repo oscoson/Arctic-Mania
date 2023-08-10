@@ -9,9 +9,7 @@ public class Player : MonoBehaviour
     [Header("Base Stats")]
     [SerializeField] PlayerSO stats;
     [SerializeField] private CoolDownTimer cooldown;
-    public float level;
-    public float exp;
-    public float maxEXP;
+
     public float health;
     public float maxHealth;
     public float speed;
@@ -42,9 +40,6 @@ public class Player : MonoBehaviour
     {
         input = new InputSystem();
         playerRB = GetComponent<Rigidbody2D>();
-        level = stats.level;
-        exp = stats.exp;
-        maxEXP = stats.maxEXP;
         health = stats.health;
         maxHealth = stats.maxHealth;
         speed = stats.speed;
