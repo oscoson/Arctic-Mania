@@ -18,8 +18,8 @@ public class BasicMob : Mob
     void Awake()
     {
         health = mob.health;
+        maxHealth = mob.maxHealth;
         speed = mob.speed;
-        frost = mob.frost;
         damage = mob.damage;
         player = FindObjectOfType<Player>();
         mobRB = GetComponent<Rigidbody2D>();
@@ -31,7 +31,7 @@ public class BasicMob : Mob
     // Update is called once per frame
     void Update()
     {
-
+        frost = health / maxHealth;
     }
 
     private void FixedUpdate()
@@ -53,7 +53,7 @@ public class BasicMob : Mob
     private void MovePosition(Vector2 direction)
     {
         // As frost value goes down, speed decreases
-        mobRB.MovePosition((Vector2)transform.position + (direction * (speed * (frost)) * Time.deltaTime));
+        mobRB.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -62,7 +62,7 @@ public class BasicMob : Mob
         switch (collisionObject.tag)
         {
             case "Boomerang":
-                if (!this.IsFrozen()){
+                if (!IsFrozen()){
                     collisionObject.GetComponent<Boomerang>().ReduceLife();
                 }
                 CheckFreeze();
@@ -72,7 +72,7 @@ public class BasicMob : Mob
 
     public override void Freeze()
     {
-        frost = 0;
+        health = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
 
@@ -82,7 +82,7 @@ public class BasicMob : Mob
     public override void UnFreeze()
     {
         sprite.color = new Color(255, 0, 0, 255);
-        frost = 1;
+        health = maxHealth;
         isFrozen = false;
 
         gameObject.layer = LayerMask.NameToLayer("Enemy");
@@ -93,13 +93,13 @@ public class BasicMob : Mob
         return isFrozen;
     }
 
-    public void CheckFreeze()
+    public override void CheckFreeze()
     {
         // Make function for projectile freeze check?
         if(frost > 0 && !isFrozen)
         {
-            frost -= player.frostStrength;
-            if(frost <= 0)
+            health -= player.frostStrength;
+            if(health <= 0)
             {
                 Freeze();
             }
@@ -109,8 +109,8 @@ public class BasicMob : Mob
     public void CheckFreezeSnowBlower()
     {
         // Brian this is bad but I had no other choice
-        frost -= player.frostStrength * 0.05f;
-        frost = Mathf.Max(0, frost);
+        health -= player.frostStrength * 0.05f;
+        health = Mathf.Max(0, health);
         if(frost == 0)
         {
             Freeze();
