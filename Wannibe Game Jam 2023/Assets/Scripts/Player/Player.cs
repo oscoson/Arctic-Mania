@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     // Private
     private InputSystem input = null;
     private Rigidbody2D playerRB = null;
+    private Animator playerAnimator = null;
     private SpriteRenderer playerSR = null;
     private Vector2 moveVector = Vector2.zero;
     private CombatManager combatManager;
@@ -42,6 +43,7 @@ public class Player : MonoBehaviour
         input = new InputSystem();
         playerRB = GetComponent<Rigidbody2D>();
         playerSR = GetComponent<SpriteRenderer>();
+        playerAnimator = GetComponent<Animator>();
         health = stats.health;
         maxHealth = stats.maxHealth;
         speed = stats.speed;
@@ -171,7 +173,10 @@ public class Player : MonoBehaviour
 
     private void handleAnimation()
     {
-        
+        bool isMoving = playerRB.velocity.x != 0 || playerRB.velocity.y != 0;
+
+        playerAnimator.SetBool("isMoving", isMoving);
+
         // horizontal animation
         if (playerRB.velocity.x == 0) return;
         playerSR.flipX = playerRB.velocity.x > 0;
@@ -188,7 +193,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            transform.rotation = Quaternion.Euler(0, 0, -10);
+            transform.rotation = Quaternion.Euler(0, 0, -5);
         }
     }
 
