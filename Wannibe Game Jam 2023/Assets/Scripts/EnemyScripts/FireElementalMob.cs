@@ -63,7 +63,7 @@ public class FireElementalMob : Mob
                 break;
             case FireElementalMobState.Unfreezing:
                 chargeUpTimer += Time.deltaTime;
-                if (chargeUpTimer >= chargeUpThreshold)
+                if (chargeUpTimer >= chargeUpThreshold && !isFrozen)
                 {
 
                     // play fire storm animation

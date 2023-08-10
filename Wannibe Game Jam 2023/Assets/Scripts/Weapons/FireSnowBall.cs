@@ -47,14 +47,8 @@ public class FireSnowBall : MonoBehaviour
         }
         if(collisionObject.tag == "Enemy")
         {
-            switch(collisionObject.name)
-            {
-                case "Basic Mob(Clone)":
-                    BasicMob mob = collisionObject.GetComponent<BasicMob>();
-                    mob.CheckFreeze();
-                    break;
-            }
-
+            Mob mob = collisionObject.GetComponent<Mob>();
+            mob.CheckFreeze();
         }
         
     }
