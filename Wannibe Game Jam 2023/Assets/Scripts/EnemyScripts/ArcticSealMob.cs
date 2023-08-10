@@ -59,28 +59,31 @@ public class ArcticSealMob : Mob
     void Update()
     {
         frost = health/maxHealth;
-        switch (mobState)
+        if(!isFrozen)
         {
-            case ArcticSealMobState.Moving:
-                roamTimer += Time.deltaTime;
-                roamTimer = Mathf.Min(roamTimer, roamThreshold);
-                if (roamTimer >= roamThreshold && Vector2.Distance(player.transform.position, transform.position) < 9.0f)
-                {
-                    mobState = ArcticSealMobState.ChargingUpShots;
-                    roamTimer = 0.0f;
-                }
-                break;
-            case ArcticSealMobState.ChargingUpShots:
-                chargeUpTimer += Time.deltaTime;
-                if (chargeUpTimer >= chargeUpThreshold)
-                {
-                    chargeUpTimer = 0.0f;
-                    mobState = ArcticSealMobState.Shooting;
-                    StartCoroutine(ShootProjectilesCoroutine(player.transform.position - transform.position));
-                }
-                break;
-            case ArcticSealMobState.Shooting:
-                break;
+            switch (mobState)
+            {
+                case ArcticSealMobState.Moving:
+                    roamTimer += Time.deltaTime;
+                    roamTimer = Mathf.Min(roamTimer, roamThreshold);
+                    if (roamTimer >= roamThreshold && Vector2.Distance(player.transform.position, transform.position) < 9.0f)
+                    {
+                        mobState = ArcticSealMobState.ChargingUpShots;
+                        roamTimer = 0.0f;
+                    }
+                    break;
+                case ArcticSealMobState.ChargingUpShots:
+                    chargeUpTimer += Time.deltaTime;
+                    if (chargeUpTimer >= chargeUpThreshold)
+                    {
+                        chargeUpTimer = 0.0f;
+                        mobState = ArcticSealMobState.Shooting;
+                        StartCoroutine(ShootProjectilesCoroutine(player.transform.position - transform.position));
+                    }
+                    break;
+                case ArcticSealMobState.Shooting:
+                    break;
+            }
         }
     }
 

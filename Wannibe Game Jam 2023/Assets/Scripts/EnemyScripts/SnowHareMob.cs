@@ -54,7 +54,7 @@ public class SnowHareMob : Mob
         {
             case SnowHareMobState.Sitting:
                 sittingTimer += Time.deltaTime;
-                if (sittingTimer >= sittingThreshold)
+                if (sittingTimer >= sittingThreshold & !isFrozen)
                 {
                     sittingTimer = 0.0f;
                     mobState = SnowHareMobState.Hopping;
@@ -64,6 +64,7 @@ public class SnowHareMob : Mob
                 break;
             case SnowHareMobState.Hopping:
                 break;
+
         }
     }
 
@@ -75,7 +76,7 @@ public class SnowHareMob : Mob
                 mobRB.MovePosition(mobRB.position);  // basically, stay still
                 break;
             case SnowHareMobState.Hopping:
-                mobRB.velocity = (target - transform.position).normalized * speed;
+                mobRB.velocity = (target - transform.position).normalized * (speed * frost);
                 break;
         }
     }
@@ -99,12 +100,6 @@ public class SnowHareMob : Mob
         direction = direction.normalized * hopDistance;
 
         target = Quaternion.Euler(0, 0, (Random.value < 0.5 ? -1 : 1) * Random.Range(20, 60)) * direction + transform.position;
-    }
-
-    private void MovePosition(Vector2 direction)
-    {
-        // As frost value goes down, speed decreases
-        mobRB.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));
     }
 
     public override void Freeze()
