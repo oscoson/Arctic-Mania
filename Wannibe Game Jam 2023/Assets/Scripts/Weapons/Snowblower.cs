@@ -24,7 +24,6 @@ public class Snowblower : MonoBehaviour
        GameObject collisionObject = other.gameObject;
         if(collisionObject.tag == "Enemy")
         {
-            Mob mob = collisionObject.GetComponent<Mob>();
             switch(collisionObject.name)
             {
                 case "Basic Mob(Clone)":
