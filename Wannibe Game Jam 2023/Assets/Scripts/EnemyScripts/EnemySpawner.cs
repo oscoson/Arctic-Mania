@@ -43,6 +43,10 @@ public class EnemySpawner : MonoBehaviour
             {
                 enemyPrefabs.Add(EnemyID.ArcticSealMob, enemies[i]);
             }
+            else if (mob is HuskyMob)
+            {
+                enemyPrefabs.Add(EnemyID.HuskyMob, enemies[i]);
+            }
         }
     }
 
@@ -89,6 +93,13 @@ public class EnemySpawner : MonoBehaviour
         {
             Vector2 randomPosition = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
             Instantiate(enemyPrefabs[EnemyID.ArcticSealMob].gameObject, randomPosition, Quaternion.identity);
+            combatManager.mobCount++;
+        }
+
+        for (int i = 0; i < enemySpawnInfo.huskyMobCount; i++)
+        {
+            Vector2 randomPosition = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
+            Instantiate(enemyPrefabs[EnemyID.HuskyMob].gameObject, randomPosition, Quaternion.identity);
             combatManager.mobCount++;
         }
         cooldownTimer = 0.0f;
