@@ -2282,7 +2282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: c0a7f25442028be4cb31f86a5e976a64, type: 2}
   cooldown:
-    coolDownTimeIcy: 10
+    coolDownTimeIcy: 1
     coolDownTimeSnowBall: 0.02
   health: 0
   maxHealth: 0
@@ -3085,7 +3085,7 @@ PrefabInstance:
     - target: {fileID: 177004102922017475, guid: d7b24c9cef48761489a752df42519e44, type: 3}
       propertyPath: musicClip
       value: 
-      objectReference: {fileID: 8300000, guid: 52edef5c84f65ae49a0d8bb72f4c90be, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 177004102922017475, guid: d7b24c9cef48761489a752df42519e44, type: 3}
       propertyPath: testSource
       value: 
