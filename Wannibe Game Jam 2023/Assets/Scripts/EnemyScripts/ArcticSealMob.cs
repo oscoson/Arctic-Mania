@@ -194,7 +194,7 @@ public class ArcticSealMob : Mob
             {
                 Freeze();
             }
-        }   
+        }
     }
 
     public void CheckFreezeSnowBlower()

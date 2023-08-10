@@ -47,26 +47,8 @@ public class FireSnowBall : MonoBehaviour
         }
         if(collisionObject.tag == "Enemy")
         {
-            switch(collisionObject.name)
-            {
-                case "Basic Mob(Clone)":
-                    BasicMob mob = collisionObject.GetComponent<BasicMob>();
-                    mob.CheckFreeze();
-                    break;
-                case "ArticSeal Mob(Clone)":
-                    ArcticSealMob sealMob = collisionObject.GetComponent<ArcticSealMob>();
-                    sealMob.CheckFreeze();
-                    break;
-                case "SnowHare Mob(Clone)":
-                    SnowHareMob hareMob = collisionObject.GetComponent<SnowHareMob>();
-                    hareMob.CheckFreeze();
-                    break;
-                case "FireElemental Mob(Clone)":
-                    FireElementalMob fireMob = collisionObject.GetComponent<FireElementalMob>();
-                    fireMob.CheckFreeze();
-                    break;
-            }
-
+            Mob mob = collisionObject.GetComponent<Mob>();
+            mob.CheckFreeze();
         }
         
     }
