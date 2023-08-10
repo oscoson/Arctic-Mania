@@ -21,5 +21,6 @@ public enum EnemyID
     FireElementalMob,
     SnowHareMob,
     ArcticSealMob,
+    HuskyMob,
 };
 

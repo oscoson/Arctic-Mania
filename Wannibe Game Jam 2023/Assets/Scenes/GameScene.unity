@@ -3035,29 +3035,44 @@ MonoBehaviour:
     basicMobCount: 0
     fireElementalMobCount: 0
     snowHareMobCount: 0
-    arcticSealMobCount: 1
+    arcticSealMobCount: 0
+    huskyMobCount: 1
   - delayFromLast: 1.1
-    basicMobCount: 6
+    basicMobCount: 0
+    fireElementalMobCount: 0
+    snowHareMobCount: 0
+    arcticSealMobCount: 1
+    huskyMobCount: 0
+  - delayFromLast: 2.15
+    basicMobCount: 4
     fireElementalMobCount: 0
     snowHareMobCount: 0
     arcticSealMobCount: 0
+    huskyMobCount: 0
   - delayFromLast: 1
     basicMobCount: 0
     fireElementalMobCount: 0
     snowHareMobCount: 5
     arcticSealMobCount: 0
+    huskyMobCount: 0
   - delayFromLast: 1
     basicMobCount: 0
     fireElementalMobCount: 1
     snowHareMobCount: 0
+    arcticSealMobCount: 0
+    huskyMobCount: 0
   - delayFromLast: 2.15
     basicMobCount: 3
     fireElementalMobCount: 0
     snowHareMobCount: 0
+    arcticSealMobCount: 0
+    huskyMobCount: 0
   - delayFromLast: 2.15
     basicMobCount: 4
     fireElementalMobCount: 0
     snowHareMobCount: 0
+    arcticSealMobCount: 0
+    huskyMobCount: 0
 --- !u!82 &2000981473 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 8496317663373593620, guid: d7b24c9cef48761489a752df42519e44, type: 3}
