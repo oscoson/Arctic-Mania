@@ -71,7 +71,6 @@ public class FoxMob : Mob
 
     private void FixedUpdate()
     {
-        Debug.Log(mobState);
         switch (mobState)
         {
             case FoxMobState.Moving:
