@@ -183,6 +183,15 @@ public class FireElementalMob : Mob
         }
     }
 
+    public void CheckFreezeSnowBlower()
+    {
+        health -= player.frostStrength * 0.05f;
+        health = Mathf.Max(0, health);
+        if(health == 0)
+        {
+            Freeze();
+        }
+    }
     bool GenerateRandomBool()
     {
         if (Random.value >= 0.8)

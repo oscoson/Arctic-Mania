@@ -196,10 +196,9 @@ public class ArcticSealMob : Mob
 
     public void CheckFreezeSnowBlower()
     {
-        // Brian this is bad but I had no other choice
         health -= player.frostStrength * 0.05f;
         health = Mathf.Max(0, health);
-        if(frost == 0)
+        if(health == 0)
         {
             Freeze();
         }

@@ -136,7 +136,6 @@ public class SnowHareMob : Mob
 
     public void CheckFreezeSnowBlower()
     {
-        // Brian this is bad but I had no other choice
         health -= player.frostStrength * 0.05f;
         health = Mathf.Max(0, health);
         if(health == 0)
