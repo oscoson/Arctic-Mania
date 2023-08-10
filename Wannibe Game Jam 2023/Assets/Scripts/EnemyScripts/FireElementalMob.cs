@@ -32,8 +32,8 @@ public class FireElementalMob : Mob
     void Awake()
     {
         health = mob.health;
+        maxHealth = mob.maxHealth;
         speed = mob.speed;
-        frost = mob.frost;
         damage = mob.damage;
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -50,6 +50,7 @@ public class FireElementalMob : Mob
     // Update is called once per frame
     void Update()
     {
+        frost = health/maxHealth;
         switch (mobState)
         {
             case FireElementalMobState.Moving:
@@ -147,12 +148,12 @@ public class FireElementalMob : Mob
     private void MovePosition(Vector2 direction)
     {
         // As frost value goes down, speed decreases
-        mobRB.MovePosition((Vector2)transform.position + (direction * (speed * (frost)) * Time.deltaTime));
+        mobRB.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));
     }
 
     public override void Freeze()
     {
-        frost = 0;
+        health = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
     }
@@ -160,7 +161,7 @@ public class FireElementalMob : Mob
     public override void UnFreeze()
     {
         sprite.color = new Color(255, 166, 0, 255);
-        frost = 1;
+        health = maxHealth;
         isFrozen = false;
     }
 
@@ -169,6 +170,28 @@ public class FireElementalMob : Mob
         return isFrozen;
     }
 
+    public override void CheckFreeze()
+    {
+        // Make function for projectile freeze check?
+        if(frost > 0 && !isFrozen)
+        {
+            health -= player.frostStrength;
+            if(health <= 0)
+            {
+                Freeze();
+            }
+        }
+    }
+
+    public void CheckFreezeSnowBlower()
+    {
+        health -= player.frostStrength * 0.05f;
+        health = Mathf.Max(0, health);
+        if(health == 0)
+        {
+            Freeze();
+        }
+    }
     bool GenerateRandomBool()
     {
         if (Random.value >= 0.8)
@@ -180,30 +203,7 @@ public class FireElementalMob : Mob
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        GameObject collisionObject = other.gameObject;
-        if(collisionObject.tag == "Snowball")
-        {
-            // Make function for projectile freeze check?
-            if(frost > 0 && !isFrozen)
-            {
-                frost -= player.frostStrength;
-                if(frost <= 0)
-                {
-                    Freeze();
-                }
-            }
-            // else if(isFrozen)
-            // {
-            //     Destroy(gameObject);
 
-            //     // This is for spawning the death items
-            //     bool willSpawnitem = GenerateRandomBool();
-            //     if (willSpawnitem)
-            //     {
-            //         Instantiate(dropItem, transform.position, Quaternion.identity);
-            //     }
-            // }
-        }
     }
     
     void OnTriggerStay2D(Collider2D other)

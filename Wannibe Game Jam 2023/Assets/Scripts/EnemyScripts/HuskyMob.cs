@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcticSealMob : Mob
+public class HuskyMob : Mob
 {
     [SerializeField] EnemyProjectile projectile;
 
@@ -15,13 +15,13 @@ public class ArcticSealMob : Mob
     Vector2 target = Vector2.zero;
 
     private float roamTimer = 0.0f;
-    private float roamThreshold = 3.0f;
+    private float roamThreshold = 2.5f;
 
     private float chargeUpTimer = 0.0f;
-    private float chargeUpThreshold = 1.0f;
+    private float chargeUpThreshold = 0.5f;
 
     private float changeTargetTimer = 0.0f;
-    private float changeTargetThreshold = 1.5f;
+    private float changeTargetThreshold = 0.6f;
 
     Vector2 moveDirection = Vector2.zero;
 
@@ -41,7 +41,6 @@ public class ArcticSealMob : Mob
     void Awake()
     {
         health = mob.health;
-        maxHealth = mob.maxHealth;
         speed = mob.speed;
         damage = mob.damage;
         mobRB = GetComponent<Rigidbody2D>();
@@ -58,7 +57,6 @@ public class ArcticSealMob : Mob
     // Update is called once per frame
     void Update()
     {
-        frost = health/maxHealth;
         switch (mobState)
         {
             case ArcticSealMobState.Moving:
@@ -76,7 +74,7 @@ public class ArcticSealMob : Mob
                 {
                     chargeUpTimer = 0.0f;
                     mobState = ArcticSealMobState.Shooting;
-                    StartCoroutine(ShootProjectilesCoroutine(player.transform.position - transform.position));
+                    StartCoroutine(ShootProjectilesCoroutine());
                 }
                 break;
             case ArcticSealMobState.Shooting:
@@ -84,38 +82,25 @@ public class ArcticSealMob : Mob
         }
     }
 
-    IEnumerator ShootProjectilesCoroutine(Vector2 direction)
+    IEnumerator ShootProjectilesCoroutine()
     {
-        direction.Normalize();
+        float delay = 0.05f;
+        float startSpeed = 3.0f;
+        float endSpeed = 15.0f;
+        float deltaSpeed = 2.0f;
 
-        Vector2 originalDirection = direction;
 
-        float angle = 45;
-        float delay = 0.1f;
-        float deltaAngle = 15;
-        float speed = 6.0f;
-
-        direction = Quaternion.Euler(0f, 0f, angle) * direction;
-
-        for (int i = 0; i < (int)(angle / deltaAngle * 2); i++)
+        for (float speed = startSpeed; speed <= endSpeed; speed += deltaSpeed)
         {
+            Vector2 direction = Quaternion.Euler(0f, 0f, Random.Range(-10.0f, 10.0f)) * (player.transform.position - transform.position);
+
             GameObject go = Instantiate(projectile.gameObject, transform.position, Quaternion.identity);
             Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
             if (rb == null) continue;  // shouldnt happen tbh
             rb.velocity = direction.normalized * speed;
-            direction = Quaternion.Euler(0f, 0f, -deltaAngle) * direction;
             yield return new WaitForSeconds(delay);
         }
 
-        for (int i = 0; i < (int)(angle / deltaAngle * 2); i++)
-        {
-            GameObject go = Instantiate(projectile.gameObject, transform.position, Quaternion.identity);
-            Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
-            if (rb == null) continue;  // shouldnt happen tbh
-            rb.velocity = direction.normalized * speed;
-            direction = Quaternion.Euler(0f, 0f, deltaAngle) * direction;
-            yield return new WaitForSeconds(delay);
-        }
         mobState = ArcticSealMobState.Moving;
     }
 
@@ -140,7 +125,7 @@ public class ArcticSealMob : Mob
         {
             GetNewTarget();
             changeTargetTimer = 0.0f;
-            moveDirection = (target - (Vector2) transform.position).normalized;
+            moveDirection = (target - (Vector2)transform.position).normalized;
         }
         MovePosition(moveDirection);
     }
@@ -153,18 +138,18 @@ public class ArcticSealMob : Mob
         {
             randomVec = randomVec.normalized * radius * 0.5f;
         }
-        target = (Vector2) player.transform.position + randomVec;
+        target = (Vector2)player.transform.position + randomVec;
     }
 
     private void MovePosition(Vector2 direction)
     {
         // As frost value goes down, speed decreases
-        mobRB.MovePosition((Vector2)transform.position + (direction.normalized * (speed * frost) * Time.deltaTime));
+        mobRB.MovePosition((Vector2)transform.position + (direction.normalized * (speed * (frost)) * Time.deltaTime));
     }
 
     public override void Freeze()
     {
-        health = 0;
+        frost = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
     }
@@ -172,36 +157,26 @@ public class ArcticSealMob : Mob
     public override void UnFreeze()
     {
         sprite.color = new Color(238, 95, 255, 255);
-        health = maxHealth;
+        frost = 1;
         isFrozen = false;
-    }
-
-    public override bool IsFrozen()
-    {
-        return isFrozen;
     }
 
     public override void CheckFreeze()
     {
         // Make function for projectile freeze check?
-        if(frost > 0 && !isFrozen)
+        if (frost > 0 && !isFrozen)
         {
             health -= player.frostStrength;
-            if(health <= 0)
+            if (health <= 0)
             {
                 Freeze();
             }
-        }   
+        }
     }
 
-    public void CheckFreezeSnowBlower()
+    public override bool IsFrozen()
     {
-        health -= player.frostStrength * 0.05f;
-        health = Mathf.Max(0, health);
-        if(health == 0)
-        {
-            Freeze();
-        }
+        return isFrozen;
     }
 
     //void OnCollisionEnter2D(Collision2D other)
