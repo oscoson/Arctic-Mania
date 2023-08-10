@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     // Private
     private InputSystem input = null;
     private Rigidbody2D playerRB = null;
+    private SpriteRenderer playerSR = null;
     private Vector2 moveVector = Vector2.zero;
     private CombatManager combatManager;
 
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
     {
         input = new InputSystem();
         playerRB = GetComponent<Rigidbody2D>();
+        playerSR = GetComponent<SpriteRenderer>();
         health = stats.health;
         maxHealth = stats.maxHealth;
         speed = stats.speed;
@@ -62,6 +64,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         playerRB.velocity = moveVector * speed;
+        handleAnimation();
     }
 
 
@@ -164,5 +167,32 @@ public class Player : MonoBehaviour
     private void OnMovementCancelled(InputAction.CallbackContext value)
     {
         moveVector = Vector2.zero;
+    }
+
+    private void handleAnimation()
+    {
+        
+        // horizontal animation
+        if (playerRB.velocity.x == 0) return;
+        playerSR.flipX = playerRB.velocity.x > 0;
+
+
+        // vertical animation
+        if (playerRB.velocity.y == 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if(isMovingUpward(playerRB.velocity))
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 5);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 0, -10);
+        }
+    }
+
+    private bool isMovingUpward(Vector2 velocity){
+        return (playerRB.velocity.y > 0 && playerRB.velocity.x > 0) || (playerRB.velocity.y < 0 && playerRB.velocity.x < 0);
     }
 }
