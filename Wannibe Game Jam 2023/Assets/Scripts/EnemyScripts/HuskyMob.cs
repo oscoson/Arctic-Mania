@@ -42,7 +42,6 @@ public class HuskyMob : Mob
     {
         health = mob.health;
         speed = mob.speed;
-        frost = mob.frost;
         damage = mob.damage;
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -160,6 +159,19 @@ public class HuskyMob : Mob
         sprite.color = new Color(238, 95, 255, 255);
         frost = 1;
         isFrozen = false;
+    }
+
+    public override void CheckFreeze()
+    {
+        // Make function for projectile freeze check?
+        if (frost > 0 && !isFrozen)
+        {
+            health -= player.frostStrength;
+            if (health <= 0)
+            {
+                Freeze();
+            }
+        }
     }
 
     public override bool IsFrozen()
