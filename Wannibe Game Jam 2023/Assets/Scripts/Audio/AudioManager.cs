@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -21,14 +22,28 @@ public class AudioManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-        } else{
+        }
+        else
+        {
             Destroy(gameObject);
         }
         loadVolume();
         AudioManager.instance.PlayTestSound();
+
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    void loadVolume() // Volume Saved in volumeSettings.cs
+    void OnSceneUnloaded(Scene scene)
+    {
+        StopMusic();
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
+
+    void loadVolume()
     {
         float masterVolume = PlayerPrefs.GetFloat(MASTER_KEY, 1f);
         float musicVolume = PlayerPrefs.GetFloat(MUSIC_KEY, 0.75f);
@@ -39,11 +54,13 @@ public class AudioManager : MonoBehaviour
         mixer.SetFloat(VolumeSettings.MIXER_SFX, Mathf.Log10(sfxVolume) * 20);
     }
 
-
-    // TESTING
-
     public void PlayTestSound()
     {
         MusicSource.PlayOneShot(musicClip);
+    }
+
+    public void StopMusic()
+    {
+        MusicSource.Stop();
     }
 }

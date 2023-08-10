@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
 
     void OnFire(InputValue value)
     {
+        
         if(cooldown.isCoolingDown) return;
 
         if(projectiles[currentProjectileIndex].name == "Icicle")
@@ -99,6 +100,22 @@ public class Player : MonoBehaviour
         }
     }
     
+    void OnSwitchPerformed(InputAction.CallbackContext context)
+    {
+        if(currentProjectileIndex == 0)
+        {
+            currentProjectileIndex = 1;
+        }
+        else
+        {
+            currentProjectileIndex = 0;
+        }
+    }
+
+    void OnSwitchCancelled(InputAction.CallbackContext context)
+    {
+        
+    }
 
     public void TakeDamage(float damage)
     {
@@ -127,6 +144,9 @@ public class Player : MonoBehaviour
         input.Player.Movement.canceled += OnMovementCancelled;
         input.Player.FireHold.performed += OnFireHoldPerformed;
         input.Player.FireHold.canceled += OnFireHoldCancelled;
+        input.Player.Switch.performed += OnSwitchPerformed;
+        input.Player.Switch.canceled += OnSwitchCancelled;
+
     }
 
     private void OnDisable()

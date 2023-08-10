@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class EscapeMenu : MonoBehaviour
 {
     public GameObject escapeCanvas; // Reference to the Canvas GameObject
-
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -23,6 +23,7 @@ public class EscapeMenu : MonoBehaviour
 
         Time.timeScale = canvasActive ? 1f : 0f; // Pause the game when the menu is active
     }
+
 
     public void ReturnToMainMenu()
     {
