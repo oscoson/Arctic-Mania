@@ -18,8 +18,8 @@ public class BasicMob : Mob
     void Awake()
     {
         health = mob.health;
+        maxHealth = mob.maxHealth;
         speed = mob.speed;
-        frost = mob.frost;
         damage = mob.damage;
         player = FindObjectOfType<Player>();
         mobRB = GetComponent<Rigidbody2D>();
@@ -31,7 +31,7 @@ public class BasicMob : Mob
     // Update is called once per frame
     void Update()
     {
-
+        frost = health/maxHealth;
     }
 
     private void FixedUpdate()
@@ -62,7 +62,7 @@ public class BasicMob : Mob
         switch (collisionObject.tag)
         {
             case "Boomerang":
-                if (!this.IsFrozen()){
+                if (!IsFrozen()){
                     collisionObject.GetComponent<Boomerang>().ReduceLife();
                 }
                 CheckFreeze();
@@ -72,7 +72,7 @@ public class BasicMob : Mob
 
     public override void Freeze()
     {
-        frost = 0;
+        health = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
 
@@ -82,7 +82,7 @@ public class BasicMob : Mob
     public override void UnFreeze()
     {
         sprite.color = new Color(255, 0, 0, 255);
-        frost = 1;
+        health = maxHealth;
         isFrozen = false;
 
         gameObject.layer = LayerMask.NameToLayer("Enemy");

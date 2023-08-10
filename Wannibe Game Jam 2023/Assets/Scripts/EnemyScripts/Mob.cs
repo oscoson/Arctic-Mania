@@ -6,6 +6,7 @@ public abstract class Mob : MonoBehaviour, IFreezable
 {
     public EnemySO mob;
     protected float health;
+    protected float maxHealth;
     protected float speed;
     protected float frost;
     protected float damage;
