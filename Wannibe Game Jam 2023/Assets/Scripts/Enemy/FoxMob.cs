@@ -192,11 +192,6 @@ public class FoxMob : Mob
         }
     }
 
-    int GenerateRandomInt()
-    {
-        return Random.Range(0, 4);
-    }
-
     public void CheckFreezeSnowBlower()
     {
         // Brian this is bad but I had no other choice
