@@ -54,6 +54,7 @@ public class EnemySpawnManager : MonoBehaviour
             {
                 // should go to boss scene
                 SceneManager.LoadScene("MainMenu");
+                waveCounter = numberOfWaves - 1;
             }
 
             totalWaveEnemies = GetNumberOfMobs();
