@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawnManager : MonoBehaviour
 {
-    [SerializeField] List<EnemySpawnInfo> enemySpawnInfos;
+    [SerializeField] List<WaveInfo> waveInfo;
+    int numberOfWaves = 0;
+    int waveCounter = 0;
+    int totalWaveEnemies = 0;
+
+    CombatManager combatManager;
+
     int currentEnemySpawnIndex = 0;  // the index for enemySpawnInfos
 
     List<EnemySpawner> enemySpawners;
@@ -14,6 +21,9 @@ public class EnemySpawnManager : MonoBehaviour
     void Start()
     {
         enemySpawners = new(Object.FindObjectsOfType<EnemySpawner>());
+        numberOfWaves = waveInfo.Count;
+        combatManager = FindObjectOfType<CombatManager>();
+        totalWaveEnemies = GetNumberOfMobs();
     }
 
     // Update is called once per frame
@@ -23,11 +33,61 @@ public class EnemySpawnManager : MonoBehaviour
         CheckPossibleSpawn();
     }
 
+    private void FixedUpdate()
+    {
+        if (combatManager.mobCount == totalWaveEnemies)
+        {
+            Mob[] mobs = FindObjectsOfType<Mob>();
+            foreach (Mob mob in mobs) {
+                IFreezable freezableObject = mob as IFreezable;
+                if (freezableObject == null) continue;
+
+                if (!freezableObject.IsFrozen()) return;
+            }
+
+            // go to next wave
+            waveCounter++;
+            currentEnemySpawnIndex = 0;
+            combatManager.mobCount = 0;
+
+            if (waveCounter >= numberOfWaves)
+            {
+                // should go to boss scene
+                SceneManager.LoadScene("MainMenu");
+                waveCounter = numberOfWaves - 1;
+            }
+
+            totalWaveEnemies = GetNumberOfMobs();
+
+            foreach (Mob mob in mobs)
+            {
+                Destroy(mob.gameObject);
+            }
+        }
+    }
+
+    private int GetNumberOfMobs()
+    {
+        if (waveCounter >= numberOfWaves) return 0;
+
+        int total = 0;
+        foreach (var enemySpawnInfo in waveInfo[waveCounter].enemySpawnInfos)
+        {
+            total += enemySpawnInfo.basicMobCount;
+            total += enemySpawnInfo.fireElementalMobCount;
+            total += enemySpawnInfo.snowHareMobCount;
+            total += enemySpawnInfo.arcticSealMobCount;
+            total += enemySpawnInfo.huskyMobCount;
+            total += enemySpawnInfo.foxMobCount;
+        }
+        return total;
+    }
+
     private void CheckPossibleSpawn()
     {
-        if (currentEnemySpawnIndex < enemySpawnInfos.Count)
+        if (currentEnemySpawnIndex < waveInfo[waveCounter].enemySpawnInfos.Count)
         {
-            EnemySpawnInfo enemySpawnInfo = enemySpawnInfos[currentEnemySpawnIndex];
+            EnemySpawnInfo enemySpawnInfo = waveInfo[waveCounter].enemySpawnInfos[currentEnemySpawnIndex];
 
             if (delayTimer >= enemySpawnInfo.delayFromLast)
             {
@@ -58,4 +118,10 @@ public struct EnemySpawnInfo
     [SerializeField, Range(0, 100)] public int arcticSealMobCount;    // how many arctic seal mobs to spawn
     [SerializeField, Range(0, 100)] public int huskyMobCount;    // how many husky mobs to spawn
     [SerializeField, Range(0, 100)] public int foxMobCount;    // how many fox mobs to spawn
+}
+
+[System.Serializable]
+public struct WaveInfo
+{
+    public List<EnemySpawnInfo> enemySpawnInfos;
 }

@@ -44,6 +44,7 @@ public class ArcticSealMob : Mob
         maxHealth = mob.maxHealth;
         speed = mob.speed;
         damage = mob.damage;
+        dropItem = mob.dropItem;
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         isFrozen = false;
@@ -206,34 +207,25 @@ public class ArcticSealMob : Mob
             Freeze();
         }
     }
-
-    //void OnCollisionEnter2D(Collision2D other)
-    //{
-    //    GameObject collisionObject = other.gameObject;
-    //    if (collisionObject.tag == "Snowball")
-    //    {
-    //        // Make function for projectile freeze check?
-    //        if (frost > 0 && !isFrozen)
-    //        {
-    //            frost -= player.frostStrength;
-    //            if (frost <= 0)
-    //            {
-    //                Freeze();
-    //            }
-    //        }
-    //        // else if(isFrozen)
-    //        // {
-    //        //     Destroy(gameObject);
-
-    //        //     // This is for spawning the death items
-    //        //     bool willSpawnitem = GenerateRandomBool();
-    //        //     if (willSpawnitem)
-    //        //     {
-    //        //         Instantiate(dropItem, transform.position, Quaternion.identity);
-    //        //     }
-    //        // }
-    //    }
-    //}
+    public override void Drop()
+    {
+        {
+            // This is for spawning the death items
+            bool willSpawnitem = GenerateRandomBool();
+            if (willSpawnitem)
+            {
+                Instantiate(dropItem, transform.position, Quaternion.identity);
+            }
+        }
+    }
+    bool GenerateRandomBool()
+    {
+        if (Random.value >= 0.8)
+        {
+            return true;
+        }
+        return false;
+    }
 
     void OnTriggerStay2D(Collider2D other)
     {

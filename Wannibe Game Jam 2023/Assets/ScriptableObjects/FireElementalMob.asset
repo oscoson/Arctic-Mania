@@ -16,3 +16,4 @@ MonoBehaviour:
   maxHealth: 100
   speed: 2
   damage: 10
+  dropItem: {fileID: 6515853896863668864, guid: d46e5529a6092464b8b9369565a6defc, type: 3}
