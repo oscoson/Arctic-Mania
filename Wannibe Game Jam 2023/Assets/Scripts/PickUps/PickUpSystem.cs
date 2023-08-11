@@ -12,13 +12,5 @@ public class PickUpSystem : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        PickUpItem PickUpItem = collision.GetComponent<PickUpItem>();
-        
-        if(PickUpItem != null)
-        {
-            PickUpItem.DestroyItem();
-        }
-    }
+
 }

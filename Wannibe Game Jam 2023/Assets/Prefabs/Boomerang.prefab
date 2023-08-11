@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6493559933195593503}
   - component: {fileID: 6493559933195593502}
   - component: {fileID: 5646294082491636097}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Boomerang
   m_TagString: Boomerang
   m_Icon: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: -1409678221
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.08962262, g: 1, b: 0.22316231, a: 1}
+  m_Sprite: {fileID: 21300000, guid: b87e03ce17f555c4996b781c70868f78, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -124,8 +124,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.21133333}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.53, y: 1.81}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

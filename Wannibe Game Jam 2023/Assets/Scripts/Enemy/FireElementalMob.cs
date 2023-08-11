@@ -35,6 +35,7 @@ public class FireElementalMob : Mob
         maxHealth = mob.maxHealth;
         speed = mob.speed;
         damage = mob.damage;
+        dropItem = mob.dropItem;
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         isFrozen = false;
@@ -179,6 +180,18 @@ public class FireElementalMob : Mob
             if(health <= 0)
             {
                 Freeze();
+            }
+        }
+    }
+
+    public override void Drop()
+    {
+        {
+            // This is for spawning the death items
+            bool willSpawnitem = GenerateRandomBool();
+            if (willSpawnitem)
+            {
+                Instantiate(dropItem, transform.position, Quaternion.identity);
             }
         }
     }
