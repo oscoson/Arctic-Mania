@@ -57,5 +57,5 @@ public struct EnemySpawnInfo
     [SerializeField, Range(0, 100)] public int snowHareMobCount;    // how many snow hare mobs to spawn
     [SerializeField, Range(0, 100)] public int arcticSealMobCount;    // how many arctic seal mobs to spawn
     [SerializeField, Range(0, 100)] public int huskyMobCount;    // how many husky mobs to spawn
-
+    [SerializeField, Range(0, 100)] public int foxMobCount;    // how many fox mobs to spawn
 }
