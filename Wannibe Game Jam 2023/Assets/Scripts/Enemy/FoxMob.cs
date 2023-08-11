@@ -54,12 +54,15 @@ public class FoxMob : Mob
         switch (mobState)
         {
             case FoxMobState.Moving:
-                roamTimer += Time.deltaTime;
-                if (roamTimer >= roamThreshold && (player.transform.position - transform.position).magnitude < 10.0f)
+                if(!isFrozen)
                 {
-                    roamTimer = 0.0f;
-                    mobState = FoxMobState.ReadyingCharge;
-                    StartCoroutine(TransitionToCharging());
+                    roamTimer += Time.deltaTime;
+                    if (roamTimer >= roamThreshold && (player.transform.position - transform.position).magnitude < 10.0f)
+                    {
+                        roamTimer = 0.0f;
+                        mobState = FoxMobState.ReadyingCharge;
+                        StartCoroutine(TransitionToCharging());
+                    }
                 }
                 break;
             case FoxMobState.ReadyingCharge:
@@ -71,35 +74,41 @@ public class FoxMob : Mob
 
     private void FixedUpdate()
     {
-        switch (mobState)
+        if(!isFrozen)
         {
-            case FoxMobState.Moving:
-                Move();
-                break;
-            case FoxMobState.ReadyingCharge:
-                mobRB.MovePosition(transform.position);
-                break;
-            case FoxMobState.Charging:
-                mobRB.velocity += (Vector2) (player.transform.position - transform.position).normalized * acc * Time.fixedDeltaTime;
-                if (mobRB.velocity.magnitude > speedCap)
-                {
-                    mobRB.velocity = mobRB.velocity.normalized * speedCap;
-                }
-                speedCap -= Time.fixedDeltaTime * 30.0f;
-                if (speedCap < 1.0f)
-                {
-                    speedCap = initialChargeSpeed;
-                    mobState = FoxMobState.Moving;
-                }
-                break;
+            switch (mobState)
+            {
+                case FoxMobState.Moving:
+                    Move();
+                    break;
+                case FoxMobState.ReadyingCharge:
+                    mobRB.MovePosition(transform.position);
+                    break;
+                case FoxMobState.Charging:
+                    mobRB.velocity += (Vector2) (player.transform.position - transform.position).normalized * acc * Time.fixedDeltaTime;
+                    if (mobRB.velocity.magnitude > speedCap && !isFrozen)
+                    {
+                        mobRB.velocity = mobRB.velocity.normalized * speedCap;
+                    }
+                    speedCap -= Time.fixedDeltaTime * 30.0f;
+                    if (speedCap < 1.0f && !isFrozen)
+                    {
+                        speedCap = initialChargeSpeed;
+                        mobState = FoxMobState.Moving;
+                    }
+                    break;
+            }
         }
     }
 
     IEnumerator TransitionToCharging()
     {
         yield return new WaitForSeconds(chargeUpTime);
-        mobRB.velocity = (player.transform.position - transform.position).normalized * initialChargeSpeed;
-        mobState = FoxMobState.Charging;
+        if(!isFrozen)
+        {
+            mobRB.velocity = (player.transform.position - transform.position).normalized * initialChargeSpeed;
+            mobState = FoxMobState.Charging;
+        }
     }
 
     private void Move()

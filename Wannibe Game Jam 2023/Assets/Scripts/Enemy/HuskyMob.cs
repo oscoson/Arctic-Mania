@@ -62,7 +62,7 @@ public class HuskyMob : Mob
             case ArcticSealMobState.Moving:
                 roamTimer += Time.deltaTime;
                 roamTimer = Mathf.Min(roamTimer, roamThreshold);
-                if (roamTimer >= roamThreshold && Vector2.Distance(player.transform.position, transform.position) < 9.0f)
+                if (roamTimer >= roamThreshold && Vector2.Distance(player.transform.position, transform.position) < 9.0f && !isFrozen)
                 {
                     mobState = ArcticSealMobState.ChargingUpShots;
                     roamTimer = 0.0f;
@@ -70,7 +70,7 @@ public class HuskyMob : Mob
                 break;
             case ArcticSealMobState.ChargingUpShots:
                 chargeUpTimer += Time.deltaTime;
-                if (chargeUpTimer >= chargeUpThreshold)
+                if (chargeUpTimer >= chargeUpThreshold && !isFrozen)
                 {
                     chargeUpTimer = 0.0f;
                     mobState = ArcticSealMobState.Shooting;
@@ -92,13 +92,16 @@ public class HuskyMob : Mob
 
         for (float speed = startSpeed; speed <= endSpeed; speed += deltaSpeed)
         {
-            Vector2 direction = Quaternion.Euler(0f, 0f, Random.Range(-10.0f, 10.0f)) * (player.transform.position - transform.position);
+            if(!isFrozen) // freeze check if coroutine is already called
+            {
+                Vector2 direction = Quaternion.Euler(0f, 0f, Random.Range(-10.0f, 10.0f)) * (player.transform.position - transform.position);
 
-            GameObject go = Instantiate(projectile.gameObject, transform.position, Quaternion.identity);
-            Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
-            if (rb == null) continue;  // shouldnt happen tbh
-            rb.velocity = direction.normalized * speed;
-            yield return new WaitForSeconds(delay);
+                GameObject go = Instantiate(projectile.gameObject, transform.position, Quaternion.identity);
+                Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
+                if (rb == null) continue;  // shouldnt happen tbh
+                rb.velocity = direction.normalized * speed;
+                yield return new WaitForSeconds(delay);
+            }
         }
 
         mobState = ArcticSealMobState.Moving;
@@ -171,6 +174,16 @@ public class HuskyMob : Mob
             {
                 Freeze();
             }
+        }
+    }
+    public void CheckFreezeSnowBlower()
+    {
+        // Brian this is bad but I had no other choice
+        health -= player.frostStrength * 0.05f;
+        health = Mathf.Max(0, health);
+        if(frost == 0)
+        {
+            Freeze();
         }
     }
 

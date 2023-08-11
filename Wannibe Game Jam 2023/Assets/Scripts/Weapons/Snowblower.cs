@@ -42,6 +42,14 @@ public class Snowblower : MonoBehaviour
                     FireElementalMob fireMob = collisionObject.GetComponent<FireElementalMob>();
                     fireMob.CheckFreezeSnowBlower();
                     break;
+                case "Fox Mob(Clone)":
+                    FoxMob foxMob = collisionObject.GetComponent<FoxMob>();
+                    foxMob.CheckFreezeSnowBlower();
+                    break;
+                case "HuskyMob(Clone)":
+                    HuskyMob huskyMob = collisionObject.GetComponent<HuskyMob>();
+                    huskyMob.CheckFreezeSnowBlower();
+                    break;
             }
 
         }

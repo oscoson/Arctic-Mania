@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2939340206537808667}
   - component: {fileID: 2939340206537808664}
   - component: {fileID: -3603727482699236479}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fox Mob
   m_TagString: Enemy
   m_Icon: {fileID: 0}
