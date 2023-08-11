@@ -24,7 +24,7 @@ public class PickUpItem : MonoBehaviour
     {
         item = pickupItems[GenerateRandomNum()];
         player = FindObjectOfType<Player>();
-        sprite = item.GetComponent<SpriteRenderer>().sprite;
+        gameObject.GetComponent<SpriteRenderer>().sprite = item.GetComponent<SpriteRenderer>().sprite;
 
     }
 
@@ -46,12 +46,8 @@ public class PickUpItem : MonoBehaviour
         
         if(collisionObject.tag == "Player")
         {   
-            if(item.tag == "Projectile")
-            {
-                player.projectiles[player.currentProjectileIndex] = item;
-            }
-            // else if pickup is something else do this
-            Destroy(gameObject);
+            player.projectiles[player.currentProjectileIndex] = item;
+            DestroyItem();
         }
     }
 

@@ -21,6 +21,7 @@ public class BasicMob : Mob
         maxHealth = mob.maxHealth;
         speed = mob.speed;
         damage = mob.damage;
+        dropItem = mob.dropItem;
         player = FindObjectOfType<Player>();
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -72,6 +73,7 @@ public class BasicMob : Mob
 
     public override void Freeze()
     {
+        Drop();
         health = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
@@ -106,6 +108,18 @@ public class BasicMob : Mob
         }
     }
 
+    public override void Drop()
+    {
+        {
+            // This is for spawning the death items
+            bool willSpawnitem = GenerateRandomBool();
+            if (willSpawnitem)
+            {
+                Instantiate(dropItem, transform.position, Quaternion.identity);
+            }
+        }
+    }
+
     public void CheckFreezeSnowBlower()
     {
         // Brian this is bad but I had no other choice
@@ -119,7 +133,7 @@ public class BasicMob : Mob
 
     bool GenerateRandomBool()
     {
-        if (Random.value >= 0.8)
+        if (Random.value >= 0.5)
         {
             return true;
         }
@@ -128,32 +142,7 @@ public class BasicMob : Mob
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        // GameObject collisionObject = other.gameObject;
-        // if(collisionObject.tag == "Snowball")
-        // {
-        //     // Make function for projectile freeze check?
-        //     if(frost > 0 && !isFrozen)
-        //     {
-        //         frost -= player.frostStrength;
-        //         if(frost <= 0)
-        //         {
-        //             Freeze();
-        //         }
-        //     }
 
-            // This is seperate from this^^ if uknow what i mean :P
-            // else if(isFrozen)
-            // {
-            //     Destroy(gameObject);
-
-            //     // This is for spawning the death items
-            //     bool willSpawnitem = GenerateRandomBool();
-            //     if (willSpawnitem)
-            //     {
-            //         Instantiate(dropItem, transform.position, Quaternion.identity);
-            //     }
-            // }
-        // }
     }
 
     void OnTriggerStay2D(Collider2D other)

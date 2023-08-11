@@ -41,8 +41,10 @@ public class HuskyMob : Mob
     void Awake()
     {
         health = mob.health;
+        maxHealth = mob.maxHealth;
         speed = mob.speed;
         damage = mob.damage;
+        dropItem = mob.dropItem;
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         isFrozen = false;
@@ -57,6 +59,7 @@ public class HuskyMob : Mob
     // Update is called once per frame
     void Update()
     {
+        frost = health/maxHealth;
         switch (mobState)
         {
             case ArcticSealMobState.Moving:
@@ -152,7 +155,7 @@ public class HuskyMob : Mob
 
     public override void Freeze()
     {
-        frost = 0;
+        health = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
     }
@@ -160,7 +163,7 @@ public class HuskyMob : Mob
     public override void UnFreeze()
     {
         sprite.color = new Color(238, 95, 255, 255);
-        frost = 1;
+        health = maxHealth;
         isFrozen = false;
     }
 
@@ -176,49 +179,41 @@ public class HuskyMob : Mob
             }
         }
     }
+
     public void CheckFreezeSnowBlower()
     {
-        // Brian this is bad but I had no other choice
         health -= player.frostStrength * 0.05f;
         health = Mathf.Max(0, health);
-        if(frost == 0)
+        if(health == 0)
         {
             Freeze();
         }
+    }
+
+    public override void Drop()
+    {
+        {
+            // This is for spawning the death items
+            bool willSpawnitem = GenerateRandomBool();
+            if (willSpawnitem)
+            {
+                Instantiate(dropItem, transform.position, Quaternion.identity);
+            }
+        }
+    }
+    bool GenerateRandomBool()
+    {
+        if (Random.value >= 0.8)
+        {
+            return true;
+        }
+        return false;
     }
 
     public override bool IsFrozen()
     {
         return isFrozen;
     }
-
-    //void OnCollisionEnter2D(Collision2D other)
-    //{
-    //    GameObject collisionObject = other.gameObject;
-    //    if (collisionObject.tag == "Snowball")
-    //    {
-    //        // Make function for projectile freeze check?
-    //        if (frost > 0 && !isFrozen)
-    //        {
-    //            frost -= player.frostStrength;
-    //            if (frost <= 0)
-    //            {
-    //                Freeze();
-    //            }
-    //        }
-    //        // else if(isFrozen)
-    //        // {
-    //        //     Destroy(gameObject);
-
-    //        //     // This is for spawning the death items
-    //        //     bool willSpawnitem = GenerateRandomBool();
-    //        //     if (willSpawnitem)
-    //        //     {
-    //        //         Instantiate(dropItem, transform.position, Quaternion.identity);
-    //        //     }
-    //        // }
-    //    }
-    //}
 
     void OnTriggerStay2D(Collider2D other)
     {
