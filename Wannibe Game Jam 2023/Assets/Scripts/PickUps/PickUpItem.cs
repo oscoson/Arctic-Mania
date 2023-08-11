@@ -22,9 +22,7 @@ public class PickUpItem : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Drop!");
         item = pickupItems[GenerateRandomNum()];
-        Debug.Log(item.name);
         player = FindObjectOfType<Player>();
         gameObject.GetComponent<SpriteRenderer>().sprite = item.GetComponent<SpriteRenderer>().sprite;
 
