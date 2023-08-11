@@ -3027,63 +3027,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbdf3a57c3461a241869fe91366f0e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnInfos:
-  - delayFromLast: 0.72
-    basicMobCount: 0
-    fireElementalMobCount: 0
-    snowHareMobCount: 0
-    arcticSealMobCount: 0
-    huskyMobCount: 0
-    foxMobCount: 1
-  - delayFromLast: 2.15
-    basicMobCount: 4
-    fireElementalMobCount: 0
-    snowHareMobCount: 0
-    arcticSealMobCount: 0
-    huskyMobCount: 1
-    foxMobCount: 0
-  - delayFromLast: 1.1
-    basicMobCount: 0
-    fireElementalMobCount: 0
-    snowHareMobCount: 0
-    arcticSealMobCount: 1
-    huskyMobCount: 0
-    foxMobCount: 0
-  - delayFromLast: 2.15
-    basicMobCount: 4
-    fireElementalMobCount: 0
-    snowHareMobCount: 0
-    arcticSealMobCount: 0
-    huskyMobCount: 0
-    foxMobCount: 0
-  - delayFromLast: 1
-    basicMobCount: 0
-    fireElementalMobCount: 0
-    snowHareMobCount: 5
-    arcticSealMobCount: 0
-    huskyMobCount: 0
-    foxMobCount: 0
-  - delayFromLast: 1
-    basicMobCount: 0
-    fireElementalMobCount: 1
-    snowHareMobCount: 0
-    arcticSealMobCount: 0
-    huskyMobCount: 0
-    foxMobCount: 0
-  - delayFromLast: 2.15
-    basicMobCount: 3
-    fireElementalMobCount: 0
-    snowHareMobCount: 0
-    arcticSealMobCount: 0
-    huskyMobCount: 0
-    foxMobCount: 0
-  - delayFromLast: 2.15
-    basicMobCount: 4
-    fireElementalMobCount: 0
-    snowHareMobCount: 0
-    arcticSealMobCount: 0
-    huskyMobCount: 0
-    foxMobCount: 0
+  waveInfo:
+  - enemySpawnInfos:
+    - delayFromLast: 1.02
+      basicMobCount: 10
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 1.07
+      basicMobCount: 0
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 3
+    - delayFromLast: 1.07
+      basicMobCount: 0
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 4
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 1.07
+      basicMobCount: 0
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 9
+  - enemySpawnInfos:
+    - delayFromLast: 1.02
+      basicMobCount: 12
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 1.07
+      basicMobCount: 0
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 9
+      huskyMobCount: 0
+      foxMobCount: 0
 --- !u!82 &2000981473 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 8496317663373593620, guid: d7b24c9cef48761489a752df42519e44, type: 3}
@@ -3243,7 +3231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mobCount: 0
-  maxMobCount: 100
 --- !u!4 &2114608499
 Transform:
   m_ObjectHideFlags: 0

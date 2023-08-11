@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    public int mobCount;
-    public int maxMobCount;
+    [HideInInspector] public int mobCount;
     private Player player;
     
     // Start is called before the first frame update
