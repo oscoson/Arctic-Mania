@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82bf4fc84050d743b45f84d625b6c2d, type: 3}
   m_Name: SnowHareMob
   m_EditorClassIdentifier: 
-  health: 50
+  health: 100
+  maxHealth: 100
   speed: 8
-  frost: 1
   damage: 5

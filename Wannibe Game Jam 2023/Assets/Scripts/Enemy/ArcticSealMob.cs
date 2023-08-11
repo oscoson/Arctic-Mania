@@ -41,8 +41,8 @@ public class ArcticSealMob : Mob
     void Awake()
     {
         health = mob.health;
+        maxHealth = mob.maxHealth;
         speed = mob.speed;
-        frost = mob.frost;
         damage = mob.damage;
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -58,28 +58,32 @@ public class ArcticSealMob : Mob
     // Update is called once per frame
     void Update()
     {
-        switch (mobState)
+        frost = health/maxHealth;
+        if(!isFrozen)
         {
-            case ArcticSealMobState.Moving:
-                roamTimer += Time.deltaTime;
-                roamTimer = Mathf.Min(roamTimer, roamThreshold);
-                if (roamTimer >= roamThreshold && Vector2.Distance(player.transform.position, transform.position) < 9.0f)
-                {
-                    mobState = ArcticSealMobState.ChargingUpShots;
-                    roamTimer = 0.0f;
-                }
-                break;
-            case ArcticSealMobState.ChargingUpShots:
-                chargeUpTimer += Time.deltaTime;
-                if (chargeUpTimer >= chargeUpThreshold)
-                {
-                    chargeUpTimer = 0.0f;
-                    mobState = ArcticSealMobState.Shooting;
-                    StartCoroutine(ShootProjectilesCoroutine(player.transform.position - transform.position));
-                }
-                break;
-            case ArcticSealMobState.Shooting:
-                break;
+            switch (mobState)
+            {
+                case ArcticSealMobState.Moving:
+                    roamTimer += Time.deltaTime;
+                    roamTimer = Mathf.Min(roamTimer, roamThreshold);
+                    if (roamTimer >= roamThreshold && Vector2.Distance(player.transform.position, transform.position) < 9.0f)
+                    {
+                        mobState = ArcticSealMobState.ChargingUpShots;
+                        roamTimer = 0.0f;
+                    }
+                    break;
+                case ArcticSealMobState.ChargingUpShots:
+                    chargeUpTimer += Time.deltaTime;
+                    if (chargeUpTimer >= chargeUpThreshold)
+                    {
+                        chargeUpTimer = 0.0f;
+                        mobState = ArcticSealMobState.Shooting;
+                        StartCoroutine(ShootProjectilesCoroutine(player.transform.position - transform.position));
+                    }
+                    break;
+                case ArcticSealMobState.Shooting:
+                    break;
+            }
         }
     }
 
@@ -158,12 +162,12 @@ public class ArcticSealMob : Mob
     private void MovePosition(Vector2 direction)
     {
         // As frost value goes down, speed decreases
-        mobRB.MovePosition((Vector2)transform.position + (direction.normalized * (speed * (frost)) * Time.deltaTime));
+        mobRB.MovePosition((Vector2)transform.position + (direction.normalized * (speed * frost) * Time.deltaTime));
     }
 
     public override void Freeze()
     {
-        frost = 0;
+        health = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
     }
@@ -171,13 +175,36 @@ public class ArcticSealMob : Mob
     public override void UnFreeze()
     {
         sprite.color = new Color(238, 95, 255, 255);
-        frost = 1;
+        health = maxHealth;
         isFrozen = false;
     }
 
     public override bool IsFrozen()
     {
         return isFrozen;
+    }
+
+    public override void CheckFreeze()
+    {
+        // Make function for projectile freeze check?
+        if(frost > 0 && !isFrozen)
+        {
+            health -= player.frostStrength;
+            if(health <= 0)
+            {
+                Freeze();
+            }
+        }
+    }
+
+    public void CheckFreezeSnowBlower()
+    {
+        health -= player.frostStrength * 0.05f;
+        health = Mathf.Max(0, health);
+        if(health == 0)
+        {
+            Freeze();
+        }
     }
 
     //void OnCollisionEnter2D(Collision2D other)

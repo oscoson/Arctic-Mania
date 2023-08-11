@@ -32,8 +32,8 @@ public class SnowHareMob : Mob
     void Awake()
     {
         health = mob.health;
+        maxHealth = mob.maxHealth;
         speed = mob.speed;
-        frost = mob.frost;
         damage = mob.damage;
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -49,11 +49,12 @@ public class SnowHareMob : Mob
     // Update is called once per frame
     void Update()
     {
+        frost = health/maxHealth;
         switch (mobState)
         {
             case SnowHareMobState.Sitting:
                 sittingTimer += Time.deltaTime;
-                if (sittingTimer >= sittingThreshold)
+                if (sittingTimer >= sittingThreshold & !isFrozen)
                 {
                     sittingTimer = 0.0f;
                     mobState = SnowHareMobState.Hopping;
@@ -63,6 +64,7 @@ public class SnowHareMob : Mob
                 break;
             case SnowHareMobState.Hopping:
                 break;
+
         }
     }
 
@@ -74,7 +76,7 @@ public class SnowHareMob : Mob
                 mobRB.MovePosition(mobRB.position);  // basically, stay still
                 break;
             case SnowHareMobState.Hopping:
-                mobRB.velocity = (target - transform.position).normalized * speed;
+                mobRB.velocity = (target - transform.position).normalized * (speed * frost);
                 break;
         }
     }
@@ -100,15 +102,9 @@ public class SnowHareMob : Mob
         target = Quaternion.Euler(0, 0, (Random.value < 0.5 ? -1 : 1) * Random.Range(20, 60)) * direction + transform.position;
     }
 
-    private void MovePosition(Vector2 direction)
-    {
-        // As frost value goes down, speed decreases
-        mobRB.MovePosition((Vector2)transform.position + (direction * (speed * (frost)) * Time.deltaTime));
-    }
-
     public override void Freeze()
     {
-        frost = 0;
+        health = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
     }
@@ -116,10 +112,32 @@ public class SnowHareMob : Mob
     public override void UnFreeze()
     {
         sprite.color = new Color(200, 200, 255, 255);
-        frost = 1;
+        health = maxHealth;
         isFrozen = false;
     }
 
+    public override void CheckFreeze()
+    {
+        // Make function for projectile freeze check?
+        if(frost > 0 && !isFrozen)
+        {
+            health -= player.frostStrength;
+            if(health <= 0)
+            {
+                Freeze();
+            }
+        }   
+    }
+
+    public void CheckFreezeSnowBlower()
+    {
+        health -= player.frostStrength * 0.05f;
+        health = Mathf.Max(0, health);
+        if(health == 0)
+        {
+            Freeze();
+        }
+    }
     public override bool IsFrozen()
     {
         return isFrozen;

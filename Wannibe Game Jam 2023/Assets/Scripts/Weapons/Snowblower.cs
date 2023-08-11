@@ -27,8 +27,28 @@ public class Snowblower : MonoBehaviour
             switch(collisionObject.name)
             {
                 case "Basic Mob(Clone)":
-                    BasicMob mob = collisionObject.GetComponent<BasicMob>();
-                    mob.CheckFreezeSnowBlower();
+                    BasicMob basicMob = collisionObject.GetComponent<BasicMob>();
+                    basicMob.CheckFreezeSnowBlower();
+                    break;
+                case "ArcticSeal Mob(Clone)":
+                    ArcticSealMob sealMob = collisionObject.GetComponent<ArcticSealMob>();
+                    sealMob.CheckFreezeSnowBlower();
+                    break;
+                case "SnowHare Mob(Clone)":
+                    SnowHareMob hareMob = collisionObject.GetComponent<SnowHareMob>();
+                    hareMob.CheckFreezeSnowBlower();
+                    break;
+                case "FireElemental Mob(Clone)":
+                    FireElementalMob fireMob = collisionObject.GetComponent<FireElementalMob>();
+                    fireMob.CheckFreezeSnowBlower();
+                    break;
+                case "Fox Mob(Clone)":
+                    FoxMob foxMob = collisionObject.GetComponent<FoxMob>();
+                    foxMob.CheckFreezeSnowBlower();
+                    break;
+                case "HuskyMob(Clone)":
+                    HuskyMob huskyMob = collisionObject.GetComponent<HuskyMob>();
+                    huskyMob.CheckFreezeSnowBlower();
                     break;
             }
 
