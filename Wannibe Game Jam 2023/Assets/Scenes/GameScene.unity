@@ -10210,7 +10210,7 @@ PrefabInstance:
     - target: {fileID: 177004102922017475, guid: d7b24c9cef48761489a752df42519e44, type: 3}
       propertyPath: musicClip
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: c26dab7bf4c8edb4d83d30e220f4f88f, type: 3}
     - target: {fileID: 177004102922017475, guid: d7b24c9cef48761489a752df42519e44, type: 3}
       propertyPath: testSource
       value: 
@@ -10281,7 +10281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8496317663373593620, guid: d7b24c9cef48761489a752df42519e44, type: 3}
       propertyPath: m_Volume
-      value: 0.23
+      value: 0.566
       objectReference: {fileID: 0}
     - target: {fileID: 8496317663373593620, guid: d7b24c9cef48761489a752df42519e44, type: 3}
       propertyPath: m_audioClip
