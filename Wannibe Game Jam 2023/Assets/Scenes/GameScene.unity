@@ -8645,7 +8645,7 @@ MonoBehaviour:
   freezeRate: 0
   frostStrength: 0
   projectiles:
-  - {fileID: 6114412157985315517, guid: 2f8c1bfc21b4e5349975cac567db8981, type: 3}
+  - {fileID: 6493559933195593501, guid: 78fd264a4b7445d47bda2084a093c0a5, type: 3}
   - {fileID: 6114412157985315517, guid: 2f8c1bfc21b4e5349975cac567db8981, type: 3}
   currentProjectileIndex: 0
   snowballSpawn: {fileID: 1048515500}
