@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     private InputSystem input = null;
     private Rigidbody2D playerRB = null;
     private Vector2 moveVector = Vector2.zero;
+    private Animator playerAnimator;
     private CombatManager combatManager;
 
     public UnityEvent onDeath;
@@ -49,20 +50,20 @@ public class Player : MonoBehaviour
         freezePoints = stats.freezePoints;
         freezeRate = stats.freezeRate;
         frostStrength = stats.frostStrength; // frost strength ranges from 0.1-1
-
+        playerAnimator = GetComponent<Animator>();
         combatManager = FindObjectOfType<CombatManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
     private void FixedUpdate()
     {
         playerRB.velocity = moveVector * speed;
     }
+
 
 
 
@@ -158,11 +159,22 @@ public class Player : MonoBehaviour
 
     private void OnMovementPerformed(InputAction.CallbackContext value)
     {
+        playerAnimator.SetBool("isRunning", true);
         moveVector = value.ReadValue<Vector2>();
+        if(moveVector.x > 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        
     }
 
     private void OnMovementCancelled(InputAction.CallbackContext value)
     {
+        playerAnimator.SetBool("isRunning", false);
         moveVector = Vector2.zero;
     }
 }
