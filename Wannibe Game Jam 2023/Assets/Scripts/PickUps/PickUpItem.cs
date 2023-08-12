@@ -45,6 +45,7 @@ public class PickUpItem : MonoBehaviour
         
         if(collisionObject.tag == "Player")
         {   
+            // Debug.Log("itme picked up: " + item.name);
             player.CheckSnowblower();
             player.projectiles[player.currentProjectileIndex] = item;
             DestroyItem();
