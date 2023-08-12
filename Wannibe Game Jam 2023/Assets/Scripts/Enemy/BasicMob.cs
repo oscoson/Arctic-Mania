@@ -57,19 +57,19 @@ public class BasicMob : Mob
         mobRB.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        GameObject collisionObject = other.gameObject;
-        switch (collisionObject.tag)
-        {
-            case "Boomerang":
-                if (!IsFrozen()){
-                    collisionObject.GetComponent<Boomerang>().ReduceLife();
-                }
-                CheckFreeze();
-            break;
-        }
-    }
+    // void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     GameObject collisionObject = other.gameObject;
+    //     switch (collisionObject.tag)
+    //     {
+    //         case "Boomerang":
+    //             if (!IsFrozen()){
+    //                 collisionObject.GetComponent<Boomerang>().ReduceLife();
+    //             }
+    //             CheckFreeze();
+    //         break;
+    //     }
+    // }
 
     public override void Freeze()
     {

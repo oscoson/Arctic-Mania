@@ -82,6 +82,10 @@ public class Player : MonoBehaviour
              Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
             cooldown.StartCoolDownSnowBall();
         }
+        if(projectiles[currentProjectileIndex].name == "Boomerang") 
+        {
+            Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+        }
         
     }
 
@@ -128,14 +132,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        // Catch the boomerang if it's not invulnerable (if its not been just thrown)
-        if (other.gameObject.CompareTag("Boomerang") && other.gameObject.GetComponent<Boomerang>().GetInvulnerability() <= 0)
-        {
-            Destroy(other.gameObject);
-        }
-    }
+    // private void OnTriggerStay2D(Collider2D other)
+    // {
+    //     // Catch the boomerang if it's not invulnerable (if its not been just thrown)
+    //     if (other.gameObject.CompareTag("Boomerang"))
+    //     {
+    //         Boomerang boomerang = other.gameObject.GetComponent<Boomerang>();
+    //         if (boomerang.invulnerabilityTime <= 0)
+    //         {
+    //             boomerang.DestroyBoomerang();
+    //         }
+    //     }
+    // }
 
     // Movement
     private void OnEnable()

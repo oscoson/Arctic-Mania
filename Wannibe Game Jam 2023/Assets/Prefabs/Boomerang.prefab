@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f3088a88caa2345857afdbb7b54906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxActiveBoomerangs: 4
   speed: 20
   invulnerabilityTime: 0.25
   closeModifier: 15

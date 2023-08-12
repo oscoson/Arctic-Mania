@@ -16,16 +16,26 @@ public class Boomerang : MonoBehaviour
     private Vector3 velocity;
     private float distanceFromPlayer;
     private int life = 3;
+    private static int activeBoomerangs = 0;
     
+    public int maxActiveBoomerangs;
     public float speed;
     public float invulnerabilityTime;
     public float closeModifier;
     public float closeDistance;
     public float returnSpeedModifer;
 
-    // Start is called before the first frame update
     void Start()
     {
+
+        if (activeBoomerangs >= maxActiveBoomerangs)
+        {
+            Destroy(gameObject);
+        } else {
+            activeBoomerangs++;
+            //Debug.Log($"Increasing active boomerangs from {activeBoomerangs - 1} to {activeBoomerangs}");
+        }
+
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
         target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -81,6 +91,44 @@ public class Boomerang : MonoBehaviour
 
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Boomerang collided with " + other.gameObject.name);
+        GameObject collisionObject = other.gameObject;
+        switch (collisionObject.tag)
+        {
+            case "Enemy":
+                collisionObject.GetComponent<Mob>().CheckFreeze();
+                ReduceLife();
+                break;
+            case "Player":
+                if (invulnerabilityTime <= 0){
+                    DestroyBoomerang();
+                }
+                break;
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        GameObject collisionObject = other.gameObject;
+        if (collisionObject.tag == "Player")
+        {
+            if (invulnerabilityTime <= 0)
+            {
+                DestroyBoomerang();
+            }
+        }
+    }
+
+    public void DestroyBoomerang()
+    {
+        Destroy(gameObject);
+        activeBoomerangs--;
+        activeBoomerangs = Mathf.Max(0, activeBoomerangs);
+        //Debug.Log($"Decreasing active boomerangs from {activeBoomerangs + 1} to {activeBoomerangs}");
+    }
+
     public float GetInvulnerability()
     {
         return invulnerabilityTime;
@@ -88,11 +136,12 @@ public class Boomerang : MonoBehaviour
 
     public void ReduceLife()
     {
-        Debug.Log("Removing life from boomerang from " + life + " to " + (life - 1) + "");
+        Debug.Log($"Reducing life from {life} to {life - 1}");
         life--;
         if (life <= 0)
         {
-            Destroy(gameObject);
+            Debug.Log("Destroying boomerang");
+            DestroyBoomerang();
         }
     }
 
