@@ -57,7 +57,7 @@ public class EnemySpawnManager : MonoBehaviour
             if (waveCounter >= numberOfWaves)
             {
                 // should go to boss scene
-                SceneManager.LoadScene("MainMenu");
+                SceneManager.LoadScene("BossScene");
                 waveCounter = numberOfWaves - 1;
             }
 
