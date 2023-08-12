@@ -145,6 +145,14 @@ public class ArcticSealMob : Mob
             GetNewTarget();
             changeTargetTimer = 0.0f;
             moveDirection = (target - (Vector2) transform.position).normalized;
+            if (moveDirection.x > 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            }
         }
         MovePosition(moveDirection);
     }
