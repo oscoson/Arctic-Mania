@@ -120,10 +120,10 @@ TextureImporter:
       name: Bear_walking_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 518
-        height: 774
+        x: 101
+        y: 27
+        width: 344
+        height: 713
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: Bear_walking_1
       rect:
         serializedVersion: 2
-        x: 518
-        y: 0
-        width: 518
-        height: 774
+        x: 404
+        y: 493
+        width: 6
+        height: 5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: Bear_walking_2
       rect:
         serializedVersion: 2
-        x: 1036
-        y: 0
-        width: 518
-        height: 774
+        x: 525
+        y: 26
+        width: 499
+        height: 718
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +183,10 @@ TextureImporter:
       name: Bear_walking_3
       rect:
         serializedVersion: 2
-        x: 1554
-        y: 0
-        width: 518
-        height: 774
+        x: 1059
+        y: 32
+        width: 476
+        height: 708
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,6 +196,27 @@ TextureImporter:
       bones: []
       spriteID: 9aac171784d7956438b3c4f000e28ff0
       internalID: 132185202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bear_walking_4
+      rect:
+        serializedVersion: 2
+        x: 1578
+        y: 26
+        width: 474
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6c86b6da5babe24faef2884c65c3885
+      internalID: -1222629398
       vertices: []
       indices: 
       edges: []
@@ -215,6 +236,7 @@ TextureImporter:
       Bear_walking_1: -560416375
       Bear_walking_2: -888092272
       Bear_walking_3: 132185202
+      Bear_walking_4: -1222629398
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

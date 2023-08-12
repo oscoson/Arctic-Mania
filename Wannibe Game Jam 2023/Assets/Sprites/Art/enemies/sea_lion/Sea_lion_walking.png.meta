@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c63c0860b730b344e9537876115d4c0f
+guid: 340a847917ab98c4b9ac24bcdc113874
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 256
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fire_elemental_walking_0
+      name: Sea_lion_walking_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 285
-        width: 233
-        height: 285
+        x: 22
+        y: 7
+        width: 386
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b928ee00003a9b24b8800fe85cbee921
-      internalID: -377682627
+      spriteID: e87218388629f544cadd9a629af5771d
+      internalID: 1926559947
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire_elemental_walking_1
+      name: Sea_lion_walking_1
       rect:
         serializedVersion: 2
-        x: 233
-        y: 285
-        width: 233
-        height: 285
+        x: 458
+        y: 10
+        width: 412
+        height: 316
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be6fae3fc34f4bf45954eb112f184432
-      internalID: 1268095560
+      spriteID: 2cb020ea2bf2a7c40bd190273e853eb3
+      internalID: 1927381115
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire_elemental_walking_2
+      name: Sea_lion_walking_2
       rect:
         serializedVersion: 2
-        x: 466
-        y: 285
-        width: 233
-        height: 285
+        x: 891
+        y: 10
+        width: 393
+        height: 338
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d99ef801e2f29ee4ab701ffbed0f6224
-      internalID: -1792476349
+      spriteID: a89e5c776a9e2724bada818f7b896c9d
+      internalID: 870212804
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire_elemental_walking_3
+      name: Sea_lion_walking_3
       rect:
         serializedVersion: 2
-        x: 699
-        y: 285
-        width: 233
-        height: 285
+        x: 1338
+        y: 10
+        width: 411
+        height: 316
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,50 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 473f1e6a671bbd842b3b2a3b262c3cb5
-      internalID: -344835430
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fire_elemental_walking_4
-      rect:
-        serializedVersion: 2
-        x: 932
-        y: 285
-        width: 233
-        height: 285
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5a6ef25a730f2014b80ffaec8e7632c6
-      internalID: 178454585
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fire_elemental_walking_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 233
-        height: 285
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 033c54d20b42477419393dadc7c65fab
-      internalID: 1497366241
+      spriteID: 1e760e6d4566ca44f9293c517d846f63
+      internalID: 551303909
       vertices: []
       indices: 
       edges: []
@@ -253,12 +211,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Fire_elemental_walking_0: -377682627
-      Fire_elemental_walking_1: 1268095560
-      Fire_elemental_walking_2: -1792476349
-      Fire_elemental_walking_3: -344835430
-      Fire_elemental_walking_4: 178454585
-      Fire_elemental_walking_5: 1497366241
+      Sea_lion_walking_0: 1926559947
+      Sea_lion_walking_1: 1927381115
+      Sea_lion_walking_2: 870212804
+      Sea_lion_walking_3: 551303909
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

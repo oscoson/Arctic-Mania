@@ -10,6 +10,7 @@ public class SnowHareMob : Mob
     private SpriteRenderer sprite;
     private float damageCooldown = 0f;
     private CombatManager combatManager;
+    private Animator hareAnimator;
     Vector3 target = Vector3.zero;
 
     private float sittingTimer = 0.0f;
@@ -36,6 +37,7 @@ public class SnowHareMob : Mob
         speed = mob.speed;
         damage = mob.damage;
         dropItem = mob.dropItem;
+        hareAnimator = GetComponent<Animator>();
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         isFrozen = false;
@@ -74,9 +76,11 @@ public class SnowHareMob : Mob
         switch (mobState)
         {
             case SnowHareMobState.Sitting:
+                hareAnimator.SetBool("isJumping", false);
                 mobRB.MovePosition(mobRB.position);  // basically, stay still
                 break;
             case SnowHareMobState.Hopping:
+                hareAnimator.SetBool("isJumping", true);
                 mobRB.velocity = (target - transform.position).normalized * (speed * frost);
                 break;
         }
@@ -91,7 +95,15 @@ public class SnowHareMob : Mob
     private void GetNewTarget()
     {
         Vector3 direction = (player.transform.position - transform.position);
-
+        if (direction.x > 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        
         if (direction.magnitude < hopDistance)
         {
             target = player.transform.position;
