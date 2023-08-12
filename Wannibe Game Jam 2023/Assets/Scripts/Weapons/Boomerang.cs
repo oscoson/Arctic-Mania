@@ -17,6 +17,7 @@ public class Boomerang : MonoBehaviour
     private float distanceFromPlayer;
     private int life = 3;
     private static int activeBoomerangs = 0;
+    private List<GameObject> objectsHit = new List<GameObject>();
     
     public int maxActiveBoomerangs;
     public float speed;
@@ -93,16 +94,25 @@ public class Boomerang : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Boomerang collided with " + other.gameObject.name);
+        //Main enemy collision code
         GameObject collisionObject = other.gameObject;
         switch (collisionObject.tag)
         {
             case "Enemy":
-                collisionObject.GetComponent<Mob>().CheckFreeze();
-                ReduceLife();
+                Mob mob = collisionObject.GetComponent<Mob>();
+                if (!mob.IsFrozen() && !objectsHit.Contains(collisionObject))
+                {
+                    mob.CheckFreeze();
+                    objectsHit.Add(collisionObject);
+                    ReduceLife();
+                }
                 break;
             case "Player":
-                if (invulnerabilityTime <= 0){
+                if (invulnerabilityTime <= 0 && !objectsHit.Contains(collisionObject))
+                {
+                    //Also add the player to the list of objects hit so that the boomerang doesn't die twice, prevents permanent max boomerang increase
+                    objectsHit.Add(collisionObject);
+                    StartCoroutine(RemoveEnemyFromList(collisionObject));
                     DestroyBoomerang();
                 }
                 break;
@@ -111,6 +121,7 @@ public class Boomerang : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
+        //Handles the case where the boomerang is stuck in the player
         GameObject collisionObject = other.gameObject;
         if (collisionObject.tag == "Player")
         {
@@ -121,12 +132,27 @@ public class Boomerang : MonoBehaviour
         }
     }
 
-    public void DestroyBoomerang()
+    void OnTriggerExit2D(Collider2D other)
     {
-        Destroy(gameObject);
+        //Prevents the boomerang from hitting the same enemy twice instantly
+        GameObject collisionObject = other.gameObject;
+        if (collisionObject.tag == "Enemy")
+        {
+            StartCoroutine(RemoveEnemyFromList(collisionObject));
+        }
+    }
+
+    private IEnumerator RemoveEnemyFromList(GameObject enemy)
+    {
+        yield return new WaitForSeconds(0.5f);
+        objectsHit.Remove(enemy);
+    }
+
+    private void DestroyBoomerang()
+    {
         activeBoomerangs--;
         activeBoomerangs = Mathf.Max(0, activeBoomerangs);
-        //Debug.Log($"Decreasing active boomerangs from {activeBoomerangs + 1} to {activeBoomerangs}");
+        Destroy(gameObject);
     }
 
     public float GetInvulnerability()
@@ -134,13 +160,11 @@ public class Boomerang : MonoBehaviour
         return invulnerabilityTime;
     }
 
-    public void ReduceLife()
+    private void ReduceLife()
     {
-        Debug.Log($"Reducing life from {life} to {life - 1}");
         life--;
         if (life <= 0)
         {
-            Debug.Log("Destroying boomerang");
             DestroyBoomerang();
         }
     }
