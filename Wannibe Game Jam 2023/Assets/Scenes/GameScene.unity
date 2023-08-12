@@ -1097,7 +1097,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: -1409678221
+  m_SortingLayerID: -106284471
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &608712179
@@ -2345,6 +2345,7 @@ GameObject:
   - component: {fileID: 1805218211}
   - component: {fileID: 1805218212}
   - component: {fileID: 1805218213}
+  - component: {fileID: 1805218215}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -2438,9 +2439,9 @@ SpriteRenderer:
   m_SortingLayerID: -577530025
   m_SortingLayer: 5
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eafd10da8804d9e46950310969a64fcc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -2483,7 +2484,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.2578125, y: 1.9921875}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3067,6 +3068,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &1805218215
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805218205}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a9b298a95b643e4982311c3784f630e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1951954759
 GameObject:
   m_ObjectHideFlags: 0
@@ -3136,8 +3158,8 @@ MonoBehaviour:
       foxMobCount: 0
     - delayFromLast: 1.07
       basicMobCount: 0
-      fireElementalMobCount: 0
-      snowHareMobCount: 0
+      fireElementalMobCount: 5
+      snowHareMobCount: 5
       arcticSealMobCount: 0
       huskyMobCount: 0
       foxMobCount: 9
@@ -3171,7 +3193,7 @@ PrefabInstance:
     - target: {fileID: 177004102922017475, guid: d7b24c9cef48761489a752df42519e44, type: 3}
       propertyPath: musicClip
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 2f73b7535b923c8418807044a6786d8f, type: 3}
     - target: {fileID: 177004102922017475, guid: d7b24c9cef48761489a752df42519e44, type: 3}
       propertyPath: testSource
       value: 
@@ -3239,6 +3261,14 @@ PrefabInstance:
     - target: {fileID: 8496317663373593620, guid: d7b24c9cef48761489a752df42519e44, type: 3}
       propertyPath: Loop
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8496317663373593620, guid: d7b24c9cef48761489a752df42519e44, type: 3}
+      propertyPath: m_Volume
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 8496317663373593620, guid: d7b24c9cef48761489a752df42519e44, type: 3}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8496317663373593620, guid: d7b24c9cef48761489a752df42519e44, type: 3}
       propertyPath: OutputAudioMixerGroup
