@@ -13,6 +13,7 @@ public class FoxMob : Mob
 
     [Header("Death Items")]
     [SerializeField] GameObject dropItem;
+    private float dropSpawnChance;
 
     FoxMobState mobState = FoxMobState.Moving;
 
@@ -41,6 +42,7 @@ public class FoxMob : Mob
         speed = mob.speed;
         damage = mob.damage;
         dropItem = mob.dropItem;
+        dropSpawnChance = mob.dropSpawnRate;
         player = FindObjectOfType<Player>();
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -129,20 +131,20 @@ public class FoxMob : Mob
         mobRB.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        GameObject collisionObject = other.gameObject;
-        switch (collisionObject.tag)
-        {
-            case "Boomerang":
-                if (!IsFrozen())
-                {
-                    collisionObject.GetComponent<Boomerang>().ReduceLife();
-                }
-                CheckFreeze();
-                break;
-        }
-    }
+    // void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     GameObject collisionObject = other.gameObject;
+    //     switch (collisionObject.tag)
+    //     {
+    //         case "Boomerang":
+    //             if (!IsFrozen())
+    //             {
+    //                 collisionObject.GetComponent<Boomerang>().ReduceLife();
+    //             }
+    //             CheckFreeze();
+    //             break;
+    //     }
+    // }
 
     public override void Freeze()
     {
@@ -151,6 +153,7 @@ public class FoxMob : Mob
         isFrozen = true;
 
         gameObject.layer = LayerMask.NameToLayer("Frozen");
+        GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Frozen");
     }
 
     public override void UnFreeze()
@@ -160,6 +163,7 @@ public class FoxMob : Mob
         isFrozen = false;
 
         gameObject.layer = LayerMask.NameToLayer("Enemy");
+        GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Enemy");
     }
 
     public override bool IsFrozen()
@@ -205,7 +209,7 @@ public class FoxMob : Mob
 
     bool GenerateRandomBool()
     {
-        if (Random.value >= 0.8)
+        if (Random.value <= dropSpawnChance)
         {
             return true;
         }

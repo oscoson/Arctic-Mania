@@ -22,7 +22,7 @@ TagManager:
   - Ignore
   - Frozen
   - Background
-  - 
+  - Pickup
   - 
   - 
   - 
@@ -55,6 +55,9 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 2885289075
+    locked: 0
+  - name: Frozen
+    uniqueID: 243279411
     locked: 0
   - name: Enemy
     uniqueID: 2486528837

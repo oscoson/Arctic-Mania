@@ -16,16 +16,27 @@ public class Boomerang : MonoBehaviour
     private Vector3 velocity;
     private float distanceFromPlayer;
     private int life = 3;
+    private static int activeBoomerangs = 0;
+    private List<GameObject> objectsHit = new List<GameObject>();
     
+    public int maxActiveBoomerangs;
     public float speed;
     public float invulnerabilityTime;
     public float closeModifier;
     public float closeDistance;
     public float returnSpeedModifer;
 
-    // Start is called before the first frame update
     void Start()
     {
+
+        if (activeBoomerangs >= maxActiveBoomerangs)
+        {
+            Destroy(gameObject);
+        } else {
+            activeBoomerangs++;
+            //Debug.Log($"Increasing active boomerangs from {activeBoomerangs - 1} to {activeBoomerangs}");
+        }
+
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
         target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -81,18 +92,80 @@ public class Boomerang : MonoBehaviour
 
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        //Main enemy collision code
+        GameObject collisionObject = other.gameObject;
+        switch (collisionObject.tag)
+        {
+            case "Enemy":
+                Mob mob = collisionObject.GetComponent<Mob>();
+                if (!mob.IsFrozen() && !objectsHit.Contains(collisionObject))
+                {
+                    mob.CheckFreeze();
+                    objectsHit.Add(collisionObject);
+                    ReduceLife();
+                }
+                break;
+            case "Player":
+                if (invulnerabilityTime <= 0 && !objectsHit.Contains(collisionObject))
+                {
+                    //Also add the player to the list of objects hit so that the boomerang doesn't die twice, prevents permanent max boomerang increase
+                    objectsHit.Add(collisionObject);
+                    StartCoroutine(RemoveEnemyFromList(collisionObject));
+                    DestroyBoomerang();
+                }
+                break;
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        //Handles the case where the boomerang is stuck in the player
+        GameObject collisionObject = other.gameObject;
+        if (collisionObject.tag == "Player")
+        {
+            if (invulnerabilityTime <= 0)
+            {
+                DestroyBoomerang();
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        //Prevents the boomerang from hitting the same enemy twice instantly
+        GameObject collisionObject = other.gameObject;
+        if (collisionObject.tag == "Enemy")
+        {
+            StartCoroutine(RemoveEnemyFromList(collisionObject));
+        }
+    }
+
+    private IEnumerator RemoveEnemyFromList(GameObject enemy)
+    {
+        yield return new WaitForSeconds(0.5f);
+        objectsHit.Remove(enemy);
+    }
+
+    private void DestroyBoomerang()
+    {
+        activeBoomerangs--;
+        activeBoomerangs = Mathf.Max(0, activeBoomerangs);
+        Destroy(gameObject);
+    }
+
     public float GetInvulnerability()
     {
         return invulnerabilityTime;
     }
 
-    public void ReduceLife()
+    private void ReduceLife()
     {
-        Debug.Log("Removing life from boomerang from " + life + " to " + (life - 1) + "");
         life--;
         if (life <= 0)
         {
-            Destroy(gameObject);
+            DestroyBoomerang();
         }
     }
 

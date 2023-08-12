@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2939340206537808667}
   - component: {fileID: 2939340206537808664}
   - component: {fileID: 4594570200060822903}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HuskyMob
   m_TagString: Enemy
   m_Icon: {fileID: 0}

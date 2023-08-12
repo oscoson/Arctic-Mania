@@ -82,6 +82,10 @@ public class Player : MonoBehaviour
              Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
             cooldown.StartCoolDownSnowBall();
         }
+        if(projectiles[currentProjectileIndex].name == "Boomerang") 
+        {
+            Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+        }
         
     }
 
@@ -89,20 +93,20 @@ public class Player : MonoBehaviour
     {
         if(projectiles[currentProjectileIndex].name == "Snowblower")
         {
+            CheckSnowblower();
             Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 0f, -90f), snowballSpawn.transform);
+            FindAnyObjectByType<Snowblower>().GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 
     void OnFireHoldCancelled(InputAction.CallbackContext context)
     {
-        if(projectiles[currentProjectileIndex].name == "Snowblower")
-        {
-            Destroy(FindObjectOfType<Snowblower>().gameObject);
-        }
+        CheckSnowblower();
     }
     
     void OnSwitchPerformed(InputAction.CallbackContext context)
     {
+        CheckSnowblower();
         if(currentProjectileIndex == 0)
         {
             currentProjectileIndex = 1;
@@ -112,10 +116,10 @@ public class Player : MonoBehaviour
             currentProjectileIndex = 0;
         }
     }
+    
 
     void OnSwitchCancelled(InputAction.CallbackContext context)
     {
-        
     }
 
     public void TakeDamage(float damage)
@@ -125,15 +129,6 @@ public class Player : MonoBehaviour
         {
             Destroy(gameObject);
             onDeath.Invoke();
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        // Catch the boomerang if it's not invulnerable (if its not been just thrown)
-        if (other.gameObject.CompareTag("Boomerang") && other.gameObject.GetComponent<Boomerang>().GetInvulnerability() <= 0)
-        {
-            Destroy(other.gameObject);
         }
     }
 
@@ -161,7 +156,7 @@ public class Player : MonoBehaviour
     {
         playerAnimator.SetBool("isRunning", true);
         moveVector = value.ReadValue<Vector2>();
-        if(moveVector.x > 0)
+        if(moveVector.x < 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
@@ -176,5 +171,14 @@ public class Player : MonoBehaviour
     {
         playerAnimator.SetBool("isRunning", false);
         moveVector = Vector2.zero;
+    }
+
+    public void CheckSnowblower()
+    {
+        // Shouldn't really be here, but it's needed to prevent Snowblower instantiation errors
+        if(GameObject.Find("Snowblower(Clone)") != null)
+        {
+            Destroy(FindObjectOfType<Snowblower>().gameObject);
+        }
     }
 }
