@@ -100,6 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163f36f5f7b3284409107e7e3acdf6b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slowToFastProjectile: {fileID: 8181750271150091442, guid: f097e246b8b34f94e99c9cab9d44ddbc, type: 3}
+  starPatternProjectile: {fileID: 8181750271150091442, guid: bb9a30cdd9055a24ea24045edcfadb41, type: 3}
+  accelerateProjectile: {fileID: 3332669413346295126, guid: ebc20de565c650b4a8ff7366fde673a7, type: 3}
   bodyContactDamage: 20
 --- !u!50 &2939340206537808667
 Rigidbody2D:
@@ -135,7 +138,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.3934459, y: 0.6709951}
+  m_Offset: {x: -0.26726818, y: 1.2215891}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -146,7 +149,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4348601, y: 1.1643252}
+  m_Size: {x: 2.5589905, y: 1.8525677}
   m_EdgeRadius: 0
 --- !u!95 &8730798044129738574
 Animator:

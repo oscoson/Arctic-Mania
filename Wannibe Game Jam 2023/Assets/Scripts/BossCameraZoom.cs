@@ -11,7 +11,7 @@ public class BossCameraZoom : MonoBehaviour
     CinemachineVirtualCamera vCam;
 
     float minZoom = 9.09f;
-    float padding = 5.0f;
+    float padding = 6.0f;
 
     // Start is called before the first frame update
     void Start()

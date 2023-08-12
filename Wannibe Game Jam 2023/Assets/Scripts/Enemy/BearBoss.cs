@@ -6,6 +6,12 @@ public class BearBoss : MonoBehaviour
 {
     private Player player;
     private Rigidbody2D bossRb;
+    private Animator animator;
+
+    [SerializeField] EnemyProjectile slowToFastProjectile;
+    [SerializeField] EnemyProjectile starPatternProjectile;
+    [SerializeField] AccelerateProjectile accelerateProjectile;
+
     private float damageCooldown = 0f;
 
     public float bodyContactDamage = 20.0f;
@@ -31,10 +37,15 @@ public class BearBoss : MonoBehaviour
 
     float switchToPhase1Timer = 0.0f;
     float switchToPhase1Threshold = 1.0f;
+
     /* end intro variables */
 
     /* variables for phase 1 */
+    float phase1Timer = 0.0f;  // generic timer reused for all phase1states
 
+    float idleThreshold = 2.0f;
+
+    bool performingPhase1Action = false;
     /* end phase1 variables */
 
     /* variables for phase 2 */
@@ -61,6 +72,9 @@ public class BearBoss : MonoBehaviour
     enum Phase1State
     {
         Idle,
+        MoveShoot,
+        ChargePerpShoot,
+
     }
 
     enum Phase2State
@@ -77,6 +91,7 @@ public class BearBoss : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         bossRb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         health = maxHealth[0];
         bossPhaseState = BearBossPhaseState.Intro;
@@ -105,6 +120,7 @@ public class BearBoss : MonoBehaviour
                 }
                 break;
             case BearBossPhaseState.Phase1:
+                HandlePhase1Logic();
                 break;
             case BearBossPhaseState.Phase2:
                 break;
@@ -123,6 +139,7 @@ public class BearBoss : MonoBehaviour
             case BearBossPhaseState.Intro:
                 break;
             case BearBossPhaseState.Phase1:
+                HandlePhase1FixedLogic();
                 break;
             case BearBossPhaseState.Phase2:
                 break;
@@ -131,6 +148,172 @@ public class BearBoss : MonoBehaviour
             case BearBossPhaseState.Defeat:
                 break;
         }
+    }
+
+    private void HandlePhase1Logic()
+    {
+        switch (phase1State)
+        {
+            case Phase1State.Idle:
+                phase1Timer += Time.deltaTime;
+                if (phase1Timer > idleThreshold)
+                {
+                    phase1Timer = 0.0f;
+                    float rng = Random.value * 2;
+                    if (rng <= 1)
+                    {
+                        animator.SetTrigger("StartWalking");
+                        phase1State = Phase1State.MoveShoot;
+                        StartCoroutine(ShootMoveCoroutine());
+                    } else if (rng <= 2)
+                    {
+                        animator.SetTrigger("StartWalking");
+                        phase1State = Phase1State.ChargePerpShoot;
+                        StartCoroutine(ChargePerpShootCoroutine());
+                    }
+                }
+                break;
+            case Phase1State.MoveShoot:
+                if (!performingPhase1Action)
+                {
+                    phase1State = Phase1State.Idle;
+                }
+                break;
+            case Phase1State.ChargePerpShoot:
+                if (!performingPhase1Action)
+                {
+                    phase1State = Phase1State.Idle;
+                }
+                break;
+        }
+    }
+
+    private void HandlePhase1FixedLogic()
+    {
+        switch (phase1State)
+        {
+            case Phase1State.Idle:
+                break;
+            case Phase1State.MoveShoot:
+                break;
+            case Phase1State.ChargePerpShoot:
+                break;
+        }
+    }
+
+    IEnumerator ChargePerpShootCoroutine()
+    {
+        performingPhase1Action = true;
+
+        for (int i = 0; i < 2; i++)
+        {
+            Vector2 direction = (player.transform.position - transform.position);
+
+            direction = Quaternion.Euler(0f, 0f, (Random.value < 0.5f ? -1 : 1) * Random.Range(35f, 55f)) * direction;
+
+            float chargeSpeed = 100.0f;
+
+            float time = 1.0f;
+            float timer = 0.0f;
+
+            float shootTimer = 0.0f;
+            float shootThreshold = 0.1f;
+            float shootSpeed = 8.0f;
+
+            float speedScale = 1.0f;
+
+            while (timer < time)
+            {
+                timer += Time.deltaTime;
+                shootTimer += Time.deltaTime;
+                Move(direction, chargeSpeed);
+
+                if (shootTimer >= shootThreshold)
+                {
+                    shootTimer = 0.0f;
+                    AccelerateProjectile proj1 = Instantiate(accelerateProjectile, transform.position, Quaternion.identity).GetComponent<AccelerateProjectile>();
+                    proj1.SetAcceleration(10.0f * speedScale);
+                    proj1.Launch(Quaternion.Euler(0f, 0f, 90f) * direction, shootSpeed * speedScale);
+                    AccelerateProjectile proj3 = Instantiate(accelerateProjectile, transform.position, Quaternion.identity).GetComponent<AccelerateProjectile>();
+                    proj3.SetAcceleration(10.0f * speedScale);
+                    proj3.Launch(Quaternion.Euler(0f, 0f, -90f) * direction, shootSpeed * speedScale);
+
+                    if (speedScale == 1.0f) speedScale = 0.5f;
+                    else speedScale = 1.0f;
+                }
+                yield return null;
+            }
+        }
+
+        animator.SetTrigger("StartIdle");
+        performingPhase1Action = false;
+    }
+
+    IEnumerator ShootMoveCoroutine()
+    {
+        performingPhase1Action = true;
+
+
+        for (int i = 0; i < 2; i++)
+        {
+            float shootTimer = 0.0f;
+            float shootThreshold = 0.05f;
+            float shootSpeed = 4.0f;
+            float shootMaxSpeed = 35.0f;
+
+            while (shootSpeed < shootMaxSpeed)
+            {
+                Move(player.transform.position - transform.position, 4.0f);
+
+                shootTimer += Time.deltaTime;
+
+                if (shootTimer >= shootThreshold)
+                {
+                    EnemyProjectile proj = Instantiate(slowToFastProjectile.gameObject, transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
+                    proj.Launch(Quaternion.Euler(0.0f, 0.0f, Random.Range(-5.0f, 5.0f)) * (player.transform.position - transform.position), shootSpeed);
+                    shootSpeed += 1.5f;
+                    shootTimer = 0.0f;
+                }
+                yield return null;
+            }
+            
+            for (float angle = 0; angle < Mathf.PI * 2 * Mathf.Rad2Deg; angle += 20.0f)
+            {
+                Move(player.transform.position - transform.position, 4.0f);
+
+                float speed = Mathf.Cos((angle - Mathf.PI * Mathf.Rad2Deg) * Mathf.Deg2Rad) * 5.0f + 6.0f;
+                EnemyProjectile proj = Instantiate(starPatternProjectile.gameObject, transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
+                proj.Launch(Quaternion.Euler(0.0f, 0.0f, angle) * (player.transform.position - transform.position), speed);
+                shootSpeed += 1.0f;
+                shootTimer = 0.0f;
+            }
+            yield return new WaitForSeconds(1.0f);
+
+            for (float angle = 0; angle < Mathf.PI * 2 * Mathf.Rad2Deg; angle += 20.0f)
+            {
+                Move(player.transform.position - transform.position, 4.0f);
+
+                float speed = Mathf.Cos((angle - Mathf.PI * Mathf.Rad2Deg) * Mathf.Deg2Rad) * 3.0f + 6.0f + Random.Range(-2.0f, 2.0f);
+                EnemyProjectile proj = Instantiate(starPatternProjectile.gameObject, transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
+                proj.Launch(Quaternion.Euler(0.0f, 0.0f, angle) * (player.transform.position - transform.position), speed);
+                shootSpeed += 1.0f;
+                shootTimer = 0.0f;
+            }
+
+            float waitTimer = 0.0f;
+            float waitThreshold = 1.0f;
+
+            while (waitTimer < waitThreshold)
+            {
+                Move(player.transform.position - transform.position, 4.0f);
+
+                waitTimer += Time.deltaTime;
+                yield return null;
+            }
+
+        }
+        animator.SetTrigger("StartIdle");
+        performingPhase1Action = false;
     }
 
     public int GetTotalBossHealth()
@@ -145,6 +328,8 @@ public class BearBoss : MonoBehaviour
 
     private void Move(Vector2 direction, float speed)
     {
+        direction.Normalize();
+        animator.SetFloat("Horizontal", direction.x);
         // As frost value goes down, speed decreases
         float frost = health / maxHealth[currentPhase];
         bossRb.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));

@@ -2111,22 +2111,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2939340206537808664, guid: ee2534270f84ab043b2f50bf77dceee8, type: 3}
-      propertyPath: m_Size.x
-      value: 1.5675159
-      objectReference: {fileID: 0}
-    - target: {fileID: 2939340206537808664, guid: ee2534270f84ab043b2f50bf77dceee8, type: 3}
-      propertyPath: m_Size.y
-      value: 1.2919673
-      objectReference: {fileID: 0}
-    - target: {fileID: 2939340206537808664, guid: ee2534270f84ab043b2f50bf77dceee8, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.39818072
-      objectReference: {fileID: 0}
-    - target: {fileID: 2939340206537808664, guid: ee2534270f84ab043b2f50bf77dceee8, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.7299182
-      objectReference: {fileID: 0}
     - target: {fileID: 2939340206537808666, guid: ee2534270f84ab043b2f50bf77dceee8, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -2174,10 +2158,6 @@ PrefabInstance:
     - target: {fileID: 2939340206537808679, guid: ee2534270f84ab043b2f50bf77dceee8, type: 3}
       propertyPath: m_Name
       value: BearBoss
-      objectReference: {fileID: 0}
-    - target: {fileID: 8730798044129738574, guid: ee2534270f84ab043b2f50bf77dceee8, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee2534270f84ab043b2f50bf77dceee8, type: 3}
