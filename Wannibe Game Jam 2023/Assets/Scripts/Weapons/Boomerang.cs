@@ -37,6 +37,8 @@ public class Boomerang : MonoBehaviour
             //Debug.Log($"Increasing active boomerangs from {activeBoomerangs - 1} to {activeBoomerangs}");
         }
 
+        StartCoroutine(RotateBoomerang());
+
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
         target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -146,6 +148,15 @@ public class Boomerang : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         objectsHit.Remove(enemy);
+    }
+
+    private IEnumerator RotateBoomerang()
+    {
+        while (true)
+        {
+            transform.Rotate(0, 0, 10);
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
     private void DestroyBoomerang()
