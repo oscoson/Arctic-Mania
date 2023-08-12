@@ -10,4 +10,5 @@ public class EnemySO : ScriptableObject
     public float speed;
     public float damage;
     public GameObject dropItem;
+    [Range(0, 1)] public float dropSpawnRate;
 }

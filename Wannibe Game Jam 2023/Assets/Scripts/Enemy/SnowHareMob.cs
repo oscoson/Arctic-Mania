@@ -28,6 +28,7 @@ public class SnowHareMob : Mob
 
     [Header("Death Items")]
     [SerializeField] GameObject dropItem;
+    private float dropSpawnChance;
 
     // Start is called before the first frame update
     void Awake()
@@ -37,6 +38,7 @@ public class SnowHareMob : Mob
         speed = mob.speed;
         damage = mob.damage;
         dropItem = mob.dropItem;
+        dropSpawnChance = mob.dropSpawnRate;
         hareAnimator = GetComponent<Animator>();
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -120,6 +122,8 @@ public class SnowHareMob : Mob
         health = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
+        gameObject.layer = LayerMask.NameToLayer("Frozen");
+        GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Frozen");
     }
 
     public override void UnFreeze()
@@ -127,6 +131,8 @@ public class SnowHareMob : Mob
         sprite.color = new Color(200, 200, 255, 255);
         health = maxHealth;
         isFrozen = false;
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
+        GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Enemy");
     }
 
     public override void CheckFreeze()
@@ -169,7 +175,7 @@ public class SnowHareMob : Mob
 
     bool GenerateRandomBool()
     {
-        if (Random.value >= 0.8)
+        if (Random.value <= dropSpawnChance)
         {
             return true;
         }

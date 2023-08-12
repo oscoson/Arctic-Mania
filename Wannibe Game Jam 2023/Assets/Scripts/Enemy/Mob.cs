@@ -10,6 +10,7 @@ public abstract class Mob : MonoBehaviour, IFreezable
     protected float speed;
     protected float frost;
     protected float damage;
+    protected float dropSpawnRate;
 
     public abstract bool IsFrozen();
     public abstract void UnFreeze();

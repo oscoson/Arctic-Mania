@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
     {
         playerAnimator.SetBool("isRunning", true);
         moveVector = value.ReadValue<Vector2>();
-        if(moveVector.x > 0)
+        if(moveVector.x < 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }

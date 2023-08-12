@@ -13,6 +13,7 @@ public class BasicMob : Mob
 
     [Header("Death Items")]
     [SerializeField] GameObject dropItem;
+    private float dropSpawnChance;
 
     // Start is called before the first frame update
     void Awake()
@@ -22,6 +23,7 @@ public class BasicMob : Mob
         speed = mob.speed;
         damage = mob.damage;
         dropItem = mob.dropItem;
+        dropSpawnChance = mob.dropSpawnRate;
         player = FindObjectOfType<Player>();
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -57,19 +59,6 @@ public class BasicMob : Mob
         mobRB.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));
     }
 
-    // void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     GameObject collisionObject = other.gameObject;
-    //     switch (collisionObject.tag)
-    //     {
-    //         case "Boomerang":
-    //             if (!IsFrozen()){
-    //                 collisionObject.GetComponent<Boomerang>().ReduceLife();
-    //             }
-    //             CheckFreeze();
-    //         break;
-    //     }
-    // }
 
     public override void Freeze()
     {
@@ -79,6 +68,7 @@ public class BasicMob : Mob
         isFrozen = true;
 
         gameObject.layer = LayerMask.NameToLayer("Frozen");
+        GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Frozen");
     }
 
     public override void UnFreeze()
@@ -88,6 +78,7 @@ public class BasicMob : Mob
         isFrozen = false;
 
         gameObject.layer = LayerMask.NameToLayer("Enemy");
+        GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Enemy");
     }
 
     public override bool IsFrozen()
@@ -133,7 +124,7 @@ public class BasicMob : Mob
 
     bool GenerateRandomBool()
     {
-        if (Random.value >= 0.5)
+        if (Random.value <= dropSpawnChance)
         {
             return true;
         }
