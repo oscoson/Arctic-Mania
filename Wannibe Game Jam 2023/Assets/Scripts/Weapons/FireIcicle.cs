@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class FireIcicle : MonoBehaviour
 {
+    [SerializeField] private int destroyTime;
     [Header("Attributes")]
-    [SerializeField] private int destroyTime = 5;
     private Rigidbody2D magicRB;
     private Player player;
     private Vector3 mousePos;
     private Camera mainCam;
+    [SerializeField] private GameObject deathEffect;
 
     [SerializeField] float xSpeed;
 
@@ -27,7 +28,6 @@ public class FireIcicle : MonoBehaviour
         
 
         //transform.localScale = new Vector2(player.GetComponent<Transform>().localScale.x, 1f);
-        StartCoroutine(DestructionTime(destroyTime));
     }
 
 
@@ -44,15 +44,13 @@ public class FireIcicle : MonoBehaviour
             Mob mob = collisionObject.GetComponent<Mob>();
             mob.CheckFreeze();
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instantiate(deathEffect, transform.position, Quaternion.identity);
+        StartCoroutine(DestructionTime(destroyTime));
     }
-
     private IEnumerator DestructionTime(int waitTime)
     {
         yield return new WaitForSecondsRealtime(waitTime);
         Destroy(gameObject);
+        
     }
 }
