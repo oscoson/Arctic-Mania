@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class EnemySpawnManager : MonoBehaviour
 {
     [SerializeField] List<WaveInfo> waveInfo;
+    [SerializeField] private TextMeshProUGUI waveCounterText; 
     int numberOfWaves = 0;
-    int waveCounter = 0;
     int totalWaveEnemies = 0;
-
+    int waveCounter = 0; 
     CombatManager combatManager;
 
     int currentEnemySpawnIndex = 0;  // the index for enemySpawnInfos
@@ -24,6 +25,8 @@ public class EnemySpawnManager : MonoBehaviour
         numberOfWaves = waveInfo.Count;
         combatManager = FindObjectOfType<CombatManager>();
         totalWaveEnemies = GetNumberOfMobs();
+
+        UpdateWaveCounter(); // Initial update
     }
 
     // Update is called once per frame
@@ -47,6 +50,7 @@ public class EnemySpawnManager : MonoBehaviour
 
             // go to next wave
             waveCounter++;
+            UpdateWaveCounter();
             currentEnemySpawnIndex = 0;
             combatManager.mobCount = 0;
 
@@ -105,6 +109,11 @@ public class EnemySpawnManager : MonoBehaviour
                 delayTimer = 0.0f;
             }
         }
+    }
+
+    private void UpdateWaveCounter()
+    {
+        waveCounterText.text = "Wave Number: " + (waveCounter + 1).ToString() + "/" + numberOfWaves.ToString();
     }
 }
 
