@@ -11,7 +11,9 @@ public class EnemySpawner : MonoBehaviour
 
     public float cooldown = 3.0f;                   // cooldown makes it so the spawner doesn't spawn too many at once
     private float cooldownTimer = float.MaxValue;   // gets reset to 0 when timer is reset
-
+    private float startVisualizerTimer;
+    private Animator spawnIndication;
+    
     public bool Busy { get; private set; }
 
     private CombatManager combatManager;
@@ -20,6 +22,7 @@ public class EnemySpawner : MonoBehaviour
     {
         /* init */
         combatManager = FindObjectOfType<CombatManager>();
+        spawnIndication = GetComponent<Animator>();
         spawnQueue = new();
         enemyPrefabs = new();
         
@@ -61,7 +64,21 @@ public class EnemySpawner : MonoBehaviour
         Busy = cooldownTimer < cooldown;
         cooldownTimer = Mathf.Min(cooldownTimer, cooldown);
 
-        if (!Busy && spawnQueue.Count > 0) SpawnEnemy(spawnQueue.Dequeue());  // spawn if not busy
+        if (!Busy && spawnQueue.Count > 0) 
+        {
+            startVisualizerTimer += Time.deltaTime;
+            if(startVisualizerTimer > 3)
+            {
+                startVisualizerTimer = 0;
+                SpawnEnemy(spawnQueue.Dequeue());  // spawn if not busy
+                spawnIndication.enabled = false;
+            }
+            else
+            {
+                spawnIndication.enabled = true;
+            }
+
+        }
     }
 
     public void AddToSpawnQueue(EnemySpawnInfo enemySpawnInfo)
@@ -115,4 +132,6 @@ public class EnemySpawner : MonoBehaviour
         }
         cooldownTimer = 0.0f;
     }
+
+    
 }

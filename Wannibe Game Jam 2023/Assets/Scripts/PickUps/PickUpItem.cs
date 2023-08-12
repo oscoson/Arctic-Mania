@@ -10,6 +10,8 @@ public class PickUpItem : MonoBehaviour
 
     [SerializeField]
     private float duration = 0.3f;
+    [SerializeField]
+    private float timeLeftToPickUp;
 
     [SerializeField]
     private GameObject[] pickupItems = new GameObject[4];
@@ -25,6 +27,7 @@ public class PickUpItem : MonoBehaviour
         item = pickupItems[GenerateRandomNum()];
         player = FindObjectOfType<Player>();
         gameObject.GetComponent<SpriteRenderer>().sprite = item.GetComponent<SpriteRenderer>().sprite;
+        StartCoroutine(TimeLeftAlive(timeLeftToPickUp));
     }
 
     public void DestroyItem()
@@ -51,6 +54,7 @@ public class PickUpItem : MonoBehaviour
         }
     }
 
+
     private IEnumerator AnimateItemPickup()
     {
         audioSource.Play();
@@ -64,6 +68,12 @@ public class PickUpItem : MonoBehaviour
                 Vector3.Lerp(startScale, endScale, currentTime / duration);
             yield return null;
         }
+        Destroy(gameObject);
+    }
+
+    private IEnumerator TimeLeftAlive(float timeLeft)
+    {
+        yield return new WaitForSecondsRealtime(timeLeft);
         Destroy(gameObject);
     }
 }
