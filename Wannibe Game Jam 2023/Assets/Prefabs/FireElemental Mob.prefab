@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2939340206537808667}
   - component: {fileID: 2939340206537808664}
   - component: {fileID: 2375913857079832621}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FireElemental Mob
   m_TagString: Enemy
   m_Icon: {fileID: 0}

@@ -27,6 +27,7 @@ public class FireElementalMob : Mob
 
     [Header("Death Items")]
     [SerializeField] GameObject dropItem;
+    private float dropSpawnChance;
 
     // Start is called before the first frame update
     void Awake()
@@ -36,6 +37,7 @@ public class FireElementalMob : Mob
         speed = mob.speed;
         damage = mob.damage;
         dropItem = mob.dropItem;
+        dropSpawnChance = mob.dropSpawnRate;
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         isFrozen = false;
@@ -157,6 +159,8 @@ public class FireElementalMob : Mob
         health = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
+        gameObject.layer = LayerMask.NameToLayer("Frozen");
+        GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Frozen");
     }
 
     public override void UnFreeze()
@@ -164,6 +168,8 @@ public class FireElementalMob : Mob
         sprite.color = new Color(255, 166, 0, 255);
         health = maxHealth;
         isFrozen = false;
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
+        GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Enemy");
     }
 
     public override bool IsFrozen()
@@ -207,7 +213,7 @@ public class FireElementalMob : Mob
     }
     bool GenerateRandomBool()
     {
-        if (Random.value >= 0.8)
+        if (Random.value <= dropSpawnChance)
         {
             return true;
         }
