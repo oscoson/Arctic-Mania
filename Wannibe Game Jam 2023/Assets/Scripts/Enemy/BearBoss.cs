@@ -89,16 +89,21 @@ public class BearBoss : MonoBehaviour
         }
     }
 
+    public int GetTotalBossHealth()
+    {
+        int total = 0;
+        foreach(int health in maxHealth)
+        {
+            total += health;
+        }
+        return total;
+    }
+
     private void Move(Vector2 direction, float speed)
     {
         // As frost value goes down, speed decreases
         float frost = health / maxHealth[currentPhase];
         bossRb.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-
     }
 
     public void CheckFreezeSnowBlower()
@@ -113,6 +118,11 @@ public class BearBoss : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D other)
+    {
+
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
     {
 
     }
