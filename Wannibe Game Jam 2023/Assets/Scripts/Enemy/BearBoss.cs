@@ -21,6 +21,34 @@ public class BearBoss : MonoBehaviour
     Phase2State phase2State;
     Phase3State phase3State;
 
+    /* variables for intro phase */
+    Vector3 startScale = new Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 endScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+    float cosScaleAngle = 0.0f;  // angle needed to fake spinning
+    float angleChangeSpeed = 360.0f * 2;
+    int numberOfSpins = 10;
+
+    float switchToPhase1Timer = 0.0f;
+    float switchToPhase1Threshold = 1.0f;
+    /* end intro variables */
+
+    /* variables for phase 1 */
+
+    /* end phase1 variables */
+
+    /* variables for phase 2 */
+
+    /* end phase2 variables */
+
+    /* variables for phase 3 */
+
+    /* end phase3 variables */
+
+    /* variables for defeat phase */
+
+    /* end defeat variables */
+
     enum BearBossPhaseState
     {
         Intro,
@@ -47,10 +75,12 @@ public class BearBoss : MonoBehaviour
 
     void Awake()
     {
-        health = maxHealth[0];
-
         player = FindObjectOfType<Player>();
         bossRb = GetComponent<Rigidbody2D>();
+
+        health = maxHealth[0];
+        bossPhaseState = BearBossPhaseState.Intro;
+        transform.localScale = startScale;
     }
 
     void Update()
@@ -59,6 +89,20 @@ public class BearBoss : MonoBehaviour
         switch (bossPhaseState)
         {
             case BearBossPhaseState.Intro:
+                if (cosScaleAngle < (Mathf.PI * 2 * Mathf.Rad2Deg * numberOfSpins))
+                {
+                    cosScaleAngle += angleChangeSpeed * Time.deltaTime;
+                    Vector3 scale = Vector3.Lerp(startScale, endScale, cosScaleAngle / (Mathf.PI * 2 * Mathf.Rad2Deg * numberOfSpins));
+                    scale.x *= Mathf.Cos(cosScaleAngle * Mathf.Deg2Rad);
+                    transform.localScale = scale;
+                    break;
+                }
+
+                switchToPhase1Timer += Time.deltaTime;
+                if (switchToPhase1Timer >= switchToPhase1Threshold)
+                {
+                    bossPhaseState = BearBossPhaseState.Phase1;
+                }
                 break;
             case BearBossPhaseState.Phase1:
                 break;
@@ -115,6 +159,22 @@ public class BearBoss : MonoBehaviour
         {
             // die or next phase
         }
+    }
+
+    public void DealDamage(int damage)
+    {
+        switch (bossPhaseState)
+        {
+            case BearBossPhaseState.Intro:
+                break;
+            case BearBossPhaseState.Defeat:
+                break;
+            default:
+                damage = Mathf.Max(0, damage);
+                health -= damage;
+                break;
+        }
+
     }
 
     void OnCollisionEnter2D(Collision2D other)
