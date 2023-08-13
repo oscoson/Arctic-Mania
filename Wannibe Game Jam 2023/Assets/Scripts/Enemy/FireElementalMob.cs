@@ -11,6 +11,7 @@ public class FireElementalMob : Mob
     private float damageCooldown = 0f;
     private CombatManager combatManager;
     private GameObject target;
+    private Animator animator;
 
 
     private float chargeUpTimer = 0.0f;
@@ -40,6 +41,7 @@ public class FireElementalMob : Mob
         dropSpawnChance = mob.dropSpawnRate;
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         isFrozen = false;
     }
 
@@ -106,9 +108,8 @@ public class FireElementalMob : Mob
 
         foreach (Mob mob in mobs)
         {
-            IFreezable freezableEntity = (mob as IFreezable);
-            if (freezableEntity is null) continue;
-            if (!freezableEntity.IsFrozen()) continue;
+            if (mob is null) continue;
+            if (!mob.IsFrozen()) continue;
 
             float dist = (transform.position - mob.transform.position).magnitude;
             if (dist < closestDist)
@@ -162,6 +163,7 @@ public class FireElementalMob : Mob
         isFrozen = true;
         gameObject.layer = LayerMask.NameToLayer("Frozen");
         GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Frozen");
+        animator.speed = 0;
     }
 
     public override void UnFreeze()
@@ -171,6 +173,7 @@ public class FireElementalMob : Mob
         isFrozen = false;
         gameObject.layer = LayerMask.NameToLayer("Enemy");
         GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Enemy");
+        animator.speed = 1;
     }
 
     public override bool IsFrozen()

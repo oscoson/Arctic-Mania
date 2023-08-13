@@ -141,6 +141,7 @@ public class FoxMob : Mob
 
         gameObject.layer = LayerMask.NameToLayer("Frozen");
         GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Frozen");
+        mobRB.velocity = Vector2.zero;
     }
 
     public override void UnFreeze()
