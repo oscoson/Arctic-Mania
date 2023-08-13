@@ -12,6 +12,9 @@ public class BearBoss : MonoBehaviour
     [SerializeField] EnemyProjectile starPatternProjectile;
     [SerializeField] AccelerateProjectile accelerateProjectile;
     [SerializeField] SnakeProjectile snakeProjectile;
+    [SerializeField] AOEProjectile aoeProjectile;
+
+    SpriteRenderer spriteRenderer;
 
     private float damageCooldown = 0f;
 
@@ -85,6 +88,7 @@ public class BearBoss : MonoBehaviour
     {
         Idle,
         SnakeShot,
+        TeleportShot,
     }
 
     enum Phase3State
@@ -97,6 +101,7 @@ public class BearBoss : MonoBehaviour
         player = FindObjectOfType<Player>();
         bossRb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         health = maxHealth[0];
         bossPhaseState = BearBossPhaseState.Intro;
@@ -189,12 +194,14 @@ public class BearBoss : MonoBehaviour
             case Phase1State.MoveShoot:
                 if (!performingPhase1Action)
                 {
+                    animator.SetTrigger("StartIdle");
                     phase1State = Phase1State.Idle;
                 }
                 break;
             case Phase1State.ChargePerpShoot:
                 if (!performingPhase1Action)
                 {
+                    animator.SetTrigger("StartIdle");
                     phase1State = Phase1State.Idle;
                 }
                 break;
@@ -228,18 +235,31 @@ public class BearBoss : MonoBehaviour
                 if (phase2Timer > phase2IdleThreshold)
                 {
                     phase2Timer = 0.0f;
-                    float rng = Random.value * 1;
+                    float rng = Random.value * 2;
                     if (rng <= 1)
                     {
                         animator.SetTrigger("StartWalking");
                         phase2State = Phase2State.SnakeShot;
                         StartCoroutine(SnakeShotCoroutine());
+                    } else if (rng <= 2)
+                    {
+                        animator.SetTrigger("StartWalking");
+                        phase2State = Phase2State.TeleportShot;
+                        StartCoroutine(TeleportShotCoroutine());
                     }
                 }
                 break;
             case Phase2State.SnakeShot:
                 if (!performingPhase2Action)
                 {
+                    animator.SetTrigger("StartIdle");
+                    phase2State = Phase2State.Idle;
+                }
+                break;
+            case Phase2State.TeleportShot:
+                if (!performingPhase2Action)
+                {
+                    animator.SetTrigger("StartIdle");
                     phase2State = Phase2State.Idle;
                 }
                 break;
@@ -254,7 +274,77 @@ public class BearBoss : MonoBehaviour
                 break;
             case Phase2State.SnakeShot:
                 break;
+            case Phase2State.TeleportShot:
+                break;
         }
+    }
+
+    IEnumerator TeleportShotCoroutine()
+    {
+        performingPhase2Action = true;
+
+        // blink
+        float blinkTimer = 0.0f;
+        float blinkThreshold = 0.5f;
+
+        for (int i = 0; i < 5; i++)
+        {
+            while (blinkTimer < blinkThreshold)
+            {
+                blinkTimer += Time.deltaTime;
+
+                Vector3 rot = transform.localRotation.eulerAngles;
+                rot.y = Mathf.Lerp(0, 90f, blinkTimer / blinkThreshold);
+                transform.localRotation = Quaternion.Euler(rot);
+                yield return null;
+            }
+
+            blinkTimer = 0f;
+
+            Vector3 teleportPos = player.transform.position + (Vector3)Random.insideUnitCircle.normalized * 3f;
+            if (teleportPos.x < -25f)
+            {
+                teleportPos.x = -25f;
+            }
+
+            if (teleportPos.x > 26f)
+            {
+                teleportPos.x = 26f;
+            }
+
+            if (teleportPos.y > 21f)
+            {
+                teleportPos.y = 21f;
+            }
+
+            if (teleportPos.y < -22f)
+            {
+                teleportPos.y = -22f;
+            }
+            transform.position = teleportPos;
+
+            while (blinkTimer < blinkThreshold)
+            {
+                blinkTimer += Time.deltaTime;
+
+                Vector3 rot = transform.localRotation.eulerAngles;
+                rot.y = Mathf.Lerp(90f, 0, blinkTimer / blinkThreshold);
+                transform.localRotation = Quaternion.Euler(rot);
+                yield return null;
+            }
+            blinkTimer = 0f;
+
+            Vector2 dir = player.transform.position - transform.position;
+            dir.Normalize();
+            for (int angle = 0; angle < 360; angle += 10)
+            {
+                AOEProjectile proj = Instantiate(aoeProjectile.gameObject, transform.position, Quaternion.identity).GetComponent<AOEProjectile>();
+                proj.Launch(Quaternion.Euler(0f, 0f, angle) * dir, 15f);
+                proj.SetDistLife(4);
+            }
+        }
+
+        performingPhase2Action = false;
     }
 
     IEnumerator SnakeShotCoroutine()
@@ -330,7 +420,6 @@ public class BearBoss : MonoBehaviour
             }
         }
 
-        animator.SetTrigger("StartIdle");
         performingPhase1Action = false;
     }
 
@@ -464,7 +553,7 @@ public class BearBoss : MonoBehaviour
         GameObject triggerObject = other.gameObject;
         if (other.CompareTag("Player"))
         {
-            if (damageCooldown <= 0)
+            if (damageCooldown <= 0 && phase2State != Phase2State.TeleportShot)
             {
                 player.TakeDamage(bodyContactDamage);
                 damageCooldown = 1f;
