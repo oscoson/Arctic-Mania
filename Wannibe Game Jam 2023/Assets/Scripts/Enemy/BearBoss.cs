@@ -600,9 +600,6 @@ public class BearBoss : MonoBehaviour
         // As frost value goes down, speed decreases
         float frost = phaseHealth / maxHealth[currentPhase];
         bossRb.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.fixedDeltaTime));
-        Debug.Log("Frost: " + frost);
-        Debug.Log("Speed: " + speed);
-        Debug.Log("");
     }
 
     public void CheckFreezeSnowBlower()
