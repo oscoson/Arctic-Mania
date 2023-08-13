@@ -140,6 +140,8 @@ public class Player : MonoBehaviour
         input.Player.Movement.canceled += OnMovementCancelled;
         input.Player.FireHold.performed += OnFireHoldPerformed;
         input.Player.FireHold.canceled += OnFireHoldCancelled;
+
+        // Right Click (switch weapons)
         input.Player.Switch.performed += OnSwitchPerformed;
         input.Player.Switch.canceled += OnSwitchCancelled;
 

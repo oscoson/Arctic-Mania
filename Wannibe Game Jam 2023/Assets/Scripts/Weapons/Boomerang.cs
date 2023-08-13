@@ -25,6 +25,7 @@ public class Boomerang : MonoBehaviour
     public float closeModifier;
     public float closeDistance;
     public float returnSpeedModifer;
+    [SerializeField] private GameObject hitEffect;
 
     void Start()
     {
@@ -36,6 +37,8 @@ public class Boomerang : MonoBehaviour
             activeBoomerangs++;
             //Debug.Log($"Increasing active boomerangs from {activeBoomerangs - 1} to {activeBoomerangs}");
         }
+
+        StartCoroutine(RotateBoomerang());
 
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
@@ -99,6 +102,7 @@ public class Boomerang : MonoBehaviour
         switch (collisionObject.tag)
         {
             case "Enemy":
+                Instantiate(hitEffect, transform.position, Quaternion.identity);
                 Mob mob = collisionObject.GetComponent<Mob>();
                 if (!mob.IsFrozen() && !objectsHit.Contains(collisionObject))
                 {
@@ -146,6 +150,15 @@ public class Boomerang : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         objectsHit.Remove(enemy);
+    }
+
+    private IEnumerator RotateBoomerang()
+    {
+        while (true)
+        {
+            transform.Rotate(0, 0, 10);
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
     private void DestroyBoomerang()
