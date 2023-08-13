@@ -43,7 +43,7 @@ public class MusicManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainMenu" || scene.name == "OptionsScene" || scene.name == "DeadScene" )
+        if (scene.name == "MainMenu" || scene.name == "OptionsScene" || scene.name == "TutorialScene" || scene.name == "DeadScene" )
         {
             PlayMusic();
         }
