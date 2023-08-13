@@ -7,7 +7,7 @@ using TMPro;
 public class EnemySpawnManager : MonoBehaviour
 {
     [SerializeField] List<WaveInfo> waveInfo;
-    [SerializeField] private TextMeshProUGUI waveCounterText; 
+    [SerializeField] private TextMeshProUGUI waveCounterText;
     int numberOfWaves = 0;
     int totalWaveEnemies = 0;
     int waveCounter = 0; 
