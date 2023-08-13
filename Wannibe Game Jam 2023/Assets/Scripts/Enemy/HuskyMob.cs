@@ -163,6 +163,7 @@ public class HuskyMob : Mob
         isFrozen = true;
         gameObject.layer = LayerMask.NameToLayer("Frozen");
         GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Frozen");
+        mobRB.velocity = Vector2.zero;
     }
 
     public override void UnFreeze()
