@@ -119,7 +119,6 @@ public class BearBoss : MonoBehaviour
                 switchToPhase1Timer += Time.deltaTime;
                 if (switchToPhase1Timer >= switchToPhase1Threshold)
                 {
-                    Debug.Log("Phase 1");
                     bossPhaseState = BearBossPhaseState.Phase1;
                 }
                 break;
@@ -165,9 +164,8 @@ public class BearBoss : MonoBehaviour
             case Phase1State.Idle:
                 if (phaseHealth <= 0 && !performingPhaseAction)
                 {
-                    Debug.Log("Phase 2");
                     idleTimer = 0.0f;
-                    phaseHealth = maxHealth[currentPhase++];
+                    phaseHealth = maxHealth[1];
                     bossPhaseState = BearBossPhaseState.Phase2;
                     break;
                 }
@@ -227,9 +225,8 @@ public class BearBoss : MonoBehaviour
             case Phase2State.Idle:
                 if (phaseHealth <= 0 && !performingPhaseAction)
                 {
-                    Debug.Log("Phase 3");
                     idleTimer = 0.0f;
-                    phaseHealth = maxHealth[currentPhase++];
+                    phaseHealth = maxHealth[2];
                     bossPhaseState = BearBossPhaseState.Phase3;
                     break;
                 }
@@ -629,7 +626,6 @@ public class BearBoss : MonoBehaviour
                 // Subtract phase health to keep track of phase changes
                 phaseHealth -= damage;
                 phaseHealth = Mathf.Max(0, phaseHealth);
-                Debug.Log(phaseHealth);
                 // phase change happens in update
                 break;
         }
