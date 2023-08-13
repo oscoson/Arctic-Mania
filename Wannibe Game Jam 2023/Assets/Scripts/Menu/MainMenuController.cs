@@ -19,6 +19,11 @@ public class MainMenuController : MonoBehaviour
         // Load the "Options" scene
         SceneManager.LoadScene("OptionsScene"); // Replace "Options" with your actual options scene name
     }
+    public void Tutorial()
+    {
+        // Load the "Tutorial" scene
+        SceneManager.LoadScene("TutorialScene"); // Replace "Tutorial" with your actual tutorial scene name
+    }
     public void MainMenu()
     {
         // Load the "MainMenu" scene
