@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
         frostStrength = stats.frostStrength; // frost strength ranges from 0.1-1
         playerAnimator = GetComponent<Animator>();
         combatManager = FindObjectOfType<CombatManager>();
+
+        StartCoroutine(PrintBoomerangs());
     }
 
     // Update is called once per frame
@@ -64,8 +66,15 @@ public class Player : MonoBehaviour
         playerRB.velocity = moveVector * speed;
     }
 
-
-
+    private IEnumerator PrintBoomerangs()
+    {
+        while (true)
+        {
+            //Wait for 0.25 seconds
+            yield return new WaitForSeconds(0.25f);
+            Debug.Log($"Active boomerangs: {Boomerang.activeBoomerangs}");
+        }
+    }
 
     void OnFire(InputValue value)
     {
@@ -84,7 +93,10 @@ public class Player : MonoBehaviour
         }
         if(projectiles[currentProjectileIndex].name == "Boomerang") 
         {
-            Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+            if (Boomerang.activeBoomerangs < Boomerang.maxActiveBoomerangs)
+            {
+                Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+            }
         }
         
     }
