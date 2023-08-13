@@ -136,6 +136,17 @@ public class Player : MonoBehaviour
             gameManager.ResetGame(); // Replace this with death menu screen in future
         }
     }
+    public void Heal(float recovery)
+    {
+        if(health + recovery >= maxHealth)
+        {
+            health = maxHealth;
+        }
+        else
+        {
+            health += recovery;
+        }
+    }
 
     // Movement
     private void OnEnable()

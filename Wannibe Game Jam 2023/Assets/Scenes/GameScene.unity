@@ -10287,14 +10287,14 @@ MonoBehaviour:
       foxMobCount: 0
     - delayFromLast: 0
       basicMobCount: 0
-      fireElementalMobCount: 3
+      fireElementalMobCount: 2
       snowHareMobCount: 0
       arcticSealMobCount: 0
       huskyMobCount: 0
       foxMobCount: 0
     - delayFromLast: 0
       basicMobCount: 0
-      fireElementalMobCount: 3
+      fireElementalMobCount: 2
       snowHareMobCount: 0
       arcticSealMobCount: 0
       huskyMobCount: 0
@@ -10315,23 +10315,30 @@ MonoBehaviour:
       foxMobCount: 0
     - delayFromLast: 0
       basicMobCount: 0
-      fireElementalMobCount: 2
+      fireElementalMobCount: 1
       snowHareMobCount: 0
       arcticSealMobCount: 0
       huskyMobCount: 0
       foxMobCount: 0
-    - delayFromLast: 7
+    - delayFromLast: 0
+      basicMobCount: 0
+      fireElementalMobCount: 1
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 10
       basicMobCount: 0
       fireElementalMobCount: 0
       snowHareMobCount: 0
       arcticSealMobCount: 0
       huskyMobCount: 5
       foxMobCount: 0
-    - delayFromLast: 7
+    - delayFromLast: 10
       basicMobCount: 0
-      fireElementalMobCount: 1
+      fireElementalMobCount: 0
       snowHareMobCount: 0
-      arcticSealMobCount: 0
+      arcticSealMobCount: 2
       huskyMobCount: 0
       foxMobCount: 5
   - enemySpawnInfos:
