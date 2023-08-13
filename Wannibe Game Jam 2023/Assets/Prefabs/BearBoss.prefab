@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1808438459
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 219125138, guid: 7fef023cc1ecc7744995307d1027b9a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -103,6 +103,8 @@ MonoBehaviour:
   slowToFastProjectile: {fileID: 8181750271150091442, guid: f097e246b8b34f94e99c9cab9d44ddbc, type: 3}
   starPatternProjectile: {fileID: 8181750271150091442, guid: bb9a30cdd9055a24ea24045edcfadb41, type: 3}
   accelerateProjectile: {fileID: 3332669413346295126, guid: ebc20de565c650b4a8ff7366fde673a7, type: 3}
+  snakeProjectile: {fileID: 1094061089653068207, guid: 60b447631b2c1fe4cb39d92c68c814a4, type: 3}
+  aoeProjectile: {fileID: -898528830340948701, guid: b1f0b86956246b24a948c63db7493dba, type: 3}
   bodyContactDamage: 20
 --- !u!50 &2939340206537808667
 Rigidbody2D:
