@@ -43,6 +43,7 @@ public class MusicManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log("Scene loaded: " + scene.name);
         if (scene.name == "MainMenu" || scene.name == "OptionsScene" || scene.name == "TutorialScene" || scene.name == "DeadScene" )
         {
             PlayMusic();
@@ -56,7 +57,7 @@ public class MusicManager : MonoBehaviour
     private void PlayMusic()
     {
         if (!isMusicPlaying)
-        {
+        {        
             audioSource.Play();
             isMusicPlaying = true;
         }
