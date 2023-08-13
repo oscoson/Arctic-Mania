@@ -10,9 +10,11 @@ public class PickUpItem : MonoBehaviour
 
     [SerializeField]
     private float duration = 0.3f;
+    [SerializeField]
+    private float timeLeftToPickUp;
 
     [SerializeField]
-    private GameObject[] pickupItems = new GameObject[4];
+    private GameObject[] pickupItems = new GameObject[5];
 
     private Player player;
 
@@ -25,6 +27,7 @@ public class PickUpItem : MonoBehaviour
         item = pickupItems[GenerateRandomNum()];
         player = FindObjectOfType<Player>();
         gameObject.GetComponent<SpriteRenderer>().sprite = item.GetComponent<SpriteRenderer>().sprite;
+        StartCoroutine(TimeLeftAlive(timeLeftToPickUp));
     }
 
     public void DestroyItem()
@@ -45,11 +48,23 @@ public class PickUpItem : MonoBehaviour
         
         if(collisionObject.tag == "Player")
         {   
-            player.CheckSnowblower();
-            player.projectiles[player.currentProjectileIndex] = item;
+            // Debug.Log("itme picked up: " + item.name);
+            if(item.tag == "HealthPack")
+            {
+                player.Heal(10); 
+                // bug: health pack heals for double since player also has a trigger collider. So imagine this as 10*2, which is still fine and balanced. 
+                // Just something we need to fix in the future
+            }
+            else
+            {
+                player.CheckSnowblower();
+                player.projectiles[player.currentProjectileIndex] = item;
+            }
+
             DestroyItem();
         }
     }
+
 
     private IEnumerator AnimateItemPickup()
     {
@@ -64,6 +79,12 @@ public class PickUpItem : MonoBehaviour
                 Vector3.Lerp(startScale, endScale, currentTime / duration);
             yield return null;
         }
+        Destroy(gameObject);
+    }
+
+    private IEnumerator TimeLeftAlive(float timeLeft)
+    {
+        yield return new WaitForSecondsRealtime(timeLeft);
         Destroy(gameObject);
     }
 }

@@ -10,6 +10,7 @@ TagManager:
   - Collector
   - Boomerang
   - Projectile
+  - HealthPack
   layers:
   - Default
   - TransparentFX

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.Interactions;
+using System;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -34,6 +37,7 @@ public class Player : MonoBehaviour
     private Vector2 moveVector = Vector2.zero;
     private Animator playerAnimator;
     private CombatManager combatManager;
+    private GameManager gameManager;
 
     public UnityEvent onDeath;
 
@@ -52,8 +56,7 @@ public class Player : MonoBehaviour
         frostStrength = stats.frostStrength; // frost strength ranges from 0.1-1
         playerAnimator = GetComponent<Animator>();
         combatManager = FindObjectOfType<CombatManager>();
-
-        StartCoroutine(PrintBoomerangs());
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     // Update is called once per frame
@@ -86,17 +89,14 @@ public class Player : MonoBehaviour
             Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
             cooldown.StartCoolDownIcy();
         }
+        if(projectiles[currentProjectileIndex].name == "Boomerang") 
+        {
+            Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+        }
         if(projectiles[currentProjectileIndex].name == "Snowball")
         {
              Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
             cooldown.StartCoolDownSnowBall();
-        }
-        if(projectiles[currentProjectileIndex].name == "Boomerang") 
-        {
-            if (Boomerang.activeBoomerangs < Boomerang.maxActiveBoomerangs)
-            {
-                Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
-            }
         }
         
     }
@@ -139,9 +139,28 @@ public class Player : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Destroy(gameObject);
-            onDeath.Invoke();
+            Invoke("NextScene", 1); 
+           // Destroy(gameObject);
+            //onDeath.Invoke();
+            
         }
+    }
+    public void Heal(float recovery)
+    {
+        if(health + recovery >= maxHealth)
+        {
+            health = maxHealth;
+        }
+        else
+        {
+            health += recovery;
+        }
+    }
+
+    void NextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("DeadScene");
     }
 
     // Movement
@@ -152,6 +171,8 @@ public class Player : MonoBehaviour
         input.Player.Movement.canceled += OnMovementCancelled;
         input.Player.FireHold.performed += OnFireHoldPerformed;
         input.Player.FireHold.canceled += OnFireHoldCancelled;
+
+        // Right Click (switch weapons)
         input.Player.Switch.performed += OnSwitchPerformed;
         input.Player.Switch.canceled += OnSwitchCancelled;
 

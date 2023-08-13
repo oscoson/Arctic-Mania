@@ -156,6 +156,7 @@ public class FireElementalMob : Mob
 
     public override void Freeze()
     {
+        Drop();
         health = 0;
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;

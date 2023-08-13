@@ -26,6 +26,7 @@ public class Boomerang : MonoBehaviour
     public float closeModifier;
     public float closeDistance;
     public float returnSpeedModifer;
+    [SerializeField] private GameObject hitEffect;
 
     void Start()
     {
@@ -95,6 +96,7 @@ public class Boomerang : MonoBehaviour
         switch (collisionObject.tag)
         {
             case "Enemy":
+                Instantiate(hitEffect, transform.position, Quaternion.identity);
                 Mob mob = collisionObject.GetComponent<Mob>();
                 if (!mob.IsFrozen() && !objectsHit.Contains(collisionObject))
                 {
