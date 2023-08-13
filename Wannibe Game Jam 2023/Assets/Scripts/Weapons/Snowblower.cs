@@ -53,5 +53,10 @@ public class Snowblower : MonoBehaviour
             }
 
         }
+        else if(collisionObject.tag == "Boss")
+        {
+            BearBoss bearBoss = collisionObject.GetComponent<BearBoss>();
+            bearBoss.CheckFreezeSnowBlower();
+        }
     }
 }

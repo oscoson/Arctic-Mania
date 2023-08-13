@@ -165,7 +165,7 @@ public class BearBoss : MonoBehaviour
                 if (phaseHealth <= 0 && !performingPhaseAction)
                 {
                     idleTimer = 0.0f;
-                    phaseHealth = maxHealth[1];
+                    phaseHealth = maxHealth[++currentPhase];
                     bossPhaseState = BearBossPhaseState.Phase2;
                     break;
                 }
@@ -226,7 +226,7 @@ public class BearBoss : MonoBehaviour
                 if (phaseHealth <= 0 && !performingPhaseAction)
                 {
                     idleTimer = 0.0f;
-                    phaseHealth = maxHealth[2];
+                    phaseHealth = maxHealth[++currentPhase];
                     bossPhaseState = BearBossPhaseState.Phase3;
                     break;
                 }
@@ -475,7 +475,7 @@ public class BearBoss : MonoBehaviour
 
             direction = Quaternion.Euler(0f, 0f, (Random.value < 0.5f ? -1 : 1) * Random.Range(35f, 55f)) * direction;
 
-            float chargeSpeed = 100.0f;
+            float chargeSpeed = 40.0f;
 
             float time = 1.0f;
             float timer = 0.0f;
@@ -599,12 +599,15 @@ public class BearBoss : MonoBehaviour
         animator.SetFloat("Horizontal", direction.x);
         // As frost value goes down, speed decreases
         float frost = phaseHealth / maxHealth[currentPhase];
-        bossRb.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));
+        bossRb.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.fixedDeltaTime));
+        Debug.Log("Frost: " + frost);
+        Debug.Log("Speed: " + speed);
+        Debug.Log("");
     }
 
     public void CheckFreezeSnowBlower()
     {
-        DealDamage((int)(player.frostStrength * 0.05f));
+        DealDamage((int)(player.frostStrength * 0.1f));
     }
 
     public void DealDamage(int damage)
