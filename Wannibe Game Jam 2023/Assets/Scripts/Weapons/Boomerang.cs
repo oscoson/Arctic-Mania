@@ -120,6 +120,15 @@ public class Boomerang : MonoBehaviour
                     DestroyBoomerang();
                 }
                 break;
+            case "Boss":
+                Instantiate(hitEffect, transform.position, Quaternion.identity);
+                BearBoss boss = collisionObject.GetComponent<BearBoss>();
+                if(boss.GetTotalBossHealth() > 0)
+                {
+                    boss.DealDamage((int)player.frostStrength);
+                }
+                break;
+
         }
     }
 

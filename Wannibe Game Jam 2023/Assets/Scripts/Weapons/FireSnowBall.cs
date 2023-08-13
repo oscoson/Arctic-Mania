@@ -43,6 +43,14 @@ public class FireSnowBall : MonoBehaviour
             Mob mob = collisionObject.GetComponent<Mob>();
             mob.CheckFreeze();
         }
+        else if(collisionObject.tag == "Boss")
+        {
+            BearBoss boss = collisionObject.GetComponent<BearBoss>();
+            if(boss.GetTotalBossHealth() > 0)
+            {
+                boss.DealDamage((int)player.frostStrength);
+            }
+        }
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
         

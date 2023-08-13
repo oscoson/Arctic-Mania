@@ -11,6 +11,7 @@ TagManager:
   - Boomerang
   - Projectile
   - HealthPack
+  - Boss
   layers:
   - Default
   - TransparentFX

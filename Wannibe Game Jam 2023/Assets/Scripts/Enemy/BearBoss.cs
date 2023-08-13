@@ -23,8 +23,9 @@ public class BearBoss : MonoBehaviour
     private const int totalPhases = 3; // needs to be same as number of enums for phaseXState, and vice versa
     private int currentPhase = 0;
 
-    private readonly float[] maxHealth = new float[totalPhases]{ 100f, 100f, 100f };
-    private float health;
+    private readonly float[] maxHealth = new float[totalPhases]{ 2000f, 2500f, 3000f };
+    private float currTotalHealth;
+    private float phaseHealth;
 
     BearBossPhaseState bossPhaseState = BearBossPhaseState.Intro;
     Phase1State phase1State = Phase1State.Idle;
@@ -56,7 +57,7 @@ public class BearBoss : MonoBehaviour
 
     /* end defeat variables */
 
-    enum BearBossPhaseState
+    public enum BearBossPhaseState
     {
         Intro,
         Phase1,
@@ -94,8 +95,8 @@ public class BearBoss : MonoBehaviour
         bossRb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        health = maxHealth[0];
+        currTotalHealth = GetTotalBossHealth();
+        phaseHealth = maxHealth[0];
         bossPhaseState = BearBossPhaseState.Intro;
         transform.localScale = startScale;
     }
@@ -118,7 +119,8 @@ public class BearBoss : MonoBehaviour
                 switchToPhase1Timer += Time.deltaTime;
                 if (switchToPhase1Timer >= switchToPhase1Threshold)
                 {
-                    bossPhaseState = BearBossPhaseState.Phase3;
+                    Debug.Log("Phase 1");
+                    bossPhaseState = BearBossPhaseState.Phase1;
                 }
                 break;
             case BearBossPhaseState.Phase1:
@@ -161,9 +163,11 @@ public class BearBoss : MonoBehaviour
         switch (phase1State)
         {
             case Phase1State.Idle:
-                if (health <= 0 && !performingPhaseAction)
+                if (phaseHealth <= 0 && !performingPhaseAction)
                 {
+                    Debug.Log("Phase 2");
                     idleTimer = 0.0f;
+                    phaseHealth = maxHealth[currentPhase++];
                     bossPhaseState = BearBossPhaseState.Phase2;
                     break;
                 }
@@ -221,9 +225,11 @@ public class BearBoss : MonoBehaviour
         switch (phase2State)
         {
             case Phase2State.Idle:
-                if (health <= 0 && !performingPhaseAction)
+                if (phaseHealth <= 0 && !performingPhaseAction)
                 {
+                    Debug.Log("Phase 3");
                     idleTimer = 0.0f;
+                    phaseHealth = maxHealth[currentPhase++];
                     bossPhaseState = BearBossPhaseState.Phase3;
                     break;
                 }
@@ -280,7 +286,7 @@ public class BearBoss : MonoBehaviour
         switch (phase3State)
         {
             case Phase3State.Idle:
-                if (health <= 0 && !performingPhaseAction)
+                if (phaseHealth <= 0 && !performingPhaseAction)
                 {
                     idleTimer = 0.0f;
                     Debug.Log("Boss Died!");
@@ -579,11 +585,15 @@ public class BearBoss : MonoBehaviour
     public int GetTotalBossHealth()
     {
         int total = 0;
-        foreach(int health in maxHealth)
+        foreach(int phaseHealth in maxHealth)
         {
-            total += health;
+            total += phaseHealth;
         }
         return total;
+    }
+    public float GetCurrentHealth()
+    {
+        return currTotalHealth;
     }
 
     private void Move(Vector2 direction, float speed)
@@ -591,19 +601,13 @@ public class BearBoss : MonoBehaviour
         direction.Normalize();
         animator.SetFloat("Horizontal", direction.x);
         // As frost value goes down, speed decreases
-        float frost = health / maxHealth[currentPhase];
+        float frost = phaseHealth / maxHealth[currentPhase];
         bossRb.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));
     }
 
     public void CheckFreezeSnowBlower()
     {
-        // Brian this is bad but I had no other choice
-        health -= player.frostStrength * 0.05f;
-        health = Mathf.Max(0, health);
-        if (health == 0)
-        {
-            // next phase is handled in update
-        }
+        DealDamage((int)(player.frostStrength * 0.05f));
     }
 
     public void DealDamage(int damage)
@@ -616,8 +620,16 @@ public class BearBoss : MonoBehaviour
                 break;
             default:
                 damage = Mathf.Max(0, damage);
-                health -= damage;
-                health = Mathf.Max(0, health);
+                // Subtract total health to keep track of overall health
+                if(phaseHealth > 0)
+                {
+                    currTotalHealth -= Mathf.Min(damage, phaseHealth);
+                    currTotalHealth = Mathf.Max(0, currTotalHealth);
+                }
+                // Subtract phase health to keep track of phase changes
+                phaseHealth -= damage;
+                phaseHealth = Mathf.Max(0, phaseHealth);
+                Debug.Log(phaseHealth);
                 // phase change happens in update
                 break;
         }
