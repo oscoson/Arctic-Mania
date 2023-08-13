@@ -17,4 +17,4 @@ MonoBehaviour:
   speed: 1
   damage: 10
   dropItem: {fileID: 6515853896863668864, guid: d46e5529a6092464b8b9369565a6defc, type: 3}
-  dropSpawnRate: 0.1
+  dropSpawnRate: 0.15
