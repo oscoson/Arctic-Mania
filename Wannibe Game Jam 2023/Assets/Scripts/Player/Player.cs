@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine.InputSystem.Interactions;
+using System;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -130,10 +132,10 @@ public class Player : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            Invoke("NextScene", 1); 
+           // Destroy(gameObject);
+            //onDeath.Invoke();
             
-            Destroy(gameObject);
-            onDeath.Invoke();
-            gameManager.ResetGame(); // Replace this with death menu screen in future
         }
     }
     public void Heal(float recovery)
@@ -146,6 +148,12 @@ public class Player : MonoBehaviour
         {
             health += recovery;
         }
+    }
+
+    void NextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("DeadScene");
     }
 
     // Movement
