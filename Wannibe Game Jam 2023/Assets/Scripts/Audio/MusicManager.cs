@@ -43,13 +43,13 @@ public class MusicManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "GameScene")
+        if (scene.name == "MainMenu" || scene.name == "OptionsScene" )
         {
-            StopMusic();
+            PlayMusic();
         }
         else
         {
-            PlayMusic();
+            StopMusic();
         }
     }
 
