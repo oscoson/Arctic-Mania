@@ -11,6 +11,10 @@ public class BearBoss : MonoBehaviour
     [SerializeField] EnemyProjectile slowToFastProjectile;
     [SerializeField] EnemyProjectile starPatternProjectile;
     [SerializeField] AccelerateProjectile accelerateProjectile;
+    [SerializeField] SnakeProjectile snakeProjectile;
+    [SerializeField] AOEProjectile aoeProjectile;
+
+    SpriteRenderer spriteRenderer;
 
     private float damageCooldown = 0f;
 
@@ -49,7 +53,11 @@ public class BearBoss : MonoBehaviour
     /* end phase1 variables */
 
     /* variables for phase 2 */
+    float phase2Timer = 0.0f;  // generic timer reused for all phase1states
 
+    float phase2IdleThreshold = 2.0f;
+
+    bool performingPhase2Action = false;
     /* end phase2 variables */
 
     /* variables for phase 3 */
@@ -74,12 +82,13 @@ public class BearBoss : MonoBehaviour
         Idle,
         MoveShoot,
         ChargePerpShoot,
-
     }
 
     enum Phase2State
     {
-        // todo: add states for phase 2
+        Idle,
+        SnakeShot,
+        TeleportShot,
     }
 
     enum Phase3State
@@ -92,6 +101,7 @@ public class BearBoss : MonoBehaviour
         player = FindObjectOfType<Player>();
         bossRb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         health = maxHealth[0];
         bossPhaseState = BearBossPhaseState.Intro;
@@ -116,13 +126,14 @@ public class BearBoss : MonoBehaviour
                 switchToPhase1Timer += Time.deltaTime;
                 if (switchToPhase1Timer >= switchToPhase1Threshold)
                 {
-                    bossPhaseState = BearBossPhaseState.Phase1;
+                    bossPhaseState = BearBossPhaseState.Phase2;
                 }
                 break;
             case BearBossPhaseState.Phase1:
                 HandlePhase1Logic();
                 break;
             case BearBossPhaseState.Phase2:
+                HandlePhase2Logic();
                 break;
             case BearBossPhaseState.Phase3:
                 break;
@@ -142,6 +153,7 @@ public class BearBoss : MonoBehaviour
                 HandlePhase1FixedLogic();
                 break;
             case BearBossPhaseState.Phase2:
+                HandlePhase2FixedLogic();
                 break;
             case BearBossPhaseState.Phase3:
                 break;
@@ -155,6 +167,11 @@ public class BearBoss : MonoBehaviour
         switch (phase1State)
         {
             case Phase1State.Idle:
+                if (health <= 0 && !performingPhase1Action)
+                {
+                    bossPhaseState = BearBossPhaseState.Phase2;
+                    break;
+                }
                 phase1Timer += Time.deltaTime;
                 if (phase1Timer > idleThreshold)
                 {
@@ -165,7 +182,8 @@ public class BearBoss : MonoBehaviour
                         animator.SetTrigger("StartWalking");
                         phase1State = Phase1State.MoveShoot;
                         StartCoroutine(ShootMoveCoroutine());
-                    } else if (rng <= 2)
+                    } 
+                    else if (rng <= 2)
                     {
                         animator.SetTrigger("StartWalking");
                         phase1State = Phase1State.ChargePerpShoot;
@@ -176,12 +194,14 @@ public class BearBoss : MonoBehaviour
             case Phase1State.MoveShoot:
                 if (!performingPhase1Action)
                 {
+                    animator.SetTrigger("StartIdle");
                     phase1State = Phase1State.Idle;
                 }
                 break;
             case Phase1State.ChargePerpShoot:
                 if (!performingPhase1Action)
                 {
+                    animator.SetTrigger("StartIdle");
                     phase1State = Phase1State.Idle;
                 }
                 break;
@@ -199,6 +219,161 @@ public class BearBoss : MonoBehaviour
             case Phase1State.ChargePerpShoot:
                 break;
         }
+    }
+
+    private void HandlePhase2Logic()
+    {
+        switch (phase2State)
+        {
+            case Phase2State.Idle:
+                if (health <= 0 && !performingPhase2Action)
+                {
+                    bossPhaseState = BearBossPhaseState.Phase3;
+                    break;
+                }
+                phase2Timer += Time.deltaTime;
+                if (phase2Timer > phase2IdleThreshold)
+                {
+                    phase2Timer = 0.0f;
+                    float rng = Random.value * 2;
+                    if (rng <= 1)
+                    {
+                        animator.SetTrigger("StartWalking");
+                        phase2State = Phase2State.SnakeShot;
+                        StartCoroutine(SnakeShotCoroutine());
+                    } else if (rng <= 2)
+                    {
+                        animator.SetTrigger("StartWalking");
+                        phase2State = Phase2State.TeleportShot;
+                        StartCoroutine(TeleportShotCoroutine());
+                    }
+                }
+                break;
+            case Phase2State.SnakeShot:
+                if (!performingPhase2Action)
+                {
+                    animator.SetTrigger("StartIdle");
+                    phase2State = Phase2State.Idle;
+                }
+                break;
+            case Phase2State.TeleportShot:
+                if (!performingPhase2Action)
+                {
+                    animator.SetTrigger("StartIdle");
+                    phase2State = Phase2State.Idle;
+                }
+                break;
+        }
+    }
+
+    private void HandlePhase2FixedLogic()
+    {
+        switch (phase2State)
+        {
+            case Phase2State.Idle:
+                break;
+            case Phase2State.SnakeShot:
+                break;
+            case Phase2State.TeleportShot:
+                break;
+        }
+    }
+
+    IEnumerator TeleportShotCoroutine()
+    {
+        performingPhase2Action = true;
+
+        // blink
+        float blinkTimer = 0.0f;
+        float blinkThreshold = 0.5f;
+
+        for (int i = 0; i < 5; i++)
+        {
+            while (blinkTimer < blinkThreshold)
+            {
+                blinkTimer += Time.deltaTime;
+
+                Vector3 rot = transform.localRotation.eulerAngles;
+                rot.y = Mathf.Lerp(0, 90f, blinkTimer / blinkThreshold);
+                transform.localRotation = Quaternion.Euler(rot);
+                yield return null;
+            }
+
+            blinkTimer = 0f;
+
+            Vector3 teleportPos = player.transform.position + (Vector3)Random.insideUnitCircle.normalized * 3f;
+            if (teleportPos.x < -25f)
+            {
+                teleportPos.x = -25f;
+            }
+
+            if (teleportPos.x > 26f)
+            {
+                teleportPos.x = 26f;
+            }
+
+            if (teleportPos.y > 21f)
+            {
+                teleportPos.y = 21f;
+            }
+
+            if (teleportPos.y < -22f)
+            {
+                teleportPos.y = -22f;
+            }
+            transform.position = teleportPos;
+
+            while (blinkTimer < blinkThreshold)
+            {
+                blinkTimer += Time.deltaTime;
+
+                Vector3 rot = transform.localRotation.eulerAngles;
+                rot.y = Mathf.Lerp(90f, 0, blinkTimer / blinkThreshold);
+                transform.localRotation = Quaternion.Euler(rot);
+                yield return null;
+            }
+            blinkTimer = 0f;
+
+            Vector2 dir = player.transform.position - transform.position;
+            dir.Normalize();
+            for (int angle = 0; angle < 360; angle += 10)
+            {
+                AOEProjectile proj = Instantiate(aoeProjectile.gameObject, transform.position, Quaternion.identity).GetComponent<AOEProjectile>();
+                proj.Launch(Quaternion.Euler(0f, 0f, angle) * dir, 15f);
+                proj.SetDistLife(4);
+            }
+        }
+
+        performingPhase2Action = false;
+    }
+
+    IEnumerator SnakeShotCoroutine()
+    {
+        performingPhase2Action = true;
+
+        Vector2 origDirection = player.transform.position - transform.position;
+
+        for (int i = 0; i < 30; i++)
+        {
+            Vector2 direction = Quaternion.Euler(0f, 0f, Random.Range(-45, 45)) * origDirection;
+
+            for (int j = 0; j < 3; j++)
+            {
+                SnakeProjectile proj = Instantiate(snakeProjectile.gameObject, transform.position, Quaternion.identity).GetComponent<SnakeProjectile>();
+
+                proj.Launch(direction, 10.0f);
+                EnemyProjectile coneProj1 = Instantiate(slowToFastProjectile.gameObject, transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
+                EnemyProjectile coneProj2 = Instantiate(slowToFastProjectile.gameObject, transform.position, Quaternion.identity).GetComponent<EnemyProjectile>();
+
+                coneProj1.Launch(Quaternion.Euler(0.0f, 0.0f, -45f) * origDirection, 50f);
+                coneProj2.Launch(Quaternion.Euler(0.0f, 0.0f, 45f) * origDirection, 50f);
+
+                yield return new WaitForSeconds(0.05f);
+            }
+        }
+
+        performingPhase2Action = false;
+        yield return null;
     }
 
     IEnumerator ChargePerpShootCoroutine()
@@ -245,7 +420,6 @@ public class BearBoss : MonoBehaviour
             }
         }
 
-        animator.SetTrigger("StartIdle");
         performingPhase1Action = false;
     }
 
@@ -342,7 +516,7 @@ public class BearBoss : MonoBehaviour
         health = Mathf.Max(0, health);
         if (health == 0)
         {
-            // die or next phase
+            // next phase is handled in update
         }
     }
 
@@ -357,6 +531,8 @@ public class BearBoss : MonoBehaviour
             default:
                 damage = Mathf.Max(0, damage);
                 health -= damage;
+                health = Mathf.Max(0, health);
+                // phase change happens in update
                 break;
         }
 
@@ -377,7 +553,7 @@ public class BearBoss : MonoBehaviour
         GameObject triggerObject = other.gameObject;
         if (other.CompareTag("Player"))
         {
-            if (damageCooldown <= 0)
+            if (damageCooldown <= 0 && phase2State != Phase2State.TeleportShot)
             {
                 player.TakeDamage(bodyContactDamage);
                 damageCooldown = 1f;
