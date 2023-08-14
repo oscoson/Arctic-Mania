@@ -96,7 +96,10 @@ public class Player : MonoBehaviour
         }
         if(projectiles[currentProjectileIndex].name == "Boomerang") 
         {
-            Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+            if (Boomerang.activeBoomerangs < Boomerang.maxActiveBoomerangs)
+            {
+                Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 180f, 0f));
+            }
         }
         if(projectiles[currentProjectileIndex].name == "Snowball")
         {

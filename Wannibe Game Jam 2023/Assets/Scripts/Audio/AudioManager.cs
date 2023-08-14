@@ -45,6 +45,9 @@ public class AudioManager : MonoBehaviour
         {
             instance = null;
             Destroy(gameObject);
+
+            // Felony VVVV
+            Boomerang.activeBoomerangs = 0;
         }
     }
 
