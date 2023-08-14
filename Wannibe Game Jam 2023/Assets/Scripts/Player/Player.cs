@@ -42,6 +42,10 @@ public class Player : MonoBehaviour
 
     public UnityEvent onDeath;
 
+    [Header("Audio")]
+    // [SerializeField] AudioClip SnowBlowerFire;
+    private AudioSource playerAudioSource;
+
     private void Awake()
     {
         input = new InputSystem();
@@ -58,6 +62,12 @@ public class Player : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         combatManager = FindObjectOfType<CombatManager>();
         gameManager = FindAnyObjectByType<GameManager>();
+        
+    }
+
+    void Start(){
+        playerAudioSource = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -113,6 +123,7 @@ public class Player : MonoBehaviour
     {
         if(projectiles[currentProjectileIndex].name == "Snowblower")
         {
+            playerAudioSource.Play();
             CheckSnowblower();
             Instantiate(projectiles[currentProjectileIndex], snowballSpawn.GetChild(0).position, Quaternion.Euler(0f, 0f, -90f), snowballSpawn.transform);
             FindAnyObjectByType<Snowblower>().GetComponent<SpriteRenderer>().enabled = false;
@@ -121,6 +132,7 @@ public class Player : MonoBehaviour
 
     void OnFireHoldCancelled(InputAction.CallbackContext context)
     {
+        playerAudioSource.Stop();
         CheckSnowblower();
     }
     
