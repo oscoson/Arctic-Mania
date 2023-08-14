@@ -11,6 +11,8 @@ public class FoxMob : Mob
     private float damageCooldown = 0f;
     private CombatManager combatManager;
 
+    Animator animator;
+
     [Header("Death Items")]
     [SerializeField] GameObject dropItem;
     private float dropSpawnChance;
@@ -47,6 +49,7 @@ public class FoxMob : Mob
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         combatManager = FindObjectOfType<CombatManager>();
+        animator = GetComponent<Animator>();
         isFrozen = false;
     }
 
@@ -99,6 +102,7 @@ public class FoxMob : Mob
                         speedCap = initialChargeSpeed;
                         mobState = FoxMobState.Moving;
                     }
+                    animator.SetFloat("Horizontal", mobRB.velocity.normalized.x * 10.0f);
                     break;
             }
         }
@@ -119,6 +123,7 @@ public class FoxMob : Mob
         if (player != null)
         {
             Vector2 direction = player.transform.position - transform.position;
+            animator.SetFloat("Horizontal", direction.normalized.x * 10.0f);
             float angle = Mathf.Atan2(direction.y, direction.x);
             mobRB.rotation = angle;
             direction.Normalize();
@@ -139,15 +144,20 @@ public class FoxMob : Mob
         sprite.color = new Color(0, 149, 255, 255);
         isFrozen = true;
 
+        animator.enabled = false;
+
         gameObject.layer = LayerMask.NameToLayer("Frozen");
         GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Frozen");
+        mobRB.velocity = Vector2.zero;
     }
 
     public override void UnFreeze()
     {
-        sprite.color = new Color(255, 0, 0, 255);
+        sprite.color = new Color(255, 255, 255, 255);
         health = maxHealth;
         isFrozen = false;
+
+        animator.enabled = true;
 
         gameObject.layer = LayerMask.NameToLayer("Enemy");
         GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Enemy");

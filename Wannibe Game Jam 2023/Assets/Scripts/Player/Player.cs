@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public float freezeRate; // Rate at which freeze time decreases freeze amount
     public float frostStrength; // how strong the snowball frost is
 
+    public bool isDead; // Not loaded in yet
 
     [Header("Projectiles")]
     [SerializeField] public GameObject[] projectiles = new GameObject[2];
@@ -62,6 +63,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(health <= 0)
+        {
+            isDead = true;
+        }
     }
 
     private void FixedUpdate()

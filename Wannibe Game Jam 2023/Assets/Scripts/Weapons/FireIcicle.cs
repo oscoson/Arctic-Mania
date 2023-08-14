@@ -10,12 +10,16 @@ public class FireIcicle : MonoBehaviour
     private Player player;
     private Vector3 mousePos;
     private Camera mainCam;
+    private GameObject audioManager;
     [SerializeField] private GameObject deathEffect;
-
     [SerializeField] float xSpeed;
+    [SerializeField] AudioClip icicleHit;
+    [SerializeField] AudioClip icicleFire;
 
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager");
+        audioManager.GetComponent<AudioManager>().PlaySFX(icicleFire);
         magicRB = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<Player>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -41,8 +45,17 @@ public class FireIcicle : MonoBehaviour
         GameObject collisionObject = other.gameObject;
         if(collisionObject.tag == "Enemy")
         {
+            audioManager.GetComponent<AudioManager>().PlaySFX(icicleHit);
             Mob mob = collisionObject.GetComponent<Mob>();
             mob.CheckFreeze();
+        }
+        else if(collisionObject.tag == "Boss")
+        {
+            BearBoss boss = collisionObject.GetComponent<BearBoss>();
+            if(boss.GetTotalBossHealth() > 0)
+            {
+                boss.DealDamage((int)player.frostStrength);
+            }
         }
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         StartCoroutine(DestructionTime(destroyTime));

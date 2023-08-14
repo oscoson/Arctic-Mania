@@ -9,12 +9,16 @@ public class FireSnowBall : MonoBehaviour
     private Player player;
     private Vector3 mousePos;
     private Camera mainCam;
+    private GameObject audioManager;
     [SerializeField] private GameObject deathEffect;
-
     [SerializeField] float xSpeed;
+    [SerializeField] AudioClip snowballHit;
+    [SerializeField] AudioClip snowballFire;
 
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager");
+        audioManager.GetComponent<AudioManager>().PlaySFX(snowballFire);
         magicRB = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<Player>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -40,8 +44,17 @@ public class FireSnowBall : MonoBehaviour
         GameObject collisionObject = other.gameObject;
         if(collisionObject.tag == "Enemy")
         {
+            audioManager.GetComponent<AudioManager>().PlaySFX(snowballHit);
             Mob mob = collisionObject.GetComponent<Mob>();
             mob.CheckFreeze();
+        }
+        else if(collisionObject.tag == "Boss")
+        {
+            BearBoss boss = collisionObject.GetComponent<BearBoss>();
+            if(boss.GetTotalBossHealth() > 0)
+            {
+                boss.DealDamage((int)player.frostStrength);
+            }
         }
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);

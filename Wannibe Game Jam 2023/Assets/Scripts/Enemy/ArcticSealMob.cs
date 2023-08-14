@@ -14,6 +14,8 @@ public class ArcticSealMob : Mob
     private CombatManager combatManager;
     Vector2 target = Vector2.zero;
 
+    Animator animator;
+
     private float roamTimer = 0.0f;
     private float roamThreshold = 3.0f;
 
@@ -49,6 +51,7 @@ public class ArcticSealMob : Mob
         dropSpawnChance = mob.dropSpawnRate;
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         isFrozen = false;
     }
 
@@ -111,6 +114,10 @@ public class ArcticSealMob : Mob
             rb.velocity = direction.normalized * speed;
             direction = Quaternion.Euler(0f, 0f, -deltaAngle) * direction;
             yield return new WaitForSeconds(delay);
+            while (isFrozen)
+            {
+                yield return null;
+            }
         }
 
         for (int i = 0; i < (int)(angle / deltaAngle * 2); i++)
@@ -121,6 +128,10 @@ public class ArcticSealMob : Mob
             rb.velocity = direction.normalized * speed;
             direction = Quaternion.Euler(0f, 0f, deltaAngle) * direction;
             yield return new WaitForSeconds(delay);
+            while (isFrozen)
+            {
+                yield return null;
+            }
         }
         mobState = ArcticSealMobState.Moving;
     }
@@ -147,7 +158,7 @@ public class ArcticSealMob : Mob
             GetNewTarget();
             changeTargetTimer = 0.0f;
             moveDirection = (target - (Vector2) transform.position).normalized;
-            if (moveDirection.x > 0)
+            if (moveDirection.x > 0 && !isFrozen)
             {
                 gameObject.GetComponent<SpriteRenderer>().flipX = true;
             }
@@ -184,6 +195,7 @@ public class ArcticSealMob : Mob
         isFrozen = true;
         gameObject.layer = LayerMask.NameToLayer("Frozen");
         GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Frozen");
+        animator.enabled = false;
     }
 
     public override void UnFreeze()
@@ -193,6 +205,7 @@ public class ArcticSealMob : Mob
         isFrozen = false;
         gameObject.layer = LayerMask.NameToLayer("Enemy");
         GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Enemy");
+        animator.enabled = true;
     }
 
     public override bool IsFrozen()

@@ -182,7 +182,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: You are a penguin in the arctic tundra surrounded by predators, use your
-    assortment of given weapons (and pickup items) to defeat your enemies and take
+    assortment of given weapons (and pickup items) to freeze your enemies and take
     on the ultimate boss!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

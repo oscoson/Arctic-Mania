@@ -27,10 +27,22 @@ public class Boomerang : MonoBehaviour
     public float closeDistance;
     public float returnSpeedModifer;
     [SerializeField] private GameObject hitEffect;
+    [SerializeField] AudioClip boomerangHit;
+    [SerializeField] AudioClip boomerangFire;
+    private GameObject audioManager;
 
     void Start()
     {
-        activeBoomerangs++;
+        audioManager = GameObject.Find("AudioManager");
+        audioManager.GetComponent<AudioManager>().PlaySFX(boomerangFire);
+
+        if (activeBoomerangs >= maxActiveBoomerangs)
+        {
+            Destroy(gameObject);
+        } else {
+            activeBoomerangs++;
+            //Debug.Log($"Increasing active boomerangs from {activeBoomerangs - 1} to {activeBoomerangs}");
+        }
 
         StartCoroutine(RotateBoomerang());
 
@@ -96,6 +108,7 @@ public class Boomerang : MonoBehaviour
         switch (collisionObject.tag)
         {
             case "Enemy":
+                audioManager.GetComponent<AudioManager>().PlaySFX(boomerangHit);
                 Instantiate(hitEffect, transform.position, Quaternion.identity);
                 Mob mob = collisionObject.GetComponent<Mob>();
                 if (!mob.IsFrozen() && !objectsHit.Contains(collisionObject))
@@ -114,6 +127,16 @@ public class Boomerang : MonoBehaviour
                     DestroyBoomerang();
                 }
                 break;
+            case "Boss":
+                audioManager.GetComponent<AudioManager>().PlaySFX(boomerangHit);
+                Instantiate(hitEffect, transform.position, Quaternion.identity);
+                BearBoss boss = collisionObject.GetComponent<BearBoss>();
+                if(boss.GetTotalBossHealth() > 0)
+                {
+                    boss.DealDamage((int)player.frostStrength);
+                }
+                break;
+
         }
     }
 
