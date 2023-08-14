@@ -1,4 +1,4 @@
-# Arctic Maniacs
+# Arctic Mania
 This game was made as a submission to the 2023 Wannibe Game Jam
 ### Playable Demo: https://oscosan.itch.io/arctic-mania
 <ins>**Controls**
