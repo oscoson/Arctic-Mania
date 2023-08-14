@@ -54,6 +54,11 @@ public class AudioManager : MonoBehaviour
         mixer.SetFloat(VolumeSettings.MIXER_SFX, Mathf.Log10(sfxVolume) * 20);
     }
 
+    public void PlaySFX(AudioClip clip)
+    {
+        MusicSource.PlayOneShot(clip);
+    }
+
     public void PlayTestSound()
     {
         MusicSource.PlayOneShot(musicClip);

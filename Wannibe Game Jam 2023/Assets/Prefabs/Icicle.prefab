@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -577530025
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 33fdc990196703d41aef9b4490ab0e28, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -149,3 +149,5 @@ MonoBehaviour:
   destroyTime: 3
   deathEffect: {fileID: 2257622461492560754, guid: d2edc8ff8a6a0c440858229bf817bac1, type: 3}
   xSpeed: 20
+  icicleHit: {fileID: 8300000, guid: e187d12c6b1c8c740aa1856dbdfca2a7, type: 3}
+  icicleFire: {fileID: 8300000, guid: 1df3951c2268f1c4c825b0ee1eaff397, type: 3}

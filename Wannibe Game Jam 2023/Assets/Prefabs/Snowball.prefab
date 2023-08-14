@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -577530025
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2d22f1e8cfe75da46a51181f140f2144, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7818f0594c44c3148b2038125739017d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 2
   deathEffect: {fileID: 2257622461492560754, guid: d2edc8ff8a6a0c440858229bf817bac1, type: 3}
   xSpeed: 20
+  snowballHit: {fileID: 8300000, guid: e947c75a44f68f4478c8ef70be475efd, type: 3}
+  snowballFire: {fileID: 8300000, guid: 1df3951c2268f1c4c825b0ee1eaff397, type: 3}

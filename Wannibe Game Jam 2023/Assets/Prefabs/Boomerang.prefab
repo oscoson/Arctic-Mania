@@ -153,3 +153,5 @@ MonoBehaviour:
   closeDistance: 5
   returnSpeedModifer: 3
   hitEffect: {fileID: 2257622461492560754, guid: d2edc8ff8a6a0c440858229bf817bac1, type: 3}
+  boomerangHit: {fileID: 8300000, guid: 0ac3a23dc2d96ca49917ab91c3032fca, type: 3}
+  boomerangFire: {fileID: 8300000, guid: 1df3951c2268f1c4c825b0ee1eaff397, type: 3}
