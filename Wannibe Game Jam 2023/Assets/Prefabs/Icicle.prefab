@@ -148,6 +148,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyTime: 3
   deathEffect: {fileID: 2257622461492560754, guid: d2edc8ff8a6a0c440858229bf817bac1, type: 3}
-  xSpeed: 20
+  xSpeed: 40
   icicleHit: {fileID: 8300000, guid: e187d12c6b1c8c740aa1856dbdfca2a7, type: 3}
   icicleFire: {fileID: 8300000, guid: 1df3951c2268f1c4c825b0ee1eaff397, type: 3}
