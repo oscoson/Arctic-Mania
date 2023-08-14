@@ -23,6 +23,8 @@ public class HuskyMob : Mob
     private float changeTargetTimer = 0.0f;
     private float changeTargetThreshold = 0.6f;
 
+    Animator animator;
+
     Vector2 moveDirection = Vector2.zero;
 
     enum ArcticSealMobState
@@ -49,6 +51,7 @@ public class HuskyMob : Mob
         dropSpawnChance = mob.dropSpawnRate;
         mobRB = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         isFrozen = false;
     }
 
@@ -62,6 +65,8 @@ public class HuskyMob : Mob
     void Update()
     {
         frost = health/maxHealth;
+        animator.SetFloat("Horizontal", (player.transform.position - transform.position).normalized.x * 10.0f);
+
         switch (mobState)
         {
             case ArcticSealMobState.Moving:
@@ -152,6 +157,7 @@ public class HuskyMob : Mob
     private void MovePosition(Vector2 direction)
     {
         // As frost value goes down, speed decreases
+
         mobRB.MovePosition((Vector2)transform.position + (direction.normalized * (speed * (frost)) * Time.deltaTime));
     }
 
@@ -164,15 +170,18 @@ public class HuskyMob : Mob
         gameObject.layer = LayerMask.NameToLayer("Frozen");
         GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Frozen");
         mobRB.velocity = Vector2.zero;
+        animator.enabled = false;
     }
 
     public override void UnFreeze()
     {
-        sprite.color = new Color(238, 95, 255, 255);
+        sprite.color = new Color(255, 255, 255, 255);
         health = maxHealth;
         isFrozen = false;
         gameObject.layer = LayerMask.NameToLayer("Enemy");
         GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Enemy");
+        animator.enabled = true;
+
     }
 
     public override void CheckFreeze()

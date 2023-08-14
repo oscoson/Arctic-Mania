@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2939340206537808667}
   - component: {fileID: 2939340206537808664}
   - component: {fileID: 4594570200060822903}
+  - component: {fileID: -8626326109610496749}
   m_Layer: 6
   m_Name: HuskyMob
   m_TagString: Enemy
@@ -29,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 2939340206537808679}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.1, y: 3.38, z: 0}
-  m_LocalScale: {x: 0.97, y: 0.62, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,10 +75,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1808438459
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.58906555, b: 0.21226418, a: 1}
+  m_Sprite: {fileID: -1090764873, guid: 9cbe92f143b3f424faeeee2f996bd733, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -121,18 +122,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.074429035, y: 0.20467973}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0.05}
+    oldSize: {x: 1.9266666, y: 1.3466667}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.3721447, y: 0.47899675}
   m_EdgeRadius: 0
 --- !u!114 &4594570200060822903
 MonoBehaviour:
@@ -149,3 +150,24 @@ MonoBehaviour:
   mob: {fileID: 11400000, guid: 369115c270458774984516526d4449ad, type: 2}
   projectile: {fileID: 3002124178992475202, guid: b56b99e063ee867449527dacc610ae82, type: 3}
   dropItem: {fileID: 6515853896863668864, guid: d46e5529a6092464b8b9369565a6defc, type: 3}
+--- !u!95 &-8626326109610496749
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2939340206537808679}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8a8f139c78f36054f847843985c2e18d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
