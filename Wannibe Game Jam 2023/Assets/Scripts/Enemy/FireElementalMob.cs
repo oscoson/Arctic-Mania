@@ -108,17 +108,17 @@ public class FireElementalMob : Mob
 
         foreach (Mob mob in mobs)
         {
-            if (mob is null) continue;
             if (!mob.IsFrozen()) continue;
 
-            float dist = (transform.position - mob.transform.position).magnitude;
+            float dist = ((Vector2) transform.position - (Vector2) mob.transform.position).magnitude;
             if (dist < closestDist)
             {
                 closestMob = mob;
+                closestDist = dist;
             }
         }
 
-        if (closestMob is null)
+        if (closestMob == null)
         {
             target = player.gameObject;
         }
@@ -152,7 +152,7 @@ public class FireElementalMob : Mob
     private void MovePosition(Vector2 direction)
     {
         // As frost value goes down, speed decreases
-        mobRB.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.deltaTime));
+        mobRB.MovePosition((Vector2)transform.position + (direction * (speed * frost) * Time.fixedDeltaTime));
     }
 
     public override void Freeze()
