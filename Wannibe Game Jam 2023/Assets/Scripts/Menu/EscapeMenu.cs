@@ -25,8 +25,14 @@ public class EscapeMenu : MonoBehaviour
         // if player dies, show death canvas
         if (player.isDead == true)
         {
-            ToggleDeathCanvas();
+            Invoke("NextScene", 1);
         }
+    }
+
+    void NextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("BossDeadScene");
     }
 
     public void ToggleDeathCanvas()
