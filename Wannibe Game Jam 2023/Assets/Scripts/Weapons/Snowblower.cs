@@ -15,7 +15,7 @@ public class Snowblower : MonoBehaviour
     void Update()
     {
         Vector3 newRotation = new Vector3(player.snowballSpawn.GetChild(0).transform.eulerAngles.x, 
-                player.snowballSpawn.GetChild(0).transform.eulerAngles.y, player.snowballSpawn.GetChild(0).transform.eulerAngles.z);
+        player.snowballSpawn.GetChild(0).transform.eulerAngles.y, player.snowballSpawn.GetChild(0).transform.eulerAngles.z);
         gameObject.transform.eulerAngles = newRotation;
     }
 
