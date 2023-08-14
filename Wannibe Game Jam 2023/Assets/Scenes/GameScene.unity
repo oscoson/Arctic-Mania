@@ -10748,22 +10748,22 @@ MonoBehaviour:
       huskyMobCount: 0
       foxMobCount: 0
     - delayFromLast: 10
-      basicMobCount: 10
+      basicMobCount: 5
+      fireElementalMobCount: 1
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 0
+      basicMobCount: 0
+      fireElementalMobCount: 1
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 0
+      basicMobCount: 5
       fireElementalMobCount: 0
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 0
-      fireElementalMobCount: 2
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 0
-      fireElementalMobCount: 2
       snowHareMobCount: 0
       arcticSealMobCount: 0
       huskyMobCount: 0
@@ -10776,14 +10776,14 @@ MonoBehaviour:
       huskyMobCount: 0
       foxMobCount: 0
     - delayFromLast: 10
-      basicMobCount: 0
+      basicMobCount: 10
       fireElementalMobCount: 0
       snowHareMobCount: 0
-      arcticSealMobCount: 6
+      arcticSealMobCount: 0
       huskyMobCount: 0
       foxMobCount: 0
     - delayFromLast: 0
-      basicMobCount: 0
+      basicMobCount: 10
       fireElementalMobCount: 1
       snowHareMobCount: 0
       arcticSealMobCount: 0
@@ -10801,16 +10801,30 @@ MonoBehaviour:
       fireElementalMobCount: 0
       snowHareMobCount: 0
       arcticSealMobCount: 0
-      huskyMobCount: 5
-      foxMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 10
     - delayFromLast: 10
       basicMobCount: 0
       fireElementalMobCount: 0
       snowHareMobCount: 0
-      arcticSealMobCount: 2
+      arcticSealMobCount: 0
       huskyMobCount: 0
-      foxMobCount: 5
+      foxMobCount: 10
   - enemySpawnInfos:
+    - delayFromLast: 10
+      basicMobCount: 5
+      fireElementalMobCount: 0
+      snowHareMobCount: 2
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 0
+      basicMobCount: 5
+      fireElementalMobCount: 0
+      snowHareMobCount: 2
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
     - delayFromLast: 10
       basicMobCount: 0
       fireElementalMobCount: 0
@@ -10819,29 +10833,15 @@ MonoBehaviour:
       huskyMobCount: 0
       foxMobCount: 0
     - delayFromLast: 0
-      basicMobCount: 0
+      basicMobCount: 5
+      fireElementalMobCount: 1
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 0
+      basicMobCount: 5
       fireElementalMobCount: 0
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 5
-    - delayFromLast: 7
-      basicMobCount: 5
-      fireElementalMobCount: 1
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 5
-      fireElementalMobCount: 1
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 5
-      fireElementalMobCount: 1
       snowHareMobCount: 0
       arcticSealMobCount: 0
       huskyMobCount: 0
@@ -10855,179 +10855,179 @@ MonoBehaviour:
       foxMobCount: 0
     - delayFromLast: 10
       basicMobCount: 0
-      fireElementalMobCount: 2
+      fireElementalMobCount: 0
       snowHareMobCount: 3
       arcticSealMobCount: 0
       huskyMobCount: 0
       foxMobCount: 0
     - delayFromLast: 10
-      basicMobCount: 0
-      fireElementalMobCount: 2
-      snowHareMobCount: 3
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 10
-      basicMobCount: 0
-      fireElementalMobCount: 2
-      snowHareMobCount: 3
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-  - enemySpawnInfos:
-    - delayFromLast: 10
-      basicMobCount: 10
+      basicMobCount: 5
       fireElementalMobCount: 1
-      snowHareMobCount: 0
+      snowHareMobCount: 5
       arcticSealMobCount: 0
       huskyMobCount: 0
       foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 10
+    - delayFromLast: 10
+      basicMobCount: 0
       fireElementalMobCount: 1
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 10
-      basicMobCount: 0
-      fireElementalMobCount: 0
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 5
-      foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 0
-      fireElementalMobCount: 0
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 5
-      foxMobCount: 0
-    - delayFromLast: 10
-      basicMobCount: 0
-      fireElementalMobCount: 3
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 0
-      fireElementalMobCount: 3
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 10
-      basicMobCount: 0
-      fireElementalMobCount: 0
-      snowHareMobCount: 10
-      arcticSealMobCount: 2
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 0
-      fireElementalMobCount: 0
-      snowHareMobCount: 10
-      arcticSealMobCount: 2
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 10
-      basicMobCount: 0
-      fireElementalMobCount: 0
-      snowHareMobCount: 0
-      arcticSealMobCount: 10
-      huskyMobCount: 0
-      foxMobCount: 10
-    - delayFromLast: 5
-      basicMobCount: 0
-      fireElementalMobCount: 3
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 5
-      foxMobCount: 0
-  - enemySpawnInfos:
-    - delayFromLast: 10
-      basicMobCount: 0
-      fireElementalMobCount: 0
-      snowHareMobCount: 0
+      snowHareMobCount: 3
       arcticSealMobCount: 5
       huskyMobCount: 0
       foxMobCount: 0
+  - enemySpawnInfos:
+    - delayFromLast: 10
+      basicMobCount: 0
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 5
+      foxMobCount: 0
     - delayFromLast: 0
       basicMobCount: 0
       fireElementalMobCount: 0
-      snowHareMobCount: 10
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 0
-      fireElementalMobCount: 2
       snowHareMobCount: 0
       arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 10
-      basicMobCount: 15
-      fireElementalMobCount: 0
-      snowHareMobCount: 0
-      arcticSealMobCount: 9
-      huskyMobCount: 0
+      huskyMobCount: 5
       foxMobCount: 0
     - delayFromLast: 10
       basicMobCount: 0
-      fireElementalMobCount: 2
+      fireElementalMobCount: 1
       snowHareMobCount: 0
       arcticSealMobCount: 0
       huskyMobCount: 0
       foxMobCount: 5
     - delayFromLast: 0
-      basicMobCount: 0
-      fireElementalMobCount: 3
-      snowHareMobCount: 3
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 10
-      basicMobCount: 0
-      fireElementalMobCount: 2
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 0
-      fireElementalMobCount: 2
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 0
-      fireElementalMobCount: 2
-      snowHareMobCount: 0
-      arcticSealMobCount: 0
-      huskyMobCount: 0
-      foxMobCount: 0
-    - delayFromLast: 10
-      basicMobCount: 0
-      fireElementalMobCount: 1
+      basicMobCount: 5
+      fireElementalMobCount: 0
       snowHareMobCount: 0
       arcticSealMobCount: 5
       huskyMobCount: 0
       foxMobCount: 0
-    - delayFromLast: 0
-      basicMobCount: 5
+    - delayFromLast: 10
+      basicMobCount: 0
       fireElementalMobCount: 1
+      snowHareMobCount: 10
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 0
+      basicMobCount: 0
+      fireElementalMobCount: 1
+      snowHareMobCount: 10
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 10
+      basicMobCount: 0
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 5
+      foxMobCount: 2
+    - delayFromLast: 0
+      basicMobCount: 0
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 5
+      foxMobCount: 2
+    - delayFromLast: 10
+      basicMobCount: 0
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 2
+      huskyMobCount: 10
+      foxMobCount: 2
+    - delayFromLast: 5
+      basicMobCount: 0
+      fireElementalMobCount: 1
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 15
+      foxMobCount: 0
+  - enemySpawnInfos:
+    - delayFromLast: 10
+      basicMobCount: 0
+      fireElementalMobCount: 0
       snowHareMobCount: 5
       arcticSealMobCount: 0
-      huskyMobCount: 2
+      huskyMobCount: 0
       foxMobCount: 0
     - delayFromLast: 0
       basicMobCount: 0
       fireElementalMobCount: 0
       snowHareMobCount: 0
-      arcticSealMobCount: 5
+      arcticSealMobCount: 0
+      huskyMobCount: 5
+      foxMobCount: 0
+    - delayFromLast: 0
+      basicMobCount: 4
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 10
+      basicMobCount: 0
+      fireElementalMobCount: 1
+      snowHareMobCount: 0
+      arcticSealMobCount: 8
+      huskyMobCount: 0
+      foxMobCount: 8
+    - delayFromLast: 10
+      basicMobCount: 0
+      fireElementalMobCount: 1
+      snowHareMobCount: 5
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 0
+      basicMobCount: 0
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 8
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 10
+      basicMobCount: 10
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 0
+      basicMobCount: 10
+      fireElementalMobCount: 1
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 0
+      basicMobCount: 10
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 0
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 10
+      basicMobCount: 3
+      fireElementalMobCount: 0
+      snowHareMobCount: 3
+      arcticSealMobCount: 0
+      huskyMobCount: 5
+      foxMobCount: 0
+    - delayFromLast: 0
+      basicMobCount: 0
+      fireElementalMobCount: 0
+      snowHareMobCount: 0
+      arcticSealMobCount: 10
+      huskyMobCount: 0
+      foxMobCount: 0
+    - delayFromLast: 5
+      basicMobCount: 1
+      fireElementalMobCount: 1
+      snowHareMobCount: 1
+      arcticSealMobCount: 0
       huskyMobCount: 0
       foxMobCount: 5
   waveCounterText: {fileID: 1253025742}
