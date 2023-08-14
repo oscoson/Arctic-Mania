@@ -71,11 +71,6 @@ public class AudioManager : MonoBehaviour
         MusicSource.PlayOneShot(clip);
     }
 
-    public void PlayTestSound()
-    {
-        MusicSource.PlayOneShot(musicClip);
-    }
-
     public void StopMusic()
     {
         MusicSource.Stop();
