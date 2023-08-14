@@ -43,6 +43,7 @@ public class EscapeMenu : MonoBehaviour
         }
 
     }
+    
 
     public void ToggleEscapeCanvas()
     {
