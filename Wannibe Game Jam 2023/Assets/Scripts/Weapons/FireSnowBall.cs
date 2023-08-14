@@ -50,6 +50,7 @@ public class FireSnowBall : MonoBehaviour
         }
         else if(collisionObject.tag == "Boss")
         {
+            audioManager.GetComponent<AudioManager>().PlaySFX(snowballHit);
             BearBoss boss = collisionObject.GetComponent<BearBoss>();
             if(boss.GetTotalBossHealth() > 0)
             {

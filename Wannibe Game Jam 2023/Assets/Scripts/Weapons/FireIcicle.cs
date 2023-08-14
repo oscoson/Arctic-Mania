@@ -51,6 +51,7 @@ public class FireIcicle : MonoBehaviour
         }
         else if(collisionObject.tag == "Boss")
         {
+            audioManager.GetComponent<AudioManager>().PlaySFX(icicleHit);
             BearBoss boss = collisionObject.GetComponent<BearBoss>();
             if(boss.GetTotalBossHealth() > 0)
             {
