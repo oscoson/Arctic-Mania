@@ -9,6 +9,9 @@ public class Boomerang : MonoBehaviour
 {
     private Player player;
     private Rigidbody2D rb;
+
+    public static int activeBoomerangs = 0;
+    public static int maxActiveBoomerangs = 4;
     
     private bool isReturning = false;
     private Vector3 target;
@@ -16,10 +19,8 @@ public class Boomerang : MonoBehaviour
     private Vector3 velocity;
     private float distanceFromPlayer;
     private int life = 3;
-    private static int activeBoomerangs = 0;
     private List<GameObject> objectsHit = new List<GameObject>();
-    
-    public int maxActiveBoomerangs;
+
     public float speed;
     public float invulnerabilityTime;
     public float closeModifier;
@@ -178,7 +179,7 @@ public class Boomerang : MonoBehaviour
     }
 
     private void DestroyBoomerang()
-    {
+    {   
         activeBoomerangs--;
         activeBoomerangs = Mathf.Max(0, activeBoomerangs);
         Destroy(gameObject);

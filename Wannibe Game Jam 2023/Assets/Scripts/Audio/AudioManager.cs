@@ -9,14 +9,13 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     [SerializeField] AudioSource MusicSource;
-    [SerializeField] AudioClip musicClip;
 
     [SerializeField] AudioMixer mixer;
     public const string MASTER_KEY = "masterVolume";
     public const string MUSIC_KEY = "musicVolume";
     public const string SFX_KEY = "sfxVolume";
 
-    void Awake()
+    void Start()
     {
         if (instance == null)
         {
@@ -25,26 +24,42 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Destroying duplicate AudioManager");
             Destroy(gameObject);
         }
         loadVolume();
-        AudioManager.instance.PlayTestSound();
 
         SceneManager.sceneUnloaded += OnSceneUnloaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnSceneUnloaded(Scene scene)
+    private void OnSceneUnloaded(Scene scene)
     {
-        StopMusic();
+        
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // If a scene should have new music on load, add it here
+        if (scene.name == "GameScene" || scene.name == "BossScene" || scene.name == "DeadScene")
+        {
+            instance = null;
+            Destroy(gameObject);
+
+            // Felony VVVV
+            Boomerang.activeBoomerangs = 0;
+        }
     }
 
     void OnDestroy()
     {
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void loadVolume()
     {
+        Debug.Log("Loading volume");
         float masterVolume = PlayerPrefs.GetFloat(MASTER_KEY, 1f);
         float musicVolume = PlayerPrefs.GetFloat(MUSIC_KEY, 0.75f);
         float sfxVolume = PlayerPrefs.GetFloat(SFX_KEY, 0.75f);
@@ -57,11 +72,6 @@ public class AudioManager : MonoBehaviour
     public void PlaySFX(AudioClip clip)
     {
         MusicSource.PlayOneShot(clip);
-    }
-
-    public void PlayTestSound()
-    {
-        MusicSource.PlayOneShot(musicClip);
     }
 
     public void StopMusic()

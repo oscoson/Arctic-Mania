@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BearBoss : MonoBehaviour
 {
@@ -42,6 +43,9 @@ public class BearBoss : MonoBehaviour
 
     float switchToPhase1Timer = 0.0f;
     float switchToPhase1Threshold = 1.0f;
+
+    float switchToMainMenuTimer = 0.0f;
+    float switchToMainMenuThreshold = 1.0f;
 
     /* end intro variables */
 
@@ -133,6 +137,27 @@ public class BearBoss : MonoBehaviour
                 HandlePhase3Logic();
                 break;
             case BearBossPhaseState.Defeat:
+
+                AudioManager.instance.StopMusic();
+                Debug.Log("Boss defeated, loading main menu");
+
+                if (cosScaleAngle > 0)
+                {
+                    cosScaleAngle -= angleChangeSpeed * Time.deltaTime;
+                    Vector3 scale = Vector3.Lerp(startScale, endScale, cosScaleAngle / (Mathf.PI * 2 * Mathf.Rad2Deg * numberOfSpins));
+                    scale.x *= Mathf.Cos(cosScaleAngle * Mathf.Deg2Rad);
+                    transform.localScale = scale;
+                    break;
+                }
+
+                switchToMainMenuTimer += Time.deltaTime;
+
+                if (switchToMainMenuTimer >= switchToMainMenuThreshold)
+                {
+                    //Load the main menu
+                    SceneManager.LoadScene("MainMenu");
+                }
+
                 break;
         }
     }
@@ -286,8 +311,8 @@ public class BearBoss : MonoBehaviour
             case Phase3State.Idle:
                 if (phaseHealth <= 0 && !performingPhaseAction)
                 {
+                    bossPhaseState = BearBossPhaseState.Defeat;
                     idleTimer = 0.0f;
-                    Debug.Log("Boss Died!");
                     break;
                 }
                 idleTimer += Time.deltaTime;
