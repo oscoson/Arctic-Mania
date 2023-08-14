@@ -11,23 +11,28 @@ public class MainMenuController : MonoBehaviour
     public void PlayGame()
     {
         // Load the "Game" scene
-        SceneManager.LoadScene("GameScene"); // Replace "Game" with your actual game scene name
+        SceneManager.LoadScene("GameScene");
     }
 
     public void Options()
     {
         // Load the "Options" scene
-        SceneManager.LoadScene("OptionsScene"); // Replace "Options" with your actual options scene name
+        SceneManager.LoadScene("OptionsScene");
     }
     public void Tutorial()
     {
         // Load the "Tutorial" scene
-        SceneManager.LoadScene("TutorialScene"); // Replace "Tutorial" with your actual tutorial scene name
+        SceneManager.LoadScene("TutorialScene");
     }
     public void MainMenu()
     {
         // Load the "MainMenu" scene
-        SceneManager.LoadScene("MainMenu"); // Replace "MainMenu" with your actual main menu scene name
+        SceneManager.LoadScene("MainMenu"); 
+    }
+    public void EnterBoss()
+    {
+        // Load "Boss" Scene
+        SceneManager.LoadScene("BossScene");
     }
 
     public void QuitGame()

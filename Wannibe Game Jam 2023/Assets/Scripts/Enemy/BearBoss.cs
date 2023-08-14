@@ -99,6 +99,7 @@ public class BearBoss : MonoBehaviour
         phaseHealth = maxHealth[0];
         bossPhaseState = BearBossPhaseState.Intro;
         transform.localScale = startScale;
+        PlayerPrefs.SetString("BossLevelUnlocked", "Unlocked"); // Player has made it to the boss level, boss button unlocked in main menu
     }
 
     void Update()
