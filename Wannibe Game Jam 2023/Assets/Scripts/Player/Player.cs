@@ -159,10 +159,19 @@ public class Player : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Invoke("NextScene", 1); 
-           // Destroy(gameObject);
+            Scene activeScene = SceneManager.GetActiveScene();
+            string sceneName = activeScene.name;
+            if (sceneName == "GameScene")
+            {
+                SceneManager.LoadScene("DeadScene");
+            } 
+            else if (sceneName == "BossScene")
+            {
+                SceneManager.LoadScene("BossDeadScene");    
+            }
+            // Invoke("NextScene", 1); 
+            // Destroy(gameObject);
             //onDeath.Invoke();
-            
         }
     }
     public void Heal(float recovery)
@@ -180,7 +189,6 @@ public class Player : MonoBehaviour
     void NextScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        SceneManager.LoadScene("DeadScene");
     }
 
     // Movement
