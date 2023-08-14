@@ -31,8 +31,16 @@ public class EscapeMenu : MonoBehaviour
 
     public void ToggleDeathCanvas()
     {
-        Time.timeScale = 0f;
-        deathCanvas.SetActive(true);
+        if(SceneManager.GetActiveScene().name == "BossScene")
+        {
+            Time.timeScale = 0f;
+            deathCanvas.SetActive(true);
+            // Time.timeScale = 1f;
+            // SceneManager.LoadScene("MainMenu");
+        } else {
+            Time.timeScale = 0f;
+            SceneManager.LoadScene("DeadScene");
+        }
 
     }
 
@@ -48,5 +56,12 @@ public class EscapeMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void RestartScene()
+    {
+        Time.timeScale = 1f;
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 }
