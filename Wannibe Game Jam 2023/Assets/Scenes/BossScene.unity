@@ -2564,6 +2564,14 @@ PrefabInstance:
       propertyPath: snakeProjectile
       value: 
       objectReference: {fileID: 1094061089653068207, guid: 60b447631b2c1fe4cb39d92c68c814a4, type: 3}
+    - target: {fileID: 2939340206537808664, guid: ee2534270f84ab043b2f50bf77dceee8, type: 3}
+      propertyPath: m_Size.y
+      value: 3.2721672
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939340206537808664, guid: ee2534270f84ab043b2f50bf77dceee8, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.9313889
+      objectReference: {fileID: 0}
     - target: {fileID: 2939340206537808666, guid: ee2534270f84ab043b2f50bf77dceee8, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -9553,7 +9561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: c0a7f25442028be4cb31f86a5e976a64, type: 2}
   cooldown:
-    coolDownTimeIcy: 1
+    coolDownTimeIcy: 0.5
     coolDownTimeSnowBall: 0.02
   health: 0
   maxHealth: 0
