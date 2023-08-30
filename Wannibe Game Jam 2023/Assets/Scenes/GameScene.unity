@@ -2900,7 +2900,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Time remaining
+  m_text: Time Elapsed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8ae70b433673eb24dbbb4d6816225586, type: 2}
   m_sharedMaterial: {fileID: -7696204674461913866, guid: 8ae70b433673eb24dbbb4d6816225586, type: 2}
