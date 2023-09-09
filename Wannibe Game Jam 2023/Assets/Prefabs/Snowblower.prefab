@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 1.35
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4781,7 +4781,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -577530025
   m_SortingLayer: 6
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4872,11 +4872,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.16237342, y: 3.7963362}
-      - {x: -2.878017, y: 3.7901282}
+    - - {x: 0.03170541, y: 5.4348435}
+      - {x: -2.6120396, y: 5.4323645}
       - {x: -0.5791797, y: -1.1876591}
       - {x: 0.47591364, y: -1.1790535}
-      - {x: 2.6078115, y: 3.8082259}
+      - {x: 3.5914333, y: 5.4400363}
 --- !u!212 &983272559269783462
 SpriteRenderer:
   m_ObjectHideFlags: 0
